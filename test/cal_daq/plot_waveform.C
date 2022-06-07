@@ -38,18 +38,20 @@ int plot_waveform(void)
     ch_to_plot = channel - 1;
     
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 500);
-  TH1F *plot = new TH1F("plot", "Waveform", 1023, 0, 1023); 
+  TH1F *plot = new TH1F("plot", "Waveform", 1000, 0, 200); 
   plot->SetStats(0);
 
   // get # of events in file
-  fp = fopen("cal.dat", "rb");
+  //fp = fopen("cal.dat", "rb");
+  fp = fopen("/media/yu/Expansion/DAQ_data/220602/muon_06_02_15.dat", "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
   fclose(fp);
   nevt = file_size / 65536;
   
   printf("-----------------------------------------------------------------------\n");
-  fp = fopen("cal.dat", "rb");
+  //fp = fopen("cal.dat", "rb");
+  fp = fopen("/media/yu/Expansion/DAQ_data/220602/muon_06_02_15.dat", "rb");
 
   for (evt = 0; evt < nevt; evt++) {
     // read header
@@ -171,8 +173,10 @@ int plot_waveform(void)
     
     // fill waveform for channel to plotgecit 
     plot->Reset();
-    for (i = 0; i < 1023; i++) {
-      plot->Fill(i, adc[i * 32 + ch_to_plot]);
+//    for (i = 0; i < 1023; i++) {                      // org
+//      plot->Fill(i, adc[i * 32 + ch_to_plot]);         // org
+    for (i = 0; i < 1000; i++) {                      // mod
+      plot->Fill(i * 0.2, adc[(i + 1) * 32 + ch_to_plot]);         // mod
 //if (adc[i * 32 + ch_to_plot] < 3000) printf("abnormal value = %d @ %d\n", adc[i * 32 + ch_to_plot], evt);
     }
 
