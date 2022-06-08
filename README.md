@@ -1,1 +1,6 @@
-# notice_daq
+# notice
+## programmer
+update daq & tcb
+
+## test
+run daq & analysis
