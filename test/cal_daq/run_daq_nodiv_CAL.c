@@ -59,12 +59,11 @@ int main(int argc, char *argv[])
   // open daq
   CALDAQopen(mid);
   // open TCB
-  CALTCBopen(sid);
+  //CALTCBopen(sid);
 /*
   // get link status
   CALTCBread_LINK(0, link_data);
   CALTCBread_LINK(sid, link_data);
-
   for (ch = 0; ch < 32; ch++)
     linked[ch] = (link_data[0] >> ch) & 0x1;
   for (ch = 32; ch < 40; ch++)
@@ -72,7 +71,6 @@ int main(int argc, char *argv[])
   
   // read mid of linked DAQ modules
   CALTCBread_MID(sid, mid_data);
-
   for (ch = 0; ch < 40; ch++) {
     if (linked[ch]) {
       mid[num_of_daq] = mid_data[ch];
@@ -82,22 +80,19 @@ int main(int argc, char *argv[])
       num_of_daq = num_of_daq + 1;
     }
   }
-
   // open DAQ
   for (int i=0;i<num_of_daq;i++) CALDAQopen(mid[i]);
-
   // reset DAQ
   CALTCBreset(sid);
-
   // start DAQ
   CALTCBstart_DAQ(sid);
   printf("Run status = %ld\n", CALDAQread_RUN(mid[0]));
 */
   // set run number
   //reset TCB
-  CALTCBreset(sid);
+  //CALTCBreset(sid);
   
-  run_number = CALTCBread_RUN_NUMBER(sid,mid);
+  //run_number = CALTCBread_RUN_NUMBER(sid,mid);
   
 
 
@@ -105,11 +100,12 @@ int main(int argc, char *argv[])
   //sprintf(filename,"/media/yu/Expansion/DAQ_data/220604/elec_06_04_%lu.dat",run_number);
   //sprintf(filename,"/media/yu/Expansion/DAQ_data/220602/muon_06_02_%d.dat",run_num);
   //sprintf(filename,"cal_%d_%d.dat",mid,test_id);
-  sprintf(filename,"/media/yu/Expansion/DAQ_data/220706/data_%d_%lu.dat",mid,run_number);
- 
+  //sprintf(filename,"/media/yu/Expansion/DAQ_data/220706/data_%d_%lu.dat",mid,run_number);
+  sprintf(filename,"cal_%d.dat",mid);
+
   fp = fopen(filename, "wb");
   
-  CALTCBclose(sid);
+  //CALTCBclose(sid);
   //while (run){
   //  CALTCBclose(sid);
   //}
@@ -162,8 +158,10 @@ int main(int argc, char *argv[])
 	//break;
       //}
       data_size = CALDAQread_DATASIZE(mid);
-      if (data_size > BUF_SIZE)
-        data_size = BUF_SIZE;
+      if (data_size > BUF_SIZE){
+        printf("Real data size is %ld\n",data_size);
+	data_size = BUF_SIZE;
+      }
 
       if (data_size) {
         printf("data size = %ld\n", data_size);

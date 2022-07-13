@@ -6,7 +6,7 @@ int main(void)
 {
   // setting here
   //unsigned long run_number;
-  unsigned long run_number=8;
+  unsigned long run_number=0;
   int sid = 0;
   int mid[40];
   int num_of_daq = 0;
