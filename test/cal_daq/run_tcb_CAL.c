@@ -26,17 +26,19 @@ int main(void)
   time_t rawtime;
   struct tm * timeinfo;
 
-  useconds_t time_sleep=2;
-
+  int time_sleep=86400;
+ 
   // assign data array
   data = (char *)malloc(BUF_SIZE * 1024); 
-
+  
+  printf("enter the time of data acquisition (seconds) : ");
+  scanf("%d",&time_sleep);
   // open data file
-  fp = fopen("cal.dat", "wb");
-
+  //fp = fopen("cal.dat", "wb");
+  
   // init LIBUSB
   USB3Init();
-    
+  printf("dbg\n");  
   // open TCB
   CALTCBopen(sid);
 
@@ -77,6 +79,10 @@ int main(void)
   for (int i=0; i<time_sleep;i++) {
     printf("%d second has passed.\n",i);
     usleep(10E5);
+    if (access("KILLME",F_OK)==0){
+      system("rm KILLME");
+      break;
+    }
   }
 
   //stop DAQ

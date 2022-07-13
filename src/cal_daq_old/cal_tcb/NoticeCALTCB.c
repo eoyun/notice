@@ -629,6 +629,7 @@ unsigned long CALTCBread_MULTIPLICITY_THR(int sid, unsigned long mid)
 // write trigger delay, 0~15 * 1000 / 90 ns
 void CALTCBwrite_TRIGGER_DELAY(int sid, unsigned long data)
 {
+	printf("?? test sk");
   TCBWrite(sid, 0, 0x31, data);
 }
 

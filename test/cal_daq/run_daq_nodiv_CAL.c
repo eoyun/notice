@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-  //int sid = 0;
+  int sid = 0;
   int mid;
   //unsigned long link_data[2];
   //int linked[40];
@@ -20,9 +20,11 @@ int main(int argc, char *argv[])
   FILE *fp;
   int nevt = 100;
   unsigned long run;
-  char file_name[100];
+  char filename[100];
   int evt = 0;
-  int test_id = 0;
+  //int test_id = 0;
+  unsigned long run_number;
+ 
   //int num_of_daq=0;
   //int daq;
   //long long file_size; 
@@ -42,14 +44,14 @@ int main(int argc, char *argv[])
   // set mid ./run_daq_CAL.exe mid
   if (argc>1){
     mid = atoi(argv[1]);
-    test_id = atoi(argv[2]);
+    //test_id = atoi(argv[2]);
 
   }
   // open data file
-  sprintf(file_name,"cal_%d_%d.dat",mid,test_id);
-  //sprintf(file_name,"cal_%d_%d_%d.dat",mid,test_id,file_number);
+  //sprintf(filename,"/media/yu/Expansion/DAQ_data/220602/muon_06_02_%d.dat",test_id);
+  //sprintf(filename,"cal_%d_%d.dat",mid,test_id);
 
-  fp = fopen(file_name, "wb");
+  //fp = fopen(filename, "wb");
   
   // init LIBUSB
   USB3Init();
@@ -57,7 +59,7 @@ int main(int argc, char *argv[])
   // open daq
   CALDAQopen(mid);
   // open TCB
-  //CALTCBopen(sid);
+  CALTCBopen(sid);
 /*
   // get link status
   CALTCBread_LINK(0, link_data);
@@ -91,7 +93,28 @@ int main(int argc, char *argv[])
   CALTCBstart_DAQ(sid);
   printf("Run status = %ld\n", CALDAQread_RUN(mid[0]));
 */
-  // waiting until run 
+  // set run number
+  //reset TCB
+  CALTCBreset(sid);
+  
+  run_number = CALTCBread_RUN_NUMBER(sid,mid);
+  
+
+
+  //open data file 
+  //sprintf(filename,"/media/yu/Expansion/DAQ_data/220604/elec_06_04_%lu.dat",run_number);
+  //sprintf(filename,"/media/yu/Expansion/DAQ_data/220602/muon_06_02_%d.dat",run_num);
+  //sprintf(filename,"cal_%d_%d.dat",mid,test_id);
+  sprintf(filename,"/media/yu/Expansion/DAQ_data/220706/data_%d_%lu.dat",mid,run_number);
+ 
+  fp = fopen(filename, "wb");
+  
+  CALTCBclose(sid);
+  //while (run){
+  //  CALTCBclose(sid);
+  //}
+  printf("ready!!\n");
+  // waiting until run
   run = CALDAQread_RUN(mid);
   while (!run){
     run = CALDAQread_RUN(mid);

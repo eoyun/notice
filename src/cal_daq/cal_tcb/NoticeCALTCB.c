@@ -253,7 +253,7 @@ int TCBWrite(int sid, uint32_t mid, uint32_t addr, uint32_t data)
     fprintf(stderr, "TCBWrite: Could not get device handle for the device.\n");
     return -1;
   }
-  
+  //printf("add =-- %d =--\n",addr); 
   if ((stat = libusb_bulk_transfer(devh, USB3_SF_WRITE, buffer, length, &transferred, timeout)) < 0) {
     fprintf(stderr, "TCBWrite: Could not make write request; error = %d\n", stat);
     free(buffer);
@@ -740,6 +740,8 @@ unsigned long CALTCBread_DRAMTEST(int sid, unsigned long mid)
 // write trigger delay, 0~31 * 1000 / 90 ns
 void CALTCBwrite_TRIGGER_DELAY(int sid, unsigned long data)
 {
+	//debug for sk 
+  //printf("data =-- %ld =--\n", data);
   TCBWrite(sid, 0, 0x31, data);
 }
 

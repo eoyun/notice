@@ -1,0 +1,15 @@
+TCB Coincidence width = 10
+Pedestal trigger interval = 0
+Trigger enable = F
+TCB Multiplicity threshold = 1
+DAQ Coincidence width = 3
+DAQ Multiplicity threshold = 1
+Trigger delay = 4
+Trigger latency = 250
+Run number = 3
+Down sampling = 0
+Temperature = 0.000000
+Threshold[1] = 40
+Threshold[5] = 4095
+Threshold[11] = 4095
+Threshold[15] = 4095
