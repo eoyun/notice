@@ -145,8 +145,8 @@ int main(int argc, char *argv[])
     CALTCBwrite_TRIGGER_LATENCY(sid, mid[daq], trigger_latency);
     
     //set run number
-    run_number=1+CALTCBread_RUN_NUMBER(sid,mid[daq]);
-    CALTCBwrite_RUN_NUMBER(sid, mid[daq], run_number);
+    //run_number=1+CALTCBread_RUN_NUMBER(sid,mid[daq]);
+    //CALTCBwrite_RUN_NUMBER(sid, mid[daq], run_number);
     CALTCBwrite_DOWN_SAMPLING(sid, mid[daq], down_sampling);
     for (ch = 1; ch <= 4; ch++)
       CALTCBwrite_HV(sid, mid[daq], ch, univ, hv);

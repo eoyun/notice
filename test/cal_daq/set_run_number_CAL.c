@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "NoticeCALTCB.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
   // setting here
   //unsigned long run_number;
-  unsigned long run_number=0;
+  unsigned long run_number;
   int sid = 0;
   int mid[40];
   int num_of_daq = 0;
@@ -15,7 +15,11 @@ int main(void)
   unsigned long mid_data[40];
   unsigned long ch;
   int daq;
-
+  char *ptr;
+  if (argc>1){
+    printf("test\n");
+    run_number = strtoul(argv[1],&ptr,0);
+  }
   // init LIBUSB
   USB3Init();
     

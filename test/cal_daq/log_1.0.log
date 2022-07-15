@@ -1,0 +1,5 @@
+Info: open_device: opening device Vendor ID = 0x547, Product ID = 0x2112, Serial ID = 1
+Info: open_device: super speed device opened (bus = 2, address = 19, serial id = 1).
+Info: open_device: opening device Vendor ID = 0x547, Product ID = 0x1501, Serial ID = 0
+Info: open_device: super speed device opened (bus = 2, address = 18, serial id = 0).
+ready!!

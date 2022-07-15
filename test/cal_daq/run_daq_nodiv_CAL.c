@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
   // open daq
   CALDAQopen(mid);
   // open TCB
-  //CALTCBopen(sid);
+  CALTCBopen(sid);
 /*
   // get link status
   CALTCBread_LINK(0, link_data);
@@ -90,9 +90,9 @@ int main(int argc, char *argv[])
 */
   // set run number
   //reset TCB
-  //CALTCBreset(sid);
+  CALTCBreset(sid);
   
-  //run_number = CALTCBread_RUN_NUMBER(sid,mid);
+  run_number = CALTCBread_RUN_NUMBER(sid,mid);
   
 
 
@@ -101,11 +101,11 @@ int main(int argc, char *argv[])
   //sprintf(filename,"/media/yu/Expansion/DAQ_data/220602/muon_06_02_%d.dat",run_num);
   //sprintf(filename,"cal_%d_%d.dat",mid,test_id);
   //sprintf(filename,"/media/yu/Expansion/DAQ_data/220706/data_%d_%lu.dat",mid,run_number);
-  sprintf(filename,"cal_%d.dat",mid);
+  sprintf(filename,"cal_%d_%lu.dat",mid,run_number);
 
   fp = fopen(filename, "wb");
   
-  //CALTCBclose(sid);
+  CALTCBclose(sid);
   //while (run){
   //  CALTCBclose(sid);
   //}

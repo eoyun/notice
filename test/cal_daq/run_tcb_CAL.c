@@ -7,7 +7,7 @@
 
 #define BUF_SIZE (65536)           // in kbyte
 
-int main(void)
+int main(int argc, char *argv[])
 {
   int sid = 0;
   int mid[40];
@@ -31,14 +31,17 @@ int main(void)
   // assign data array
   data = (char *)malloc(BUF_SIZE * 1024); 
   
-  printf("enter the time of data acquisition (seconds) : ");
-  scanf("%d",&time_sleep);
+  if (argc>1){
+    time_sleep=atoi(argv[1]);
+  }
+  //printf("enter the time of data acquisition (seconds) : ");
+  //scanf("%d",&time_sleep);
   // open data file
   //fp = fopen("cal.dat", "wb");
   
   // init LIBUSB
   USB3Init();
-  printf("dbg\n");  
+  //printf("dbg\n");  
   // open TCB
   CALTCBopen(sid);
 

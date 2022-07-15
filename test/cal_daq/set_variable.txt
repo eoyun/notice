@@ -1,6 +1,6 @@
 cw_tcb 10
 pedestal_trigger_interval 10
-trigger_enable 0x1
+trigger_enable 0x8
 multiplicity_thr_tcb 1
 cw_daq 3
 univ 1   

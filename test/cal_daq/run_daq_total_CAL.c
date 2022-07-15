@@ -66,10 +66,10 @@ int main(int argc, char *argv[])
     CALDAQopen(mid[daq]);
     printf("daq num is %d\n",mid[daq]);
   }
-/*
+
   // open TCB
   CALTCBopen(sid);
-
+/*
   // get link status
   CALTCBread_LINK(0, link_data);
   CALTCBread_LINK(sid, link_data);
@@ -101,24 +101,24 @@ int main(int argc, char *argv[])
   // start DAQ
   CALTCBstart_DAQ(sid);
   printf("Run status = %ld\n", CALDAQread_RUN(mid[0]));
-
+*/
   // set run number
   //reset TCB
   CALTCBreset(sid);
   
-  run_number = CALTCBread_RUN_NUMBER(sid,mid);
- */ 
+  run_number = CALTCBread_RUN_NUMBER(sid,1);
+  
 
 
   //open data file 
   //sprintf(filename,"/media/yu/Expansion/DAQ_data/220604/elec_06_04_%lu.dat",run_number);
   //sprintf(filename,"/media/yu/Expansion/DAQ_data/220602/muon_06_02_%d.dat",run_num);
-  //sprintf(filename,"cal_%d_%d.dat",mid,test_id);
+  sprintf(filename,"cal_%lu.dat",run_number);
   //sprintf(filename,"/media/yu/Expansion/DAQ_data/220706/data_%d_%lu.dat",mid,run_number);
   
-  fp = fopen("cal.dat", "wb");
+  fp = fopen(filename, "wb");
   
-  //CALTCBclose(sid);
+  CALTCBclose(sid);
   //while (run){
   //  CALTCBclose(sid);
   //}
