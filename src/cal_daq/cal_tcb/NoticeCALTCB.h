@@ -13,7 +13,6 @@ extern "C" {
 
 #define USB3_SF_READ   (0x82)
 #define USB3_SF_WRITE  (0x06)
-
 extern void USB3Init(void);
 extern void USB3Exit(void);
 extern int CALTCBopen(int sid);

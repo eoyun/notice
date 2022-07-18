@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
   char *data;
   unsigned long data_size;
   FILE *fp;
-  int nevt = 100;
+  int nevt = 16384;
   unsigned long run;
   char file_name[100];
   int evt = 0;
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
   time_t rawtime2;
   struct tm * timeinfo;
   double d_diff;
-  double time_interval=1800;//time interval to measure
+  double time_interval=30;//time interval to measure
   long long file_size_output=1E12;//output size
   // assign data array
   data = (char *)malloc(BUF_SIZE * 1024); 

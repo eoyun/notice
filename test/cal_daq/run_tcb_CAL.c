@@ -7,7 +7,7 @@
 
 #define BUF_SIZE (65536)           // in kbyte
 
-int main(void)
+int main(int argc, char *argv[])
 {
   int sid = 0;
   int mid[40];
@@ -26,17 +26,22 @@ int main(void)
   time_t rawtime;
   struct tm * timeinfo;
 
-  useconds_t time_sleep=2;
-
+  int time_sleep=86400;
+ 
   // assign data array
   data = (char *)malloc(BUF_SIZE * 1024); 
-
+  
+  if (argc>1){
+    time_sleep=atoi(argv[1]);
+  }
+  //printf("enter the time of data acquisition (seconds) : ");
+  //scanf("%d",&time_sleep);
   // open data file
-  fp = fopen("cal.dat", "wb");
-
+  //fp = fopen("cal.dat", "wb");
+  
   // init LIBUSB
   USB3Init();
-    
+  //printf("dbg\n");  
   // open TCB
   CALTCBopen(sid);
 
@@ -73,10 +78,21 @@ int main(void)
   time ( &rawtime );
   timeinfo = localtime ( &rawtime );
   printf("Current local time and date: %s",asctime (timeinfo));
+  clock_t start;
+  double now;
+  start = clock();
   // wait run
   for (int i=0; i<time_sleep;i++) {
     printf("%d second has passed.\n",i);
     usleep(10E5);
+    //now = (double)(clock()-start);
+    //printf("%lf\n",now);
+    //printf("%ld\n",CLOCKS_PER_SEC);
+    //printf("%lf\n",now/100);
+    if (access("KILLME",F_OK)==0){
+      system("rm KILLME");
+      break;
+    }
   }
 
   //stop DAQ

@@ -1,0 +1,13 @@
+runnum test p : parallel m : merge
+97 100hz_p
+98 200hz_p
+99 300hz_p
+100 350hz_p
+101 400hz_p
+102 500hz_p
+103 100hz_m
+104 150hz_m
+105 200hz_m
+106 300hz_m
+
+time(ns) data_size(kB)
