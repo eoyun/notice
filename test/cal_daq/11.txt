@@ -1,0 +1,15 @@
+cw_tcb 20
+pedestal_trigger_interval 20
+trigger_enable 0xF
+multiplicity_thr_tcb 1
+cw_daq 3
+univ 1   
+hv 0
+hv_mid1 0
+thr 100
+multiplicity_thr_daq 1
+trigger_delay 3
+trigger_latency 250
+down_sampling 0    
+
+
