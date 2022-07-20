@@ -319,6 +319,21 @@ int USB3ReadReg(int sid, uint32_t addr)
 
 // ******************************************************************************************************
 
+// initialize libusb library
+void USB3Init(void)
+{
+  if (libusb_init(0) < 0) {
+    fprintf(stderr, "Failed to initialise LIBUSB\n");
+    exit(1);
+  }
+}
+
+// de-initialize libusb library
+void USB3Exit(void)
+{
+  libusb_exit(0); 
+}
+
 // open CALDAQ
 int CALDAQopen(int sid)
 {
@@ -453,4 +468,19 @@ void CALDAQread_DATA(int sid, unsigned long data_size, char *data)
   USB3Read(sid, count, 0x40000000, data);  
 }
 
+// read fast data size, 1 event = 256 byte
+unsigned long CALDAQread_FAST_DATASIZE(int sid)
+{
+  return USB3ReadReg(sid, 0x1000);
+}
+
+// read fast data
+void CALDAQread_FAST_DATA(int sid, unsigned long data_size, char *data)
+{
+  int count;
+
+  count = data_size * 256;
+
+  USB3Read(sid, count, 0x40001000, data);  
+}
 

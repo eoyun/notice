@@ -48,6 +48,15 @@ extern void CALTCBwrite_DOWN_SAMPLING(int sid, unsigned long mid, unsigned long 
 extern unsigned long CALTCBread_DOWN_SAMPLING(int sid, unsigned long mid);
 extern void CALTCBwrite_DRS_CALIB(int sid, unsigned long mid, unsigned long data);
 extern int CALTCB_DRSinit(int sid, unsigned long mid);
+extern void CALTCBwrite_PRESCALE(int sid, unsigned long mid, unsigned long data);
+extern unsigned long CALTCBread_PRESCALE(int sid, unsigned long mid);
+extern void CALTCBwrite_PULSE_WIDTH(int sid, unsigned long mid, unsigned long data);
+extern unsigned long CALTCBread_PULSE_WIDTH(int sid, unsigned long mid);
+extern void CALTCBwrite_RISETIME(int sid, unsigned long mid, unsigned long data);
+extern unsigned long CALTCBread_RISETIME(int sid, unsigned long mid);
+extern void CALTCBwrite_CF_FRACTION(int sid, unsigned long mid, float data);
+extern float CALTCBread_CF_FRACTION(int sid, unsigned long mid);
+extern void CALTCBdisable_LINK(int sid, unsigned long ch, unsigned long data);
 
 #ifdef __cplusplus
 }

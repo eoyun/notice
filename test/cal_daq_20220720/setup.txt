@@ -1,0 +1,38 @@
+10
+10
+2
+1
+20
+5
+0.0
+1
+1
+250
+1
+2
+120
+60
+0.2
+100 100 100 100 100 100 100 100
+100 100 100 100 100 100 100 100
+100 100 100 100 100 100 100 100
+100 100 100 100 100 100 100 100
+--------------------------------------------------
+TCB coincidence width, 1 ~ 255
+Pedestal trigger interval, 0 ~ 65535 ms, 0 = disable
+Trigger enable, 1 = self, 2 = pedestal, 4 = software, 8 = external
+TCB multiplicity trigger threshold, 1 ~ 1280
+Trigger delay, 0 ~ 255
+DAQ coincidence width, 1 ~ 15
+High voltage, 0 ~ 60.0
+DAQ multiplicity trigger threshold, 1 ~ 32
+Waveform trigger prescale, 0 ~ 65535, 0 = disable
+Trigger latency, 0 ~ 255
+Run number, 0 ~ 65535
+DRS down-sampling, 0 = 5 GHz, 1 = 2.5 GHz, 2 = 1.25 GHz, 3 = 0.625 GHz
+Pulse width, 1 ~ 511 samples
+Pulse risetime, 1 ~ 511 samples
+Constant fraction, 0.001 ~ 0.999
+Threshold, 1 ~ 4095, 4095 = disable channel, set individual channel
+
+

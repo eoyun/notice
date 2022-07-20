@@ -962,4 +962,72 @@ int CALTCB_DRSinit(int sid, unsigned long mid)
   return 1;
 }
 
+// write prescale for waveform data trigger, 0 ~ 65535, 0 = disable
+void CALTCBwrite_PRESCALE(int sid, unsigned long mid, unsigned long data)
+{
+  TCBWrite(sid, mid, 0x09, data);
+}
+
+// read prescale for waveform data trigger
+unsigned long CALTCBread_PRESCALE(int sid, unsigned long mid)
+{
+  return TCBReadReg(sid, mid, 0x09);
+}
+
+// write pulse width, 1 ~ 511
+void CALTCBwrite_PULSE_WIDTH(int sid, unsigned long mid, unsigned long data)
+{
+  TCBWrite(sid, mid, 0x0D, data);
+}
+
+// read pulse width
+unsigned long CALTCBread_PULSE_WIDTH(int sid, unsigned long mid)
+{
+  return TCBReadReg(sid, mid, 0x0D);
+}
+
+// write pulse risetime, 1 ~ 511
+void CALTCBwrite_RISETIME(int sid, unsigned long mid, unsigned long data)
+{
+  TCBWrite(sid, mid, 0x0E, data);
+}
+
+// read pulse risetime
+unsigned long CALTCBread_RISETIME(int sid, unsigned long mid)
+{
+  return TCBReadReg(sid, mid, 0x0E);
+}
+
+// write constant fraction, 0.001 ~ 0.999
+void CALTCBwrite_CF_FRACTION(int sid, unsigned long mid, float data)
+{
+  float fval;
+  int value;
+
+  fval = data * 1024.0;
+  value = (int)(fval);
+  TCBWrite(sid, mid, 0x0F, value);
+}    
+
+// read constant fraction
+float CALTCBread_CF_FRACTION(int sid, unsigned long mid)
+{
+  unsigned long data;
+  float value;
+  
+  data = TCBReadReg(sid, mid, 0x0F);
+  value = data;
+  value = value / 1024.0;
+  return value;
+}
+
+// disable link, 1 = disable, 0 = enable
+void CALTCBdisable_LINK(int sid, unsigned long ch, unsigned long data){
+  unsigned long addr;
+
+  addr = ch + 2;
+  TCBWrite(sid, 0, addr, data);
+}
+
+
 

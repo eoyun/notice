@@ -14,11 +14,15 @@ extern "C" {
 #define USB3_SF_READ   (0x82)
 #define USB3_SF_WRITE  (0x06)
 
+extern void USB3Init(void);
+extern void USB3Exit(void);
 extern int CALDAQopen(int sid);
 extern void CALDAQclose(int sid);
 extern unsigned long CALDAQread_DATASIZE(int sid);
 extern unsigned long CALDAQread_RUN(int sid);
 extern void CALDAQread_DATA(int sid, unsigned long data_size, char *data);
+extern unsigned long CALDAQread_FAST_DATASIZE(int sid);
+extern void CALDAQread_FAST_DATA(int sid, unsigned long data_size, char *data);
 
 #ifdef __cplusplus
 }

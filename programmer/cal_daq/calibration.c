@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     CALTCBwrite_MULTIPLICITY_THR(sid, 0, 1);
     CALTCBwrite_CW(sid, mid, 3);
     CALTCBwrite_MULTIPLICITY_THR(sid, mid, 1);
-    CALTCBwrite_TRIGGER_DELAY(sid, mid, 0);
+    CALTCBwrite_TRIGGER_DELAY(sid, 0);
     CALTCBwrite_TRIGGER_LATENCY(sid, mid, 250);
     CALTCBwrite_RUN_NUMBER(sid, mid, 1);
  
