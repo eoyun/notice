@@ -13,13 +13,16 @@ stdbuf -oL ./set_CAL.exe >> log_set_$runnum.log
 echo setting complete!
 read -p "if beam start, press Enter!!" run
 
+num=1
+
 for var in $@
 
 do
 	#echo stdbuf -oL ./run_daq_nodiv_CAL.exe $var 
-	stdbuf -oL ./get_CAL.exe $var >> log_$var.$runnum.log &
+	stdbuf -oL ./get_CAL.exe $var >> log_"$var"_"$runnum".log &
 	sleep 1
-	echo processing $var / $#
+	echo "processing $num / $# : mid num is $var"
+	num=$((num+1))
 done
 echo ready!!
 

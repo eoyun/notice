@@ -1,17 +1,19 @@
-10
-10
-2
-1
-20
-5
-0.0
-1
-1
-250
-2
-120
-60
-0.2
+cw_tcb 10
+ptrigger_interval 100
+trig_enable 8
+mthr_tcb 1
+trig_dly 2
+cw_daq 5
+hv 0.0
+hv_mid7 0.0
+mthr_daq 1
+prescale 1
+trig_latancy 250
+down_sampling 0
+pulse_width 120
+risetime 60
+fraction 0.2
+thr
 100 100 100 100 100 100 100 100
 100 100 100 100 100 100 100 100
 100 100 100 100 100 100 100 100

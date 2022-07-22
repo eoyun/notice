@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
   unsigned long fast_data_size;
   int wave_evt = 0;
   int fast_evt = 0;
+  int mid_file_name=0;
 
   if (argc < 2) {
     printf("Enter mid : ");
@@ -41,8 +42,12 @@ int main(int argc, char *argv[])
   USB3Exit();
 
   // filename here
-  sprintf(wave_filename, "cal_wave_%d_%lu.dat",mid,run_number);
-  sprintf(fast_filename, "cal_fast_%d_%lu.dat",mid,run_number);
+  //
+  if (mid == 7) mid_file_name =1;
+  if (mid == 10) mid_file_name =2;
+ 
+  sprintf(wave_filename, "cal_wave_%d_%lu.dat",mid_file_name,run_number);
+  sprintf(fast_filename, "cal_fast_%d_%lu.dat",mid_file_name,run_number);
 
   // open data file
   wave_fp = fopen(wave_filename, "wb");

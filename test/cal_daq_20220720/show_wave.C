@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int show_wave(const int filenum)
+int show_wave()
 {
   int channel;
   int ch_to_plot;
@@ -44,7 +44,7 @@ int show_wave(const int filenum)
   plot->SetStats(0);
 
   // get # of events in file
-  sprintf(filename,"cal_wave_%d.dat",filenum);
+  sprintf(filename,"cal_wave_7_8.dat");
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);

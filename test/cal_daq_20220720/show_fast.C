@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int show_fast(const int filenum)
+int show_fast()
 {
   int channel;
   int ch_to_plot;
@@ -33,7 +33,7 @@ int show_fast(const int filenum)
   plot_t->Reset();
 
   // get # of events in file
-  sprintf(filename,"cal_fast_%d.dat",filenum);
+  sprintf(filename,"cal_fast_7_10.dat");
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);

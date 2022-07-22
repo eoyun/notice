@@ -20,13 +20,13 @@ int show_timing(const int filenum)
   c1->Divide(1, 3);
   TH1F *plot_a = new TH1F("plot_a", "channel A", 1000, 0, 16000); 
   TH1F *plot_b = new TH1F("plot_b", "channel B", 1000, 0, 16000); 
-  TH1F *plot_d = new TH1F("plot_d", "Difference", 32, -512, 0); 
+  TH1F *plot_d = new TH1F("plot_d", "Difference", 1000, -8000, 8000); 
   plot_a->Reset();
   plot_b->Reset();
   plot_d->Reset();
 
   // get # of events in file
-  sprintf(filename,"cal_fast_%d.dat",filenum);
+  sprintf(filename,"cal_fast_7_10.dat");
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
@@ -43,8 +43,8 @@ int show_timing(const int filenum)
     fread(data, 2, 96, fp);
     
     // fill waveform for channel to plot
-    timing_a = data[2] & 0xFFFF;
-    timing_b = data[26] & 0xFFFF;
+    timing_a = data[25] & 0xFFFF;
+    timing_b = data[95] & 0xFFFF;
     diff = timing_a - timing_b;
 
     plot_a->Fill(timing_a);

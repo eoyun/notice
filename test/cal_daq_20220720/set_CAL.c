@@ -18,6 +18,7 @@ int main(void)
   unsigned long trig_dly;
   unsigned long cw_daq;
   float hv;
+  float hv_mid7;
   unsigned long mthr_daq;
   unsigned long prescale;
   unsigned long trig_latency;
@@ -30,24 +31,42 @@ int main(void)
   unsigned long lval;
   FILE *fp;
   int ch;
+  char var_name[50];
 
   if ((access("setup.txt", 0)) == 0) {
     fp = fopen("setup.txt", "rt");
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &cw_tcb);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &ptrig_interval);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &trig_enable);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &mthr_tcb);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &trig_dly);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &cw_daq);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%f", &hv);
+    fscanf(fp, "%s",var_name);
+    fscanf(fp,"%f",&hv_mid7);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &mthr_daq);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &prescale);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &trig_latency);
     //fscanf(fp, "%ld", &run_num);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &down_sampling);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &pulse_width);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &risetime);
+    fscanf(fp,"%s",var_name);
     fscanf(fp, "%f", &fraction);
+    fscanf(fp,"%s",var_name);
     for (ch = 0; ch < 32; ch++) {
       fscanf(fp, "%ld", &lval);
       thr[ch] = lval;
@@ -118,8 +137,14 @@ int main(void)
   for (daq = 0; daq < num_of_daq; daq++) {
     CALTCB_DRSinit(sid, mid[daq]);
     CALTCBwrite_CW(sid, mid[daq], cw_daq);
-    for (ch = 1; ch <= 4; ch++)
-      CALTCBwrite_HV(sid, mid[daq], ch, 1, hv);
+    if(mid[daq]==7){
+      for (ch = 1; ch <= 4; ch++)
+        CALTCBwrite_HV(sid, mid[daq], ch, 1, hv_mid7);
+    } 
+    else{
+      for (ch = 1; ch <= 4; ch++)
+        CALTCBwrite_HV(sid, mid[daq], ch, 1, hv);
+    }
     CALTCBwrite_MULTIPLICITY_THR(sid, mid[daq], mthr_daq);
     CALTCBwrite_PRESCALE(sid, mid[daq], prescale);
     CALTCBwrite_TRIGGER_LATENCY(sid, mid[daq], trig_latency);
