@@ -44,7 +44,7 @@ int show_wave()
   plot->SetStats(0);
 
   // get # of events in file
-  sprintf(filename,"cal_wave_7_8.dat");
+  sprintf(filename,"cal_wave_2_0.dat");
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);

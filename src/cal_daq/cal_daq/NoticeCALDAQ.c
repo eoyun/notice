@@ -346,6 +346,7 @@ int CALDAQopen(int sid)
   int interface = 0;
   int sid_tmp;
   int speed;
+  int status = 1;
 
   if (libusb_get_device_list(0, &devs) < 0) 
     fprintf(stderr, "Error: open_device: Could not get device list\n");
@@ -415,6 +416,8 @@ int CALDAQopen(int sid)
         break;
       }
       else {
+        status = 0;
+        fprintf(stdout, "No module!!\n");
         libusb_release_interface(devh, interface);
         libusb_close(devh);
       }
@@ -435,7 +438,7 @@ int CALDAQopen(int sid)
     return -1;
   }
 
-  return 0;
+  return status;
 }
 
 // close CALDAQ
@@ -446,7 +449,7 @@ void CALDAQclose(int sid)
 }
 
 
-// read charge data size, data size = # of events, 1 event = 16 byte
+// read waveform data size, 1 event = 64 kbyte
 unsigned long CALDAQread_DATASIZE(int sid)
 {
   return USB3ReadReg(sid, 0x0);
@@ -458,7 +461,7 @@ unsigned long CALDAQread_RUN(int sid)
   return USB3ReadReg(sid, 0x1);
 }
 
-// read data
+// read waveform data
 void CALDAQread_DATA(int sid, unsigned long data_size, char *data)
 {
   int count;

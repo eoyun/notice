@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   unsigned long fast_data_size;
   int wave_evt = 0;
   int fast_evt = 0;
-
+  int sum_is_device_exist=0;
   int iargc;
   int num_of_daq;
   int daq;
@@ -53,8 +53,9 @@ int main(int argc, char *argv[])
  
   USB3Init_daq();
   // open DAQ
-  for (daq=0;daq<num_of_daq;daq++){
-    CALDAQopen(mid[daq]);
+  for (daq=0; daq<num_of_daq; daq++){
+    sum_is_device_exist+=CALDAQopen(mid[daq]);
+    
     printf("daq num is %d\n",mid[daq]);
   }
   
@@ -68,78 +69,79 @@ int main(int argc, char *argv[])
   fast_fp = fopen(fast_filename, "wb");
 
   // wait if TCB not yet runs DAQ
-  run = 0;
-  while (!run)
-    run = CALDAQread_RUN(mid[0]);
-  
-  // taking data
-  while (run) {
-    // get waveform data
-    wave_data_size = CALDAQread_DATASIZE(mid[0]);
-    if (wave_data_size) {
-      if (wave_data_size > BUF_SIZE)
-        wave_data_size = BUF_SIZE;
-      // read data
-      for (daq=0;daq<num_of_daq;daq++){
-        CALDAQread_DATA(mid[daq], wave_data_size, data);
-        fwrite(data, 1, wave_data_size * 1024, wave_fp);
+  if (sum_is_device_exist>num_of_daq-1){//end is 145
+    run = 0;
+    while (!run)
+      run = CALDAQread_RUN(mid[0]);
+    
+    // taking data
+    while (run) {
+      // get waveform data
+      wave_data_size = CALDAQread_DATASIZE(mid[0]);
+      if (wave_data_size) {
+        if (wave_data_size > BUF_SIZE)
+          wave_data_size = BUF_SIZE;
+        // read data
+        for (daq=0;daq<num_of_daq;daq++){
+          CALDAQread_DATA(mid[daq], wave_data_size, data);
+          fwrite(data, 1, wave_data_size * 1024, wave_fp);
+        }
+        wave_evt = wave_evt + (wave_data_size / 64);   // 1 event = 64 kB
+        printf("Waveform %d events are taken\n", wave_evt);
       }
-      wave_evt = wave_evt + (wave_data_size / 64);   // 1 event = 64 kB
-      printf("Waveform %d events are taken\n", wave_evt);
-    }
-        
-    // get fast data
-    fast_data_size = CALDAQread_FAST_DATASIZE(mid[0]);
-    if (fast_data_size) {
-      if (fast_data_size > BUF_SIZE)
-        fast_data_size = BUF_SIZE;
-      // read data
-      for (daq=0;daq<num_of_daq;daq++){
-        CALDAQread_FAST_DATA(mid[daq], fast_data_size, data);
-        fwrite(data, 1, fast_data_size * 1024, fast_fp);
+          
+      // get fast data
+      fast_data_size = CALDAQread_FAST_DATASIZE(mid[0]);
+      if (fast_data_size) {
+        if (fast_data_size > BUF_SIZE)
+          fast_data_size = BUF_SIZE;
+        // read data
+        for (daq=0;daq<num_of_daq;daq++){
+          CALDAQread_FAST_DATA(mid[daq], fast_data_size, data);
+          fwrite(data, 1, fast_data_size * 1024, fast_fp);
+        }
+        fast_evt = fast_evt + (fast_data_size * 4);   // 1 event = 256 byte
+        printf("Fast %d events are taken\n", fast_evt);
       }
-      fast_evt = fast_evt + (fast_data_size * 4);   // 1 event = 256 byte
-      printf("Fast %d events are taken\n", fast_evt);
+      
+      // check run status
+      run = CALDAQread_RUN(mid[0]);
     }
     
-    // check run status
-    run = CALDAQread_RUN(mid[0]);
-  }
-  
-  // read remaining waveform data
-  wave_data_size = CALDAQread_DATASIZE(mid[0]);
-  while (wave_data_size) {
+    // read remaining waveform data
     wave_data_size = CALDAQread_DATASIZE(mid[0]);
-    if (wave_data_size) {
-      if (wave_data_size > BUF_SIZE)
-        wave_data_size = BUF_SIZE;
-      // read data
-      for (daq=0;daq<num_of_daq;daq++){
-        CALDAQread_DATA(mid[daq], wave_data_size, data);
-        fwrite(data, 1, wave_data_size * 1024, wave_fp);
+    while (wave_data_size) {
+      wave_data_size = CALDAQread_DATASIZE(mid[0]);
+      if (wave_data_size) {
+        if (wave_data_size > BUF_SIZE)
+          wave_data_size = BUF_SIZE;
+        // read data
+        for (daq=0;daq<num_of_daq;daq++){
+          CALDAQread_DATA(mid[daq], wave_data_size, data);
+          fwrite(data, 1, wave_data_size * 1024, wave_fp);
+        }
+        wave_evt = wave_evt + (wave_data_size / 64);   // 1 event = 64 kB
+        printf("Waveform %d events are taken\n", wave_evt);
       }
-      wave_evt = wave_evt + (wave_data_size / 64);   // 1 event = 64 kB
-      printf("Waveform %d events are taken\n", wave_evt);
     }
-  }
-
-  // read remaining fast data
-  fast_data_size = CALDAQread_FAST_DATASIZE(mid[0]);
-  while (fast_data_size) {
-    fast_data_size = CALDAQread_FAST_DATASIZE(mid[0]);
-    if (fast_data_size) {
-      if (fast_data_size > BUF_SIZE)
-        fast_data_size = BUF_SIZE;
-      // read data
-      for (daq=0;daq<num_of_daq;daq++){
-        CALDAQread_FAST_DATA(mid[daq], fast_data_size, data);
-        fwrite(data, 1, fast_data_size * 1024, fast_fp);
-      }
-      fast_evt = fast_evt + (fast_data_size * 4);   // 1 event = 256 byte
-      printf("Fast %d events are taken\n", fast_evt);
-    }
-  }
   
+    // read remaining fast data
+    fast_data_size = CALDAQread_FAST_DATASIZE(mid[0]);
+    while (fast_data_size) {
+      fast_data_size = CALDAQread_FAST_DATASIZE(mid[0]);
+      if (fast_data_size) {
+        if (fast_data_size > BUF_SIZE)
+          fast_data_size = BUF_SIZE;
+        // read data
+        for (daq=0;daq<num_of_daq;daq++){
+          CALDAQread_FAST_DATA(mid[daq], fast_data_size, data);
+          fwrite(data, 1, fast_data_size * 1024, fast_fp);
+        }
+        fast_evt = fast_evt + (fast_data_size * 4);   // 1 event = 256 byte
+        printf("Fast %d events are taken\n", fast_evt);
+      }
+    }
+  }
   // close file  
   fclose(wave_fp);  
   fclose(fast_fp);  
