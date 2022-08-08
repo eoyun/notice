@@ -44,19 +44,18 @@ int main(int argc, char *argv[])
 
   // filename here
   //
-  if (mid == 7) mid_file_name =1;
-  if (mid == 10) mid_file_name =2;
+  //if (mid == 7) mid_file_name =1;
+  //if (mid == 10) mid_file_name =2;
  
   //sprintf(wave_filename, "/media/eoyun/Expansion/DAQ_data/220723/cal_wave_%d_%lu.dat",mid_file_name,run_number);
   //sprintf(fast_filename, "/media/eoyun/Expansion/DAQ_data/220723/cal_fast_%d_%lu.dat",mid_file_name,run_number);
-  sprintf(wave_filename, "cal_wave_%d_%lu.dat",mid_file_name,run_number);
-  sprintf(fast_filename, "cal_fast_%d_%lu.dat",mid_file_name,run_number);
+  sprintf(wave_filename, "./data/cal_wave_%d_%lu.dat",mid,run_number);
+  sprintf(fast_filename, "./data/cal_fast_%d_%lu.dat",mid,run_number);
 
 
   // open data file
   wave_fp = fopen(wave_filename, "wb");
   fast_fp = fopen(fast_filename, "wb");
-
   // init LIBUSB
   USB3Init_daq();
     
@@ -80,7 +79,7 @@ int main(int argc, char *argv[])
         CALDAQread_DATA(mid, wave_data_size, data);
         fwrite(data, 1, wave_data_size * 1024, wave_fp);
         wave_evt = wave_evt + (wave_data_size / 64);   // 1 event = 64 kB
-        printf("Waveform %d events are taken\n", wave_evt);
+        if( wave_evt%100 == 0 ) printf("Waveform %d events are taken\n", wave_evt);
       }
         
       // get fast data

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int show_wave()
+int show_wave(const TString filename)
 {
   int channel;
   int ch_to_plot;
@@ -26,9 +26,9 @@ int show_wave()
   long long ltmp;
   int i;
   int cont;
-  char filename[100];
+  //char filename[100];
   char pngname[100];
-
+  
   // get channel to plot, channel = 1 ~ 32
   printf("Channel to plot(1~32) : ");
   scanf("%d", &channel);
@@ -44,7 +44,7 @@ int show_wave()
   plot->SetStats(0);
 
   // get # of events in file
-  sprintf(filename,"cal_wave_2_0.dat");
+ // sprintf(filename,"cal_wave_1.dat");
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
@@ -182,7 +182,9 @@ int show_wave()
     }
 
     plot->Draw("hist");
+    
     sprintf(pngname,"wave_%d.png",evt);
+    c1->SaveAs(filename+Form(("_%d.png"),evt));
     c1->Modified();
     c1->Update();
       

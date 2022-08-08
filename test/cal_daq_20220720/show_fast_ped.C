@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int show_fast(const TString filename)
+int show_fast_ped(const TString filename)
 {
   int channel;
   int ch_to_plot;
@@ -26,11 +26,11 @@ int show_fast(const TString filename)
     ch_to_plot = channel - 1;
     
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 800);
-  c1->Divide(1, 2);
-  TH1F *plot_e = new TH1F("plot_e", "Energy", 1000, 0, 100000); 
-  TH1F *plot_t = new TH1F("plot_t", "Timing", 1000, 0, 16000); 
+//  c1->Divide(1, 2);
+  TH1F *plot_e = new TH1F("plot_e", "Energy", 100, -100, 100); 
+//  TH1F *plot_t = new TH1F("plot_t", "Timing", 1000, 0, 16000); 
   plot_e->Reset();
-  plot_t->Reset();
+//  plot_t->Reset();
 
   // get # of events in file
   //sprintf(filename,"cal_fast_7_10.dat");
@@ -54,21 +54,21 @@ int show_fast(const TString filename)
     energy = energy * 65536;
     energy = energy + (data[ch_to_plot * 3] & 0xFFFF);
 
-    timing = data[ch_to_plot * 3 + 2] & 0xFFFF;
+//    timing = data[ch_to_plot * 3 + 2] & 0xFFFF;
     //if (timing>10000){
     printf("energy : %d evt : %d\n",energy,evt);
     plot_e->Fill(energy);
-    plot_t->Fill(timing);
+//    plot_t->Fill(timing);
     //}
   }
 
-  c1->cd(1);
+//  c1->cd(1);
   plot_e->Draw();
-  c1->cd(2);
-  plot_t->Draw();
+//  c1->cd(2);
+//  plot_t->Draw();
+  c1->SaveAs("FastHist_"+filename+".png");    
   c1->Modified();
   c1->Update();
-      
   fclose(fp);
 
   return 0;
