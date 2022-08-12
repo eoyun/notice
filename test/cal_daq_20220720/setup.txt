@@ -2,15 +2,15 @@ cw_tcb 10
 ptrigger_interval 1
 trig_enable 2
 mthr_tcb 1
-trig_dly 40
+trig_dly 1
 cw_daq 5
-hv 0.0
-hv_mid7 0.0
+hv 0
+hv_mid7 0
 mthr_daq 1
-prescale 1
+prescale 10
 trig_latancy 250
 down_sampling 2
-pulse_width 120
+pulsei_width 120
 risetime 60
 fraction 0.2
 thr

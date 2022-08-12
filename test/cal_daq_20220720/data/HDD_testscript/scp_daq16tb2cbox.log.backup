@@ -1,0 +1,1108 @@
+Executing: program /usr/bin/ssh host lxplus.cern.ch, user yson, command scp -v -r -t /eos/user/y/yson/drctb
+OpenSSH_8.6p1, LibreSSL 3.3.6
+debug1: Reading configuration data /Users/drc_daq/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 21: include /etc/ssh/ssh_config.d/* matched no files
+debug1: /etc/ssh/ssh_config line 54: Applying options for *
+debug1: /etc/ssh/ssh_config line 58: Applying options for *
+debug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling
+debug1: Connecting to lxplus.cern.ch port 22.
+debug1: Connection established.
+debug1: identity file /Users/drc_daq/.ssh/id_rsa type -1
+debug1: identity file /Users/drc_daq/.ssh/id_rsa-cert type -1
+debug1: identity file /Users/drc_daq/.ssh/id_dsa type -1
+debug1: identity file /Users/drc_daq/.ssh/id_dsa-cert type -1
+debug1: identity file /Users/drc_daq/.ssh/id_ecdsa type -1
+debug1: identity file /Users/drc_daq/.ssh/id_ecdsa-cert type -1
+debug1: identity file /Users/drc_daq/.ssh/id_ecdsa_sk type -1
+debug1: identity file /Users/drc_daq/.ssh/id_ecdsa_sk-cert type -1
+debug1: identity file /Users/drc_daq/.ssh/id_ed25519 type -1
+debug1: identity file /Users/drc_daq/.ssh/id_ed25519-cert type -1
+debug1: identity file /Users/drc_daq/.ssh/id_ed25519_sk type -1
+debug1: identity file /Users/drc_daq/.ssh/id_ed25519_sk-cert type -1
+debug1: identity file /Users/drc_daq/.ssh/id_xmss type -1
+debug1: identity file /Users/drc_daq/.ssh/id_xmss-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.6
+debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4
+debug1: compat_banner: match: OpenSSH_7.4 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002
+debug1: Authenticating to lxplus.cern.ch:22 as 'yson'
+debug1: load_hostkeys: fopen /Users/drc_daq/.ssh/known_hosts2: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: load_hostkeys: fopen /Users/drc_daq/.ssh/known_hosts2: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: Host 'lxplus.cern.ch' is known and matches the ED25519 host key.
+debug1: Found key in /Users/drc_daq/.ssh/known_hosts:3
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /Users/drc_daq/.ssh/id_rsa 
+debug1: Will attempt key: /Users/drc_daq/.ssh/id_dsa 
+debug1: Will attempt key: /Users/drc_daq/.ssh/id_ecdsa 
+debug1: Will attempt key: /Users/drc_daq/.ssh/id_ecdsa_sk 
+debug1: Will attempt key: /Users/drc_daq/.ssh/id_ed25519 
+debug1: Will attempt key: /Users/drc_daq/.ssh/id_ed25519_sk 
+debug1: Will attempt key: /Users/drc_daq/.ssh/id_xmss 
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<rsa-sha2-256,rsa-sha2-512>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password,keyboard-interactive
+debug1: Next authentication method: publickey
+debug1: Trying private key: /Users/drc_daq/.ssh/id_rsa
+debug1: Trying private key: /Users/drc_daq/.ssh/id_dsa
+debug1: Trying private key: /Users/drc_daq/.ssh/id_ecdsa
+debug1: Trying private key: /Users/drc_daq/.ssh/id_ecdsa_sk
+debug1: Trying private key: /Users/drc_daq/.ssh/id_ed25519
+debug1: Trying private key: /Users/drc_daq/.ssh/id_ed25519_sk
+debug1: Trying private key: /Users/drc_daq/.ssh/id_xmss
+debug1: Next authentication method: keyboard-interactive
+debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password,keyboard-interactive
+debug1: Authentication succeeded (keyboard-interactive).
+Authenticated to lxplus.cern.ch ([2001:1458:d00:65::100:1bb]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: filesystem full
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: client_input_hostkeys: searching /Users/drc_daq/.ssh/known_hosts for lxplus.cern.ch / (none)
+debug1: client_input_hostkeys: searching /Users/drc_daq/.ssh/known_hosts2 for lxplus.cern.ch / (none)
+debug1: client_input_hostkeys: hostkeys file /Users/drc_daq/.ssh/known_hosts2 does not exist
+debug1: client_input_hostkeys: no new or deprecated keys from server
+debug1: Sending environment.
+debug1: channel 0: setting env LC_TERMINAL_VERSION = "3.4.16"
+debug1: channel 0: setting env LC_CTYPE = "UTF-8"
+debug1: channel 0: setting env LC_TERMINAL = "iTerm2"
+debug1: Sending command: scp -v -r -t /eos/user/y/yson/drctb
+/etc/profile.d/lang.sh: line 19: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+Entering directory: D0777 0 HDD_speed_test
+Sink: D0777 0 HDD_speed_test
+Entering directory: D0777 0 fast
+Sink: D0777 0 fast
+Entering directory: D0777 0 mid_11
+Sink: D0777 0 mid_11
+Sending file modes: C0777 46284800 cal_fast_11_118_9.dat
+Sink: C0777 46284800 cal_fast_11_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_11_118.dat
+Sink: C0777 46284800 cal_fast_11_118.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_8.dat
+Sink: C0777 46284800 cal_fast_11_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_18.dat
+Sink: C0777 46284800 cal_fast_11_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_19.dat
+Sink: C0777 46284800 cal_fast_11_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_14.dat
+Sink: C0777 46284800 cal_fast_11_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_6.dat
+Sink: C0777 46284800 cal_fast_11_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_7.dat
+Sink: C0777 46284800 cal_fast_11_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_15.dat
+Sink: C0777 46284800 cal_fast_11_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_17.dat
+Sink: C0777 46284800 cal_fast_11_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_5.dat
+Sink: C0777 46284800 cal_fast_11_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_4.dat
+Sink: C0777 46284800 cal_fast_11_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_16.dat
+Sink: C0777 46284800 cal_fast_11_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_12.dat
+Sink: C0777 46284800 cal_fast_11_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_1.dat
+Sink: C0777 46284800 cal_fast_11_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_13.dat
+Sink: C0777 46284800 cal_fast_11_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_11.dat
+Sink: C0777 46284800 cal_fast_11_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_3.dat
+Sink: C0777 46284800 cal_fast_11_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_2.dat
+Sink: C0777 46284800 cal_fast_11_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_11_118_10.dat
+Sink: C0777 46284800 cal_fast_11_118_10.dat
+Sink: E
+Entering directory: D0777 0 mid_10
+Sink: D0777 0 mid_10
+Sending file modes: C0777 46284800 cal_fast_10_118_12.dat
+Sink: C0777 46284800 cal_fast_10_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_13.dat
+Sink: C0777 46284800 cal_fast_10_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_11.dat
+Sink: C0777 46284800 cal_fast_10_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_10.dat
+Sink: C0777 46284800 cal_fast_10_118_10.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 218288 bytes 21805 blocks, output 1073626000 bytes 134186402 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 218300 bytes 21806 blocks, output 1073658788 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_10_118_9.dat
+Sink: C0777 46284800 cal_fast_10_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_14.dat
+Sink: C0777 46284800 cal_fast_10_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_15.dat
+Sink: C0777 46284800 cal_fast_10_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_8.dat
+Sink: C0777 46284800 cal_fast_10_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_17.dat
+Sink: C0777 46284800 cal_fast_10_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_16.dat
+Sink: C0777 46284800 cal_fast_10_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_10_118.dat
+Sink: C0777 46284800 cal_fast_10_118.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_6.dat
+Sink: C0777 46284800 cal_fast_10_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_7.dat
+Sink: C0777 46284800 cal_fast_10_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_5.dat
+Sink: C0777 46284800 cal_fast_10_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_18.dat
+Sink: C0777 46284800 cal_fast_10_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_19.dat
+Sink: C0777 46284800 cal_fast_10_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_4.dat
+Sink: C0777 46284800 cal_fast_10_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_1.dat
+Sink: C0777 46284800 cal_fast_10_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_3.dat
+Sink: C0777 46284800 cal_fast_10_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_10_118_2.dat
+Sink: C0777 46284800 cal_fast_10_118_2.dat
+Sink: E
+Entering directory: D0777 0 mid_7
+Sink: D0777 0 mid_7
+Sending file modes: C0777 46284800 cal_fast_7_118_16.dat
+Sink: C0777 46284800 cal_fast_7_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_17.dat
+Sink: C0777 46284800 cal_fast_7_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_15.dat
+Sink: C0777 46284800 cal_fast_7_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_14.dat
+Sink: C0777 46284800 cal_fast_7_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_10.dat
+Sink: C0777 46284800 cal_fast_7_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_11.dat
+Sink: C0777 46284800 cal_fast_7_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_13.dat
+Sink: C0777 46284800 cal_fast_7_118_13.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 521768 bytes 30399 blocks, output 2147284164 bytes 134188943 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 521780 bytes 30400 blocks, output 2147316952 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_7_118_12.dat
+Sink: C0777 46284800 cal_fast_7_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_1.dat
+Sink: C0777 46284800 cal_fast_7_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_2.dat
+Sink: C0777 46284800 cal_fast_7_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_3.dat
+Sink: C0777 46284800 cal_fast_7_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_7.dat
+Sink: C0777 46284800 cal_fast_7_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_6.dat
+Sink: C0777 46284800 cal_fast_7_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_7_118.dat
+Sink: C0777 46284800 cal_fast_7_118.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_4.dat
+Sink: C0777 46284800 cal_fast_7_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_5.dat
+Sink: C0777 46284800 cal_fast_7_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_8.dat
+Sink: C0777 46284800 cal_fast_7_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_9.dat
+Sink: C0777 46284800 cal_fast_7_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_19.dat
+Sink: C0777 46284800 cal_fast_7_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_7_118_18.dat
+Sink: C0777 46284800 cal_fast_7_118_18.dat
+Sink: E
+Entering directory: D0777 0 mid_9
+Sink: D0777 0 mid_9
+Sending file modes: C0777 46284800 cal_fast_9_118_18.dat
+Sink: C0777 46284800 cal_fast_9_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_19.dat
+Sink: C0777 46284800 cal_fast_9_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_9.dat
+Sink: C0777 46284800 cal_fast_9_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_8.dat
+Sink: C0777 46284800 cal_fast_9_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_3.dat
+Sink: C0777 46284800 cal_fast_9_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_2.dat
+Sink: C0777 46284800 cal_fast_9_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_1.dat
+Sink: C0777 46284800 cal_fast_9_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_5.dat
+Sink: C0777 46284800 cal_fast_9_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_4.dat
+Sink: C0777 46284800 cal_fast_9_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_6.dat
+Sink: C0777 46284800 cal_fast_9_118_6.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 740608 bytes 21935 blocks, output 3220911988 bytes 134186728 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 740620 bytes 21936 blocks, output 3220944776 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_9_118_7.dat
+Sink: C0777 46284800 cal_fast_9_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_12.dat
+Sink: C0777 46284800 cal_fast_9_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_13.dat
+Sink: C0777 46284800 cal_fast_9_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_11.dat
+Sink: C0777 46284800 cal_fast_9_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_10.dat
+Sink: C0777 46284800 cal_fast_9_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_14.dat
+Sink: C0777 46284800 cal_fast_9_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_15.dat
+Sink: C0777 46284800 cal_fast_9_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_17.dat
+Sink: C0777 46284800 cal_fast_9_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_9_118_16.dat
+Sink: C0777 46284800 cal_fast_9_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_9_118.dat
+Sink: C0777 46284800 cal_fast_9_118.dat
+Sink: E
+Entering directory: D0777 0 mid_8
+Sink: D0777 0 mid_8
+Sending file modes: C0777 46284800 cal_fast_8_118_9.dat
+Sink: C0777 46284800 cal_fast_8_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_8.dat
+Sink: C0777 46284800 cal_fast_8_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_14.dat
+Sink: C0777 46284800 cal_fast_8_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_15.dat
+Sink: C0777 46284800 cal_fast_8_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_17.dat
+Sink: C0777 46284800 cal_fast_8_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_16.dat
+Sink: C0777 46284800 cal_fast_8_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_12.dat
+Sink: C0777 46284800 cal_fast_8_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_13.dat
+Sink: C0777 46284800 cal_fast_8_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_11.dat
+Sink: C0777 46284800 cal_fast_8_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_10.dat
+Sink: C0777 46284800 cal_fast_8_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_18.dat
+Sink: C0777 46284800 cal_fast_8_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_19.dat
+Sink: C0777 46284800 cal_fast_8_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_3.dat
+Sink: C0777 46284800 cal_fast_8_118_3.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 1105408 bytes 36531 blocks, output 4294552176 bytes 134186326 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 1105420 bytes 36532 blocks, output 4294584964 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_8_118.dat
+Sink: C0777 46284800 cal_fast_8_118.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_2.dat
+Sink: C0777 46284800 cal_fast_8_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_1.dat
+Sink: C0777 46284800 cal_fast_8_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_5.dat
+Sink: C0777 46284800 cal_fast_8_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_4.dat
+Sink: C0777 46284800 cal_fast_8_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_6.dat
+Sink: C0777 46284800 cal_fast_8_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_8_118_7.dat
+Sink: C0777 46284800 cal_fast_8_118_7.dat
+Sink: E
+Entering directory: D0777 0 mid_6
+Sink: D0777 0 mid_6
+Sending file modes: C0777 46284800 cal_fast_6_118_1.dat
+Sink: C0777 46284800 cal_fast_6_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_2.dat
+Sink: C0777 46284800 cal_fast_6_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_3.dat
+Sink: C0777 46284800 cal_fast_6_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_7.dat
+Sink: C0777 46284800 cal_fast_6_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_6.dat
+Sink: C0777 46284800 cal_fast_6_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_4.dat
+Sink: C0777 46284800 cal_fast_6_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_5.dat
+Sink: C0777 46284800 cal_fast_6_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_6_118.dat
+Sink: C0777 46284800 cal_fast_6_118.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_19.dat
+Sink: C0777 46284800 cal_fast_6_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_18.dat
+Sink: C0777 46284800 cal_fast_6_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_10.dat
+Sink: C0777 46284800 cal_fast_6_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_11.dat
+Sink: C0777 46284800 cal_fast_6_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_13.dat
+Sink: C0777 46284800 cal_fast_6_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_12.dat
+Sink: C0777 46284800 cal_fast_6_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_16.dat
+Sink: C0777 46284800 cal_fast_6_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_17.dat
+Sink: C0777 46284800 cal_fast_6_118_17.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 1481148 bytes 37625 blocks, output 5368210032 bytes 134187683 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 1481160 bytes 37626 blocks, output 5368242820 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_6_118_15.dat
+Sink: C0777 46284800 cal_fast_6_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_14.dat
+Sink: C0777 46284800 cal_fast_6_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_8.dat
+Sink: C0777 46284800 cal_fast_6_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_6_118_9.dat
+Sink: C0777 46284800 cal_fast_6_118_9.dat
+Sink: E
+Entering directory: D0777 0 mid_1
+Sink: D0777 0 mid_1
+Sending file modes: C0777 46284800 cal_fast_1_118_18.dat
+Sink: C0777 46284800 cal_fast_1_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_19.dat
+Sink: C0777 46284800 cal_fast_1_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_6.dat
+Sink: C0777 46284800 cal_fast_1_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_7.dat
+Sink: C0777 46284800 cal_fast_1_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_5.dat
+Sink: C0777 46284800 cal_fast_1_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_4.dat
+Sink: C0777 46284800 cal_fast_1_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_1.dat
+Sink: C0777 46284800 cal_fast_1_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_3.dat
+Sink: C0777 46284800 cal_fast_1_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_2.dat
+Sink: C0777 46284800 cal_fast_1_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_9.dat
+Sink: C0777 46284800 cal_fast_1_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_8.dat
+Sink: C0777 46284800 cal_fast_1_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_14.dat
+Sink: C0777 46284800 cal_fast_1_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_15.dat
+Sink: C0777 46284800 cal_fast_1_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_17.dat
+Sink: C0777 46284800 cal_fast_1_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_16.dat
+Sink: C0777 46284800 cal_fast_1_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_1_118.dat
+Sink: C0777 46284800 cal_fast_1_118.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_12.dat
+Sink: C0777 46284800 cal_fast_1_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_13.dat
+Sink: C0777 46284800 cal_fast_1_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_11.dat
+Sink: C0777 46284800 cal_fast_1_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_1_118_10.dat
+Sink: C0777 46284800 cal_fast_1_118_10.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 1696516 bytes 21589 blocks, output 6441839876 bytes 134186931 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 1696528 bytes 21590 blocks, output 6441872664 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sink: E
+Entering directory: D0777 0 mid_15
+Sink: D0777 0 mid_15
+Sending file modes: C0777 46284800 cal_fast_15_118_17.dat
+Sink: C0777 46284800 cal_fast_15_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_1.dat
+Sink: C0777 46284800 cal_fast_15_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_16.dat
+Sink: C0777 46284800 cal_fast_15_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_14.dat
+Sink: C0777 46284800 cal_fast_15_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_3.dat
+Sink: C0777 46284800 cal_fast_15_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_2.dat
+Sink: C0777 46284800 cal_fast_15_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_15.dat
+Sink: C0777 46284800 cal_fast_15_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_11.dat
+Sink: C0777 46284800 cal_fast_15_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_6.dat
+Sink: C0777 46284800 cal_fast_15_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_7.dat
+Sink: C0777 46284800 cal_fast_15_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_10.dat
+Sink: C0777 46284800 cal_fast_15_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_12.dat
+Sink: C0777 46284800 cal_fast_15_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_5.dat
+Sink: C0777 46284800 cal_fast_15_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_4.dat
+Sink: C0777 46284800 cal_fast_15_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_13.dat
+Sink: C0777 46284800 cal_fast_15_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_15_118.dat
+Sink: C0777 46284800 cal_fast_15_118.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_9.dat
+Sink: C0777 46284800 cal_fast_15_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_8.dat
+Sink: C0777 46284800 cal_fast_15_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_18.dat
+Sink: C0777 46284800 cal_fast_15_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_15_118_19.dat
+Sink: C0777 46284800 cal_fast_15_118_19.dat
+Sink: E
+Entering directory: D0777 0 mid_12
+Sink: D0777 0 mid_12
+Sending file modes: C0777 46284800 cal_fast_12_118.dat
+Sink: C0777 46284800 cal_fast_12_118.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_13.dat
+Sink: C0777 46284800 cal_fast_12_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_7.dat
+Sink: C0777 46284800 cal_fast_12_118_7.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 1885416 bytes 18942 blocks, output 7515463024 bytes 134186261 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 1885428 bytes 18943 blocks, output 7515495812 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_12_118_6.dat
+Sink: C0777 46284800 cal_fast_12_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_12.dat
+Sink: C0777 46284800 cal_fast_12_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_10.dat
+Sink: C0777 46284800 cal_fast_12_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_4.dat
+Sink: C0777 46284800 cal_fast_12_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_5.dat
+Sink: C0777 46284800 cal_fast_12_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_11.dat
+Sink: C0777 46284800 cal_fast_12_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_15.dat
+Sink: C0777 46284800 cal_fast_12_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_1.dat
+Sink: C0777 46284800 cal_fast_12_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_14.dat
+Sink: C0777 46284800 cal_fast_12_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_16.dat
+Sink: C0777 46284800 cal_fast_12_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_2.dat
+Sink: C0777 46284800 cal_fast_12_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_3.dat
+Sink: C0777 46284800 cal_fast_12_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_17.dat
+Sink: C0777 46284800 cal_fast_12_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_19.dat
+Sink: C0777 46284800 cal_fast_12_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_18.dat
+Sink: C0777 46284800 cal_fast_12_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_8.dat
+Sink: C0777 46284800 cal_fast_12_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_12_118_9.dat
+Sink: C0777 46284800 cal_fast_12_118_9.dat
+Sink: E
+Entering directory: D0777 0 mid_13
+Sink: D0777 0 mid_13
+Sending file modes: C0777 46284800 cal_fast_13_118_7.dat
+Sink: C0777 46284800 cal_fast_13_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_6.dat
+Sink: C0777 46284800 cal_fast_13_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_13_118.dat
+Sink: C0777 46284800 cal_fast_13_118.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_4.dat
+Sink: C0777 46284800 cal_fast_13_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_5.dat
+Sink: C0777 46284800 cal_fast_13_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_1.dat
+Sink: C0777 46284800 cal_fast_13_118_1.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 2122256 bytes 23735 blocks, output 8589091352 bytes 134186369 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 2122268 bytes 23736 blocks, output 8589124140 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_13_118_2.dat
+Sink: C0777 46284800 cal_fast_13_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_19.dat
+Sink: C0777 46284800 cal_fast_13_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_18.dat
+Sink: C0777 46284800 cal_fast_13_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_3.dat
+Sink: C0777 46284800 cal_fast_13_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_15.dat
+Sink: C0777 46284800 cal_fast_13_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_14.dat
+Sink: C0777 46284800 cal_fast_13_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_16.dat
+Sink: C0777 46284800 cal_fast_13_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_17.dat
+Sink: C0777 46284800 cal_fast_13_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_8.dat
+Sink: C0777 46284800 cal_fast_13_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_13.dat
+Sink: C0777 46284800 cal_fast_13_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_12.dat
+Sink: C0777 46284800 cal_fast_13_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_9.dat
+Sink: C0777 46284800 cal_fast_13_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_10.dat
+Sink: C0777 46284800 cal_fast_13_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_13_118_11.dat
+Sink: C0777 46284800 cal_fast_13_118_11.dat
+Sink: E
+Entering directory: D0777 0 mid_14
+Sink: D0777 0 mid_14
+Sending file modes: C0777 46284800 cal_fast_14_118_18.dat
+Sink: C0777 46284800 cal_fast_14_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_19.dat
+Sink: C0777 46284800 cal_fast_14_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_1.dat
+Sink: C0777 46284800 cal_fast_14_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_3.dat
+Sink: C0777 46284800 cal_fast_14_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_2.dat
+Sink: C0777 46284800 cal_fast_14_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_6.dat
+Sink: C0777 46284800 cal_fast_14_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_7.dat
+Sink: C0777 46284800 cal_fast_14_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_5.dat
+Sink: C0777 46284800 cal_fast_14_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_4.dat
+Sink: C0777 46284800 cal_fast_14_118_4.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 2399776 bytes 27803 blocks, output 9662723672 bytes 134185949 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 2399788 bytes 27804 blocks, output 9662756460 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_14_118_9.dat
+Sink: C0777 46284800 cal_fast_14_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_11.dat
+Sink: C0777 46284800 cal_fast_14_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_10.dat
+Sink: C0777 46284800 cal_fast_14_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_8.dat
+Sink: C0777 46284800 cal_fast_14_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_14_118.dat
+Sink: C0777 46284800 cal_fast_14_118.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_12.dat
+Sink: C0777 46284800 cal_fast_14_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_13.dat
+Sink: C0777 46284800 cal_fast_14_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_17.dat
+Sink: C0777 46284800 cal_fast_14_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_16.dat
+Sink: C0777 46284800 cal_fast_14_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_14.dat
+Sink: C0777 46284800 cal_fast_14_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_14_118_15.dat
+Sink: C0777 46284800 cal_fast_14_118_15.dat
+Sink: E
+Entering directory: D0777 0 mid_4
+Sink: D0777 0 mid_4
+Sending file modes: C0777 46284800 cal_fast_4_118_18.dat
+Sink: C0777 46284800 cal_fast_4_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_19.dat
+Sink: C0777 46284800 cal_fast_4_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_4_118.dat
+Sink: C0777 46284800 cal_fast_4_118.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_9.dat
+Sink: C0777 46284800 cal_fast_4_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_8.dat
+Sink: C0777 46284800 cal_fast_4_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_1.dat
+Sink: C0777 46284800 cal_fast_4_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_3.dat
+Sink: C0777 46284800 cal_fast_4_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_2.dat
+Sink: C0777 46284800 cal_fast_4_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_6.dat
+Sink: C0777 46284800 cal_fast_4_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_7.dat
+Sink: C0777 46284800 cal_fast_4_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_5.dat
+Sink: C0777 46284800 cal_fast_4_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_4.dat
+Sink: C0777 46284800 cal_fast_4_118_4.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 2684956 bytes 28569 blocks, output 10736359352 bytes 134187104 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 2684968 bytes 28570 blocks, output 10736392140 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_4_118_11.dat
+Sink: C0777 46284800 cal_fast_4_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_10.dat
+Sink: C0777 46284800 cal_fast_4_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_12.dat
+Sink: C0777 46284800 cal_fast_4_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_13.dat
+Sink: C0777 46284800 cal_fast_4_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_17.dat
+Sink: C0777 46284800 cal_fast_4_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_16.dat
+Sink: C0777 46284800 cal_fast_4_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_14.dat
+Sink: C0777 46284800 cal_fast_4_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_4_118_15.dat
+Sink: C0777 46284800 cal_fast_4_118_15.dat
+Sink: E
+Entering directory: D0777 0 mid_3
+Sink: D0777 0 mid_3
+Sending file modes: C0777 46284800 cal_fast_3_118_8.dat
+Sink: C0777 46284800 cal_fast_3_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_9.dat
+Sink: C0777 46284800 cal_fast_3_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_19.dat
+Sink: C0777 46284800 cal_fast_3_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_18.dat
+Sink: C0777 46284800 cal_fast_3_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_15.dat
+Sink: C0777 46284800 cal_fast_3_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_14.dat
+Sink: C0777 46284800 cal_fast_3_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_16.dat
+Sink: C0777 46284800 cal_fast_3_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_17.dat
+Sink: C0777 46284800 cal_fast_3_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_13.dat
+Sink: C0777 46284800 cal_fast_3_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_12.dat
+Sink: C0777 46284800 cal_fast_3_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_10.dat
+Sink: C0777 46284800 cal_fast_3_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_3_118.dat
+Sink: C0777 46284800 cal_fast_3_118.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_11.dat
+Sink: C0777 46284800 cal_fast_3_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_7.dat
+Sink: C0777 46284800 cal_fast_3_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_6.dat
+Sink: C0777 46284800 cal_fast_3_118_6.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 2951116 bytes 26667 blocks, output 11810007532 bytes 134188354 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 2951128 bytes 26668 blocks, output 11810040320 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_3_118_4.dat
+Sink: C0777 46284800 cal_fast_3_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_5.dat
+Sink: C0777 46284800 cal_fast_3_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_1.dat
+Sink: C0777 46284800 cal_fast_3_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_2.dat
+Sink: C0777 46284800 cal_fast_3_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_3_118_3.dat
+Sink: C0777 46284800 cal_fast_3_118_3.dat
+Sink: E
+Entering directory: D0777 0 mid_2
+Sink: D0777 0 mid_2
+Sending file modes: C0777 46284800 cal_fast_2_118_13.dat
+Sink: C0777 46284800 cal_fast_2_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_12.dat
+Sink: C0777 46284800 cal_fast_2_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_10.dat
+Sink: C0777 46284800 cal_fast_2_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_11.dat
+Sink: C0777 46284800 cal_fast_2_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_15.dat
+Sink: C0777 46284800 cal_fast_2_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_14.dat
+Sink: C0777 46284800 cal_fast_2_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_16.dat
+Sink: C0777 46284800 cal_fast_2_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_17.dat
+Sink: C0777 46284800 cal_fast_2_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_8.dat
+Sink: C0777 46284800 cal_fast_2_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_9.dat
+Sink: C0777 46284800 cal_fast_2_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_7.dat
+Sink: C0777 46284800 cal_fast_2_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_2_118.dat
+Sink: C0777 46284800 cal_fast_2_118.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_6.dat
+Sink: C0777 46284800 cal_fast_2_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_4.dat
+Sink: C0777 46284800 cal_fast_2_118_4.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_5.dat
+Sink: C0777 46284800 cal_fast_2_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_1.dat
+Sink: C0777 46284800 cal_fast_2_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_2.dat
+Sink: C0777 46284800 cal_fast_2_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_3.dat
+Sink: C0777 46284800 cal_fast_2_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_2_118_19.dat
+Sink: C0777 46284800 cal_fast_2_118_19.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 3278944 bytes 32835 blocks, output 12883667584 bytes 134188723 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 3278956 bytes 32836 blocks, output 12883700372 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 46284800 cal_fast_2_118_18.dat
+Sink: C0777 46284800 cal_fast_2_118_18.dat
+Sink: E
+Entering directory: D0777 0 mid_5
+Sink: D0777 0 mid_5
+Sending file modes: C0777 46284800 cal_fast_5_118_9.dat
+Sink: C0777 46284800 cal_fast_5_118_9.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_8.dat
+Sink: C0777 46284800 cal_fast_5_118_8.dat
+Sending file modes: C0777 46284800 cal_fast_5_118.dat
+Sink: C0777 46284800 cal_fast_5_118.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_17.dat
+Sink: C0777 46284800 cal_fast_5_118_17.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_16.dat
+Sink: C0777 46284800 cal_fast_5_118_16.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_14.dat
+Sink: C0777 46284800 cal_fast_5_118_14.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_15.dat
+Sink: C0777 46284800 cal_fast_5_118_15.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_11.dat
+Sink: C0777 46284800 cal_fast_5_118_11.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_10.dat
+Sink: C0777 46284800 cal_fast_5_118_10.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_12.dat
+Sink: C0777 46284800 cal_fast_5_118_12.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_13.dat
+Sink: C0777 46284800 cal_fast_5_118_13.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_18.dat
+Sink: C0777 46284800 cal_fast_5_118_18.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_19.dat
+Sink: C0777 46284800 cal_fast_5_118_19.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_1.dat
+Sink: C0777 46284800 cal_fast_5_118_1.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_3.dat
+Sink: C0777 46284800 cal_fast_5_118_3.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_2.dat
+Sink: C0777 46284800 cal_fast_5_118_2.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_6.dat
+Sink: C0777 46284800 cal_fast_5_118_6.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_7.dat
+Sink: C0777 46284800 cal_fast_5_118_7.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_5.dat
+Sink: C0777 46284800 cal_fast_5_118_5.dat
+Sending file modes: C0777 46284800 cal_fast_5_118_4.dat
+Sink: C0777 46284800 cal_fast_5_118_4.dat
+Sink: E
+Sink: E
+Entering directory: D0777 0 wave
+Sink: D0777 0 wave
+Entering directory: D0777 0 mid_11
+Sink: D0777 0 mid_11
+Sending file modes: C0777 1185087488 cal_wave_11_118.dat
+Sink: C0777 1185087488 cal_wave_11_118.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 3473396 bytes 19497 blocks, output 13957310764 bytes 134188673 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 3473408 bytes 19498 blocks, output 13957343552 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 3972052 bytes 49888 blocks, output 15030957344 bytes 134186942 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 3972064 bytes 49889 blocks, output 15030990132 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 1185087488 cal_wave_11_118_4.dat
+Sink: C0777 1185087488 cal_wave_11_118_4.dat
+debug1: enqueue packet: 94
+debug1: SSH2_MSG_KEXINIT sent
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekeying in progress
+debug1: rekeying in progress
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:xOtCWmpDSZenkpkC7zNvTW0l8eh3kXaStmqZC3UVcAk
+debug1: ssh_set_newkeys: rekeying out, input 4162636 bytes 19082 blocks, output 16104585924 bytes 134187191 blocks
+debug1: rekey out after 134217728 blocks
+debug1: dequeue packet: 94
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: ssh_set_newkeys: rekeying in, input 4162648 bytes 19083 blocks, output 16104618712 bytes 4098 blocks
+debug1: rekey in after 134217728 blocks
+Sending file modes: C0777 1185087488 cal_wave_11_118_5.dat
+Sink: C0777 1185087488 cal_wave_11_118_5.dat

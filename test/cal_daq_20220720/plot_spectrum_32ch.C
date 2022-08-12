@@ -53,7 +53,7 @@ int plot_spectrum_32ch(const TString filename)
   gStyle->SetStatY(0.9);
   gStyle->SetStatX(0.9);
   gStyle->SetStatW(0.4);
-  gStyle->SetStatH(0.5);
+  gStyle->SetStatH(0.2);
   gStyle->SetOptStat(111111);
   gStyle->SetFillStyle(0);
 
@@ -89,39 +89,41 @@ int plot_spectrum_32ch(const TString filename)
   TH1F *plot30 = new TH1F("plot", "Spectrum ch30", 1023, 0, 4096);
   TH1F *plot31 = new TH1F("plot", "Spectrum ch31", 1023, 0, 4096);
   TH1F *plot32 = new TH1F("plot", "Spectrum ch32", 1023, 0, 4096);
-  plot1->GetXaxis()->SetRangeUser(3400,4096);
-  plot1->GetXaxis()->SetRangeUser(3400,4096);
-  plot2->GetXaxis()->SetRangeUser(3400,4096);
-  plot3->GetXaxis()->SetRangeUser(3400,4096);
-  plot4->GetXaxis()->SetRangeUser(3400,4096);
-  plot5->GetXaxis()->SetRangeUser(3400,4096);
-  plot6->GetXaxis()->SetRangeUser(3400,4096);
-  plot7->GetXaxis()->SetRangeUser(3400,4096);
-  plot8->GetXaxis()->SetRangeUser(3400,4096);
-  plot9->GetXaxis()->SetRangeUser(3400,4096);
-  plot10->GetXaxis()->SetRangeUser(3400,4096);
-  plot11->GetXaxis()->SetRangeUser(3400,4096);
-  plot12->GetXaxis()->SetRangeUser(3400,4096);
-  plot13->GetXaxis()->SetRangeUser(3400,4096);
-  plot14->GetXaxis()->SetRangeUser(3400,4096);
-  plot15->GetXaxis()->SetRangeUser(3400,4096);
-  plot16->GetXaxis()->SetRangeUser(3400,4096);
-  plot17->GetXaxis()->SetRangeUser(3400,4096);
-  plot18->GetXaxis()->SetRangeUser(3400,4096);
-  plot19->GetXaxis()->SetRangeUser(3400,4096); // for mid11 3700 -> 3500 ADC
-  plot20->GetXaxis()->SetRangeUser(3400,4096);
-  plot21->GetXaxis()->SetRangeUser(3400,4096);
-  plot22->GetXaxis()->SetRangeUser(3400,4096);
-  plot23->GetXaxis()->SetRangeUser(3400,4096);
-  plot24->GetXaxis()->SetRangeUser(3400,4096);
-  plot25->GetXaxis()->SetRangeUser(3400,4096);
-  plot26->GetXaxis()->SetRangeUser(3400,4096);
-  plot27->GetXaxis()->SetRangeUser(3400,4096);
-  plot28->GetXaxis()->SetRangeUser(3400,4096);
-  plot29->GetXaxis()->SetRangeUser(3400,4096);
-  plot30->GetXaxis()->SetRangeUser(3400,4096);
-  plot31->GetXaxis()->SetRangeUser(3400,4096);
-  plot32->GetXaxis()->SetRangeUser(3400,4096);
+  int rmin = 3500 ;
+  int rmax = 4096 ;
+  plot1->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot1->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot2->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot3->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot4->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot5->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot6->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot7->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot8->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot9->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot10->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot11->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot12->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot13->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot14->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot15->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot16->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot17->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot18->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot19->GetXaxis()->SetRangeUser(rmin,rmax); // for mid11 3700 -> 3500 ADC
+  plot20->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot21->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot22->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot23->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot24->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot25->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot26->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot27->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot28->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot29->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot30->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot31->GetXaxis()->SetRangeUser(rmin,rmax);
+  plot32->GetXaxis()->SetRangeUser(rmin,rmax);
 //
 //  plot1->SetStats(0);
 //  plot2->SetStats(0);
@@ -327,6 +329,9 @@ int plot_spectrum_32ch(const TString filename)
     if (cont == 0)
       evt = nevt;
   }
+    int min1 =plot1->GetMean()-plot1->GetStdDev()*5;
+    int max1 = plot1->GetMean()+plot1->GetStdDev()*5;
+    plot1->GetXaxis()->SetRangeUser(min1,max1);
     c1->cd(1);
     plot1->Draw("hist");
     c1->cd(2);
@@ -398,7 +403,8 @@ int plot_spectrum_32ch(const TString filename)
 //    c1->Modified();
 //    c1->Update();
     //c1->SaveAs(filename+"_AllchSpectrum.png");      
-    c1->SaveAs(filename+"_AllchSpectrum_SiPMmidConnectCable.png");      
+    //c1->SaveAs(filename+"_AllchSpectrum_SiPMmidConnectCable.png");      
+    c1->SaveAs(filename+"_AllchSpectrum_noCable_expsite.png");      
 
   fclose(fp);
 
@@ -478,7 +484,7 @@ int plot_spectrum_32ch(const TString filename)
   gr->SetMarkerStyle(8);
   gr->Draw("AP");
 
-  c2->SaveAs(filename+"_Allch_noiseLevel_SiPMmidConnectCable.png");      
+  c2->SaveAs(filename+"_Allch_noiseLevel_noCable_expSite.png");      
   c2->Modified();
   c2->Update();
 

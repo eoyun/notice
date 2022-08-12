@@ -1,0 +1,27 @@
+#!/bin/bash
+# ./draw.sh "./data/filename" "condition" rmin rmax Nevt
+#										  (0~4096 ADC), Nevt (1evt = 1s)
+echo $1
+echo $2
+fname=$1
+condi=$2
+export rmin_=$3
+export rmax_=$4
+a=$5
+#INT=$((rmin_))
+#INT=$((rmax_))
+a=60
+rmin=$(($rmin_ * $a))
+rmax=$(($rmax_ * $a))
+echo "${rmin_}, ${rmax_}" 
+# -> ${rmin}, ${rmax}"
+
+root -b -q -l plot_spectrum_32ch_update.C\(\"${fname}\",\"${condi}\"\); 
+#echo "root -b -q -l plot_waveform_32ch_AvgTimeStr.C\(\"${fname}\", ${rmin_}, ${rmax_} , \"${condi}\"\); "
+root -b -q -l plot_waveform_32ch_AvgTimeStr.C'("'$fname'", '$rmin', '$rmax' , "'$condi'")';
+root -b -q -l plot_stddev_32ch.C'("'$fname'", "'$condi'")'; 
+root -l -q -b plot_waveform_32ch.C'("'$fname'", '$rmin_', '$rmax_' , "'$condi'")'; 
+
+##root -b -q -l plot_spectrum_32ch_update.C'("./data/cal_wave_8_130.dat","CableOnly")'; 
+##root -b -q -l plot_waveform_32ch_AvgTimeStr.C'("./data/cal_wave_8_130.dat",2000*1000, 4096*1000,"CableOnly")'; 
+##root -l plot_waveform_32ch.C'("./data/cal_wave_8_130.dat",2000,4096,"CableOnly")'; 

@@ -33,8 +33,10 @@ int main(void)
   int ch;
   char var_name[50];
 
-  if ((access("setup.txt", 0)) == 0) {
-    fp = fopen("setup.txt", "rt");
+//  if ((access("setup.txt", 0)) == 0) {
+//    fp = fopen("setup.txt", "rt");
+  if ((access("setup_pedestal_1s.txt", 0)) == 0) {
+    fp = fopen("setup_pedestal_1s.txt", "rt");
     fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &cw_tcb);
     fscanf(fp,"%s",var_name);
