@@ -30,7 +30,7 @@ int plot_waveform_32ch(const TString filename, const int min, const int max)
   int j;
   int cont;
   ndraw = 10;
-  ndraw = 50;
+//  ndraw = 10;
   // get channel to plot, channel = 1 ~ 32
 //  printf("Channel to plot(1~32) : ");
 //  scanf("%d", &channel);

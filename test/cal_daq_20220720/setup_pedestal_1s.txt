@@ -1,5 +1,5 @@
 cw_tcb 10
-ptrigger_interval 10
+ptrigger_interval 1000
 trig_enable 8
 mthr_tcb 1
 trig_dly 2 

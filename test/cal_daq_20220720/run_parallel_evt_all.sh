@@ -7,17 +7,21 @@ echo run number is "$runnum"!!
 
 runnumtemp=$((runnum+1))
 echo "$runnumtemp" > runnum.txt
-
+read -p "Enter the set up config file : " setup
+echo $setup
 ./set_run_number_CAL.exe $runnum
 
-./set_CAL.exe >> ./log/log_set_$runnum.log 
+./set_bymid_mktxt_CAL.exe $setup >> ./log/log_set_$runnum.log 
 
 echo setting complete!
 read -p "Enter the nevt : " nevt
 
+midlist=`cat turn_on_mid.txt`
+echo "$midlist"
+
 num=1
 
-for var in $@
+for var in $midlist
 
 do
 	#echo stdbuf -oL ./run_daq_nodiv_CAL.exe $var 
@@ -29,6 +33,6 @@ done
 echo ready!!
 
 sleep 0.2
-./run_evt_CAL.exe $#
+./run_evt_mktxt_CAL.exe 
 
 

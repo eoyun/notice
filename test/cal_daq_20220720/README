@@ -1,0 +1,26 @@
+Default Code: Create dat file each DAQ (15 DAQs -> 15 dat files)
+- run_CAL.c
+- set_CAL.c
+- get_CAL.c
+
+Set Run number 
+- set_run_number_CAL.c
+
+Print out Std.dev of pedestal each event and channels
+- get_noise_CAL.c
+
+Merge file (15 DAQs -> save 1 dat file)
+- get_total_CAL.c
+
+Event based data-taking Code (*_evt*.c) (22.08.11)
+- get_evt_CAL.c
+- run_evt_CAL.c
+
+Setting: bring Mid from each connected DAQs (22.08.14)
+- run_evt_mktxt_CAL.c
+- set_bymid_mktxt_CAL.c
+- set_bymid_CAL.c
+
+Setting the directory and save file in the setting directroy (22.08.14)
+- get_evt_dir_CAL.c
+

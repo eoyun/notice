@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
   int sec;
   int ndaq;
   int i;
+  char flag_file_name[256];
   char flag_name[256];
   int flag;
 
@@ -42,18 +43,20 @@ int main(int argc, char *argv[])
       break;
     }
 	flag = 0;
-	for (i=0;i<ndaq;i++){
-      sprintf(flag_name,"KILLTCB%d",i+1);
+	for (i=0;i<15;i++){
+      sprintf(flag_file_name,"KILLTCB%d",i+1);
 	 // printf("%s\n",flag_name);
-	  if (access(flag_name,F_OK)==0) flag=flag+1;
-	  flag_name[0]='\0';
+	  if (access(flag_file_name,F_OK)==0) flag=flag+1;
+	  flag_file_name[0]='\0';
 	}
     if (flag==ndaq) {
-      for (i=0;i<ndaq;i++){
+      for (i=0;i<15;i++){
         sprintf(flag_name,"rm KILLTCB%d",i+1);
+        sprintf(flag_file_name,"KILLTCB%d",i+1);
         printf("%s\n",flag_name);
-		system(flag_name);
+	    if(access(flag_file_name,F_OK)==0)system(flag_name);
 		flag_name[0]='\0';
+		flag_file_name[0]='\0';
 	  } 
 	  break;
 	}
@@ -73,4 +76,3 @@ int main(int argc, char *argv[])
 
   return 0;
 }
-
