@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 //int plot_waveform_32ch(const TString filename, const int min, const int max, const TString condition)
-int plot_dwctime_32ch(const TString filename, const int dwcNum)
+int plot_dwctime_rev_32ch(const TString filename, const int dwcNum)
 {
   int ch_to_plot;
   FILE *fp;
@@ -75,7 +75,7 @@ int plot_dwctime_32ch(const TString filename, const int dwcNum)
      time[i] = new TH1F(Form("time%d",i+1), Form("time ch%d", i+1), 1023,0,1023);
 	 time[i]->SetStats(1);
   }
-  TFile *tfile = new TFile(filename+"_DWC_20.root","RECREATE");
+  TFile *tfile = new TFile(filename+"_DWC_rev.root","RECREATE");
   
 
   // get # of events in file
@@ -234,13 +234,13 @@ int plot_dwctime_32ch(const TString filename, const int dwcNum)
      plot[i]->GetYaxis()->SetLabelSize(0.05);
      plot[i]->Draw("hist");*/
 //		std::cout << plot[i]->GetMaximum() << ", " << plot[i]->GetMaximumBin() << std::endl;
-	 for (j=1;j<1024;j++){
-       if(pede[i]-adc[j*32+i] > plot[i]->GetMaximum()*0.2){
-	     time[i]->Fill(j);
-		 if(i==channel[0])right =j;
-		 if(i==channel[1])left=j;
-		 if(i==channel[2])up=j;
-		 if(i==channel[3])down=j;
+	 for (j=0;j<1024;j++){
+       if(plot[i]->GetBinContent(plot[i]->GetMaximumBin()-j) < plot[i]->GetMaximum()*0.2){
+	     time[i]->Fill(plot[i]->GetMaximumBin()-j-1);
+		 if(i==channel[0])right =plot[i]->GetMaximumBin()-j-1;
+		 if(i==channel[1])left=plot[i]->GetMaximumBin()-j-1;
+		 if(i==channel[2])up=plot[i]->GetMaximumBin()-j-1;
+		 if(i==channel[3])down=plot[i]->GetMaximumBin()-j-1;
 //		 std::cout<<"ch is "<<i<<"|t0 is "<<pede[i]-adc[j*32+i]<<std::endl;
 		 break;
 	   }
@@ -249,6 +249,7 @@ int plot_dwctime_32ch(const TString filename, const int dwcNum)
 	 //std::cout<<"ch : "<<i<<"| to :"<<plot[i]->FindFirstBinAbove(plot[i]->GetMaximum()*0.1)<<std::endl;
 
   }
+  if(up>800) printf("over 800 evt is %d\n",evt+1);
   //if(right != 0 && left != 0)diffRL->Fill(right-left);
 //  diffRL->Fill(right-left);
 //  diffUD->Fill(up-down);
@@ -259,13 +260,15 @@ int plot_dwctime_32ch(const TString filename, const int dwcNum)
     //c1->SaveAs(filename+"_"+condition+Form("_AllchWave_evtNum%d.png", evt));      
     //c1->SaveAs(filename+Form("_AllchWave_evtNum%d.png", evt));      
 
-    if (evt%100==0)printf("%d evt\n",evt);
+   // if (evt%100==0)printf("%d evt\n",evt);
 //    scanf("%d", &cont);
     
 //    if (cont == 0)
       //evt = nevt;
      // if(evt == ndraw) evt = nevt;
   }
+  diffRL->GetXaxis()->SetRangeUser( diffRL->GetMean()-5*diffRL->GetStdDev(), diffRL->GetMean()+5*diffRL->GetStdDev());
+  diffUD->GetXaxis()->SetRangeUser( diffUD->GetMean()-5*diffUD->GetStdDev(), diffUD->GetMean()+5*diffUD->GetStdDev());
   c1->cd(1);
   time[channel[0]]->Draw("hist");
   c1->cd(2);
@@ -275,10 +278,8 @@ int plot_dwctime_32ch(const TString filename, const int dwcNum)
   c1->cd(4);
   time[channel[3]]->Draw("hist");
   c1->cd(5);
-  diffRL->GetXaxis()->SetRangeUser( diffRL->GetMean()-5*diffRL->GetStdDev(), diffRL->GetMean()+5*diffRL->GetStdDev());
   diffRL->Draw("hist");
   c1->cd(6);
-  diffUD->GetXaxis()->SetRangeUser( diffUD->GetMean()-5*diffUD->GetStdDev(), diffUD->GetMean()+5*diffUD->GetStdDev());
   diffUD->Draw("hist");
   /*for (i=0;i<32;i++){
     c1->cd(i+1);

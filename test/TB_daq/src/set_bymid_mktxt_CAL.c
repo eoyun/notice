@@ -42,10 +42,10 @@ int main(int argc, char *argv[])
   if (argc<2){
     //printf("Enter the config name : ");
 	//scanf("%s",&config_folder_name);
+	system("touch /Users/drc_daq/scratch/notice/test/TB_daq/FAILSET");  
     printf("please check the input name \n");
 	return 0;
   } else {
-    
 	sprintf(config_folder_name,"/Users/drc_daq/scratch/notice/test/TB_daq/config/%s", argv[1]);
     printf("config file directory is %s\n",config_folder_name);
   }
@@ -192,11 +192,6 @@ int main(int argc, char *argv[])
   // reset DAQ
   //CALTCBresetTIMER(sid);   // optional timer reset
 
-  fp_mid = fopen("/Users/drc_daq/scratch/notice/test/TB_daq/turn_on_mid.txt","wt");
-  for (idaq_setup=0;idaq_setup<num_of_daq;idaq_setup++){
-    fprintf(fp_mid,"%lu ",mid[idaq_setup]);
-  }
-  fclose(fp_mid);
   if ((access(config_folder_name, 0)) == 0) {
 	//printf("hello2\n");
 	sprintf(tcb_name,"%s/set_TCB.txt",config_folder_name);
@@ -268,10 +263,16 @@ int main(int argc, char *argv[])
     fclose(fp);
   }
   else{
+	system("touch /Users/drc_daq/scratch/notice/test/TB_daq/FAILSET");
 	printf("please check file name\n");
 	return 0;
   }
 
+  fp_mid = fopen("/Users/drc_daq/scratch/notice/test/TB_daq/turn_on_mid.txt","wt");
+  for (idaq_setup=0;idaq_setup<num_of_daq;idaq_setup++){
+    fprintf(fp_mid,"%lu ",mid[idaq_setup]);
+  }
+  fclose(fp_mid);
 
   CALTCBreset(sid);
  
