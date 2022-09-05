@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	//printf("flag is %d",flag);
 	//printf("111111111\n");
     if (flag==ndaq) {
-	  printf("dbgdbgdbg\n");
+	 // printf("dbgdbgdbg\n");
       for (i=0;i<15;i++){
         sprintf(flag_name,"rm /Users/drc_daq/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
         sprintf(flag_file_name,"/Users/drc_daq/scratch/notice/test/TB_daq/KILLTCB%d",i+1);

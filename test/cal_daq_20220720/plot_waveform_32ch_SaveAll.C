@@ -55,13 +55,13 @@ int plot_waveform_32ch_SaveAll(const TString filename, const int min, const int 
   nevt = file_size / 65536;
   
   TFile *tfile = new TFile(filename+"_WaveformAllCh.root","RECREATE");
-  TCanvas *c1[nevt];
+  TCanvas *c1;
 
-  for(i = 0 ; i < nevt ; i ++)
-  {
-    c1[i] = new TCanvas(Form("c%d",i), Form("waveform32ch_%devt",i) , 1800, 1000);
-    c1[i]->Divide(8,4,0.001,0.001);
-  }
+//  for(i = 0 ; i < nevt ; i ++)
+//  {
+  c1 = new TCanvas("c1", "waveform32ch" , 1800, 1000);
+  c1->Divide(8,4,0.001,0.001);
+//  }
   gPad->SetLeftMargin(0);
   gPad->SetRightMargin(0);
   gPad->SetBottomMargin(0);
@@ -76,7 +76,7 @@ int plot_waveform_32ch_SaveAll(const TString filename, const int min, const int 
     fread(data, 1, 64, fp);
     
     // data length
-    data_length = data[0] & 0xFF;
+/*    data_length = data[0] & 0xFF;
     itmp = data[1] & 0xFF;
     itmp = itmp << 8;
     data_length = data_length + itmp;
@@ -185,7 +185,7 @@ int plot_waveform_32ch_SaveAll(const TString filename, const int min, const int 
     printf("TCB trigger # = %d, local trigger # = %d\n", tcb_trig_number, local_trig_number);
     printf("TCB trigger time = %lld, local trigger time = %lld, difference = %lld\n", tcb_trig_time, local_trig_time, diff_time);
     printf("-----------------------------------------------------------------------\n");
-    
+  */  
     // read waveform
     fread(adc, 2, 32736, fp);
     
@@ -203,15 +203,15 @@ int plot_waveform_32ch_SaveAll(const TString filename, const int min, const int 
     }
     
   for(i =0; i<32;i++){   
-     c1[evt]->cd(i+1);
+     c1->cd(i+1);
      plot[i]->GetYaxis()->SetRangeUser(min,max);
      plot[i]->GetYaxis()->SetLabelSize(0.05);
      plot[i]->Draw("hist");
   }
-    c1[evt]->Modified();
-    c1[evt]->Update();
+    c1->Modified();
+    c1->Update();
    // c1[evt]->SaveAs(filename+"_"+condition+Form("_AllchWave_evtNum%d.png", evt));      
-    c1[evt]->Write();
+    c1->Write();
 
 //    printf("Continue? ");
 //    scanf("%d", &cont);

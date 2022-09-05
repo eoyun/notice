@@ -2,12 +2,12 @@
 
 source /Users/drc_daq/scratch/notice/notice_env.sh
 
-runnum=`cat runnum.txt`
+runnum=`cat /Users/drc_daq/scratch/notice/test/TB_daq/runnum.txt`
 echo run number is "$runnum"!!
 read -p "Enter the set up config file : " setup
 echo $setup
 runnumtemp=$((runnum+1))
-echo "$runnumtemp" > runnum.txt
+echo "$runnumtemp" > /Users/drc_daq/scratch/notice/test/TB_daq/runnum.txt
 
 ./set_run_number_CAL.exe $runnum
 

@@ -2,4 +2,4 @@ cw_tcb 10
 ptrigger_interval 10
 trig_enable 8
 mthr_tcb 1
-trig_dly 17
+trig_dly 21
