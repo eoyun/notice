@@ -40,15 +40,15 @@ int show_wave_save(const int mid, const int runnum)
     ch_to_plot = 31;
   else
     ch_to_plot = channel - 1;
-  sprintf(outname,"wave_%d_%d_%d.root",runnum,mid,ch_to_plot+1);
-  TFile *fp_root = new TFile(outname,"recreate");
+  //sprintf(outname,"wave_%d_%d_%d.root",runnum,mid,ch_to_plot+1);
+  //TFile *fp_root = new TFile(outname,"recreate");
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 500);
   TH1F *plot = new TH1F("plot", "Waveform", 1023, 0, 1023); 
   //plot->SetStats(1);
-  TH1F *peak = new TH1F("peak","peak",4096,0,4096);
+  //TH1F *peak = new TH1F("peak","peak",4096,0,4096);
 
   // get # of events in file
-  sprintf(filename,"/Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,mid,runnum,mid);
+  sprintf(filename,"/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,mid,runnum,mid);
   printf("%s\n",filename);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
@@ -188,7 +188,7 @@ int show_wave_save(const int mid, const int runnum)
     for (i = 0; i < 1023; i++) {
       plot->Fill(i,ped - adc[i * 32 + ch_to_plot]);
     }
-	peak->Fill(plot->GetMaximum());
+//	peak->Fill(plot->GetMaximum());
 	//plot->GetYaxis()->SetRangeUser(0,4096);
    // plot->Draw("hist");
    // plot->Write();
@@ -198,16 +198,16 @@ int show_wave_save(const int mid, const int runnum)
     c1->Modified();
     c1->Update();
       
-    //printf("Continue? ");
-    //scanf("%d", &cont);
+    printf("Continue? ");
+    scanf("%d", &cont);
     
-   // if (cont == 0)
-     // evt = nevt;
+    if (cont == 0)
+      evt = nevt;
   }
-  peak -> Write();
+  //peak -> Write();
   fclose(fp);
 
-  fp_root->Close();
+ // fp_root->Close();
   return 0;
 }
 

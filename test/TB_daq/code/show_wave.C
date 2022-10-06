@@ -60,7 +60,7 @@ int show_wave(const TString filename)
   for (evt = 0; evt < nevt; evt++) {
     // read header
     fread(data, 1, 64, fp);
-    
+    /*
     // data length
     data_length = data[0] & 0xFF;
     itmp = data[1] & 0xFF;
@@ -171,10 +171,11 @@ int show_wave(const TString filename)
     printf("TCB trigger # = %d, local trigger # = %d\n", tcb_trig_number, local_trig_number);
     printf("TCB trigger time = %lld, local trigger time = %lld, difference = %lld\n", tcb_trig_time, local_trig_time, diff_time);
     printf("-----------------------------------------------------------------------\n");
-    
+    */
     // read waveform
     fread(adc, 2, 32736, fp);
-    
+    //printf("evt num is %d\n",evt);
+    //if(evt<10000) continue;
     // fill waveform for channel to plotgecit 
     plot->Reset();
     for (i = 0; i < 1023; i++) {
@@ -183,8 +184,8 @@ int show_wave(const TString filename)
 
     plot->Draw("hist");
     
-    sprintf(pngname,"wave_%d.png",evt);
-    c1->SaveAs(filename+Form(("_%d.png"),evt));
+    //sprintf(pngname,"wave_%d.png",evt);
+    //c1->SaveAs(filename+Form(("_%d.png"),evt));
     c1->Modified();
     c1->Update();
       

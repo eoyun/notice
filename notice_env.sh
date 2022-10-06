@@ -1,5 +1,5 @@
 #export NKHOME=/usr/local/notice
-export NKHOME=/Users/drc_daq/scratch/notice
+export NKHOME=/Users/yhep/scratch/notice
 echo $NKHOME
 #export LIBUSB_INC=/usr/include/libusb-1.0
 #export LIBUSB_INC=/usr/local/include/libusb-1.0

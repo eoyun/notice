@@ -16,8 +16,8 @@ int main(int argc, char *argv[])
   FILE *fp_mid;
   int mid[15];
 
-  if(access("/Users/drc_daq/scratch/notice/test/TB_daq/turn_on_mid.txt",F_OK)==0){
-    fp_mid= fopen("/Users/drc_daq/scratch/notice/test/TB_daq/turn_on_mid.txt","rt");
+  if(access("/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid.txt",F_OK)==0){
+    fp_mid= fopen("/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid.txt","rt");
     while(fscanf(fp_mid,"%d",&mid[ndaq]) != EOF){
       ndaq+=1;
 	  printf("ndaq is %d\n",ndaq);
@@ -53,14 +53,14 @@ int main(int argc, char *argv[])
     usleep(1000000);
     sec = sec + 1;
     printf("%d sec passed\n", sec);
-    if (access("/Users/drc_daq/scratch/notice/test/TB_daq/KILLME",F_OK)==0){
-      system("rm /Users/drc_daq/scratch/notice/test/TB_daq/KILLME");
+    if (access("/Users/yhep/scratch/notice/test/TB_daq/KILLME",F_OK)==0){
+      system("rm /Users/yhep/scratch/notice/test/TB_daq/KILLME");
       break;
     }
 	//printf("not KILLME\n");
 	flag = 0;
 	for (i=0;i<15;i++){
-      sprintf(flag_file_name,"/Users/drc_daq/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
+      sprintf(flag_file_name,"/Users/yhep/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
 	 // printf("%s\n",flag_name);
 	  if (access(flag_file_name,F_OK)==0) flag=flag+1;
 	  flag_file_name[0]='\0';
@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
     if (flag==ndaq) {
 	 // printf("dbgdbgdbg\n");
       for (i=0;i<15;i++){
-        sprintf(flag_name,"rm /Users/drc_daq/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
-        sprintf(flag_file_name,"/Users/drc_daq/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
+        sprintf(flag_name,"rm /Users/yhep/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
+        sprintf(flag_file_name,"/Users/yhep/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
 		//printf("%s\n",flag_name);
 		if (access(flag_file_name,F_OK)==0) system(flag_name);
 		flag_name[0]='\0';

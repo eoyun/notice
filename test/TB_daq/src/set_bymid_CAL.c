@@ -41,11 +41,11 @@ int main(int argc, char *argv[])
   if (argc<2){
     //printf("Enter the config name : ");
 	//scanf("%s",&config_folder_name);
-	system("touch /Users/drc_daq/scratch/notice/test/TB_daq/FAILSET");  
+	system("touch /Users/yhep/scratch/notice/test/TB_daq/FAILSET");  
     printf("please check the input name \n");
 	return 0;
   } else {
-    sprintf(config_folder_name,"/Users/drc_daq/scratch/notice/test/TB_daq/config/%s", argv[1]);
+    sprintf(config_folder_name,"/Users/yhep/scratch/notice/test/TB_daq/config/%s", argv[1]);
 	printf("config file directory is %s\n",config_folder_name);
   }
   
@@ -263,7 +263,7 @@ int main(int argc, char *argv[])
     fclose(fp);
   }
   else{
-	system("touch /Users/drc_daq/scratch/notice/test/TB_daq/FAILSET");  
+	system("touch /Users/yhep/scratch/notice/test/TB_daq/FAILSET");  
 	printf("please check file name\n");
 	return 0;
   }

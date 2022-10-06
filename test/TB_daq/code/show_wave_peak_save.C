@@ -48,10 +48,10 @@ int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const 
 	ch_to_plot = ch - 1;
 
   //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d.root", RunNum,runend,Mid,ch),"RECREATE");
-  TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d_800cut.root", RunNum,runend,Mid,ch),"RECREATE");
-  TH1F *hpeak = new TH1F("peak",Form("peak spectrun ch%d",ch),1023,0,4096);
-  sprintf(cutfilename,"select_evt_run_%d_%d_ch_%d.txt",RunNum,runend,ch);
-  fp_cut = fopen(cutfilename,"wt");
+  //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d_800cut.root", RunNum,runend,Mid,ch),"RECREATE");
+  TH1F *hpeak = new TH1F("peak",Form("peak spectrun ch%d",ch),4096,0,4096);
+  //sprintf(cutfilename,"select_evt_run_%d_%d_ch_%d.txt",RunNum,runend,ch);
+  //fp_cut = fopen(cutfilename,"wt");
   //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d.root", RunNum,runend,Mid,ch),"RECREATE");
 
 //peak historgram each ch.
@@ -60,18 +60,19 @@ int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const 
   printf("-----------------------------------------------------------------------\n");
 ///Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_340/Run_340_Wave/Run_340_Wave_MID_5
   for (i_run=RunNum;i_run<runend+1;i_run++){
-    for (i=0;i<200;i++){
+    for (j=0;j<200;j++){
       filename[0]='\0';
-      //sprintf(filename,"/Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",i_run,i_run,i_run,Mid,i_run,Mid,i);
-      sprintf(filename,"/Volumes/HDD_16TB_1/HDD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",i_run,i_run,i_run,Mid,i_run,Mid,i);
+      sprintf(filename,"/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",i_run,i_run,i_run,Mid,i_run,Mid,j);
+      //sprintf(filename,"/Volumes/HDD_16TB_1/HDD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",i_run,i_run,i_run,Mid,i_run,Mid,i);
       printf("%s\n",filename);
-	  fflush(stdout);
-	  if(access(filename,0)!=0) break;
+	    fflush(stdout);
+	    if(access(filename,0)!=0){printf("im hereee\n"); break;}
       fp = fopen( filename, "rb");
       fseek(fp, 0L, SEEK_END);
       file_size = ftell(fp);
       fclose(fp);
       nevt = file_size / 65536;
+      //nevt = 9700;
       fp = fopen(filename , "rb");
       //fp = fopen( Form("Run_%d_Wave_MID_%d_FILE_0.dat",RunNum,Mid), "rb");
      
@@ -96,17 +97,20 @@ int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const 
         {
           if( peak > adc[i * 32 + ch_to_plot]) peak=adc[i * 32 + ch_to_plot]; 
         }
-		if ((ch==16&&ped-peak<66)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
-		if ((ch==12&&ped-peak>1200)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
+		//if ((ch==16&&ped-peak<66)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
+		//if ((ch==12&&ped-peak>1200)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
       	hpeak->Fill(ped-peak);
      
       }//loop read .dat !
+  //tfile->Close();
+  //tfile->Close();
+  //tfile->Close();
+      fclose(fp);
     }
   }
-  hpeak->Write();
-  tfile->Close();
-  fclose(fp);
-  fclose(fp_cut);
+  hpeak->Draw();
+  //tfile->Close();
+  //fclose(fp_cut);
   return 0;
 }
 

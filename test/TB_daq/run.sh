@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source /Users/drc_daq/scratch/notice/notice_env.sh
+source /Users/yhep/scratch/notice/notice_env.sh
 
-FILE=/Users/drc_daq/scratch/notice/test/TB_daq/FAILSET
+FILE=/Users/yhep/scratch/notice/test/TB_daq/FAILSET
 
 runnum=`cat runnum.txt`
 echo run number is "$runnum"!!
@@ -20,7 +20,7 @@ echo "$runnumtemp" > runnum.txt
 if [ -f $FILE ]
 then  
   echo check the config file name!!
-  rm /Users/drc_daq/scratch/notice/test/TB_daq/FAILSET
+  rm /Users/yhep/scratch/notice/test/TB_daq/FAILSET
 else
   echo setting complete!
   read -p "Enter the nevt : " nevt

@@ -27,8 +27,8 @@ int show_fast_save(const int runnum, const int mid, const int ch)
     ch_to_plot = 31;
   else
     ch_to_plot = ch - 1;
-  sprintf(outname,"fast_%d_%d_%d.root",runnum,mid,ch);
-  TFile *fp_root = new TFile(outname,"recreate");  
+  //sprintf(outname,"fast_%d_%d_%d.root",runnum,mid,ch);
+  //TFile *fp_root = new TFile(outname,"recreate");  
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 800);
   c1->Divide(1, 2);
   TH1F *plot_e = new TH1F("plot_e", "Energy", 1000000, -10000, 1000000); 
@@ -38,8 +38,8 @@ int show_fast_save(const int runnum, const int mid, const int ch)
 
   // get # of events in file
   for (filenum=0;filenum < 200;filenum++){
-    //sprintf(filename,"/Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%d/Run_%d_Fast/Run_%d_Fast_MID_%d/Run_%d_Fast_MID_%d_FILE_%d.dat",runnum,runnum,runnum,mid,runnum,mid,filenum);
-    sprintf(filename,"/Volumes/HDD_16TB_2/HDD_Run_%d/Run_%d_Fast/Run_%d_Fast_MID_%d/Run_%d_Fast_MID_%d_FILE_%d.dat",runnum,runnum,runnum,mid,runnum,mid,filenum);
+    sprintf(filename,"/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%d/Run_%d_Fast/Run_%d_Fast_MID_%d/Run_%d_Fast_MID_%d_FILE_%d.dat",runnum,runnum,runnum,mid,runnum,mid,filenum);
+    //sprintf(filename,"/Volumes/HDD_16TB_2/HDD_Run_%d/Run_%d_Fast/Run_%d_Fast_MID_%d/Run_%d_Fast_MID_%d_FILE_%d.dat",runnum,runnum,runnum,mid,runnum,mid,filenum);
     if (access(filename,0)!=0) break;
     printf("%s\n",filename);
     fp = fopen(filename, "rb");
@@ -79,10 +79,10 @@ int show_fast_save(const int runnum, const int mid, const int ch)
         
     fclose(fp);
     }
-  c1->Write();
+  //c1->Write();
   c1->Modified();
   c1->Update();
-  fp_root->Close();
+  //fp_root->Close();
   return 0;
 }
 

@@ -58,8 +58,8 @@ int main(int argc, char *argv[])
   //
   //if (mid == 7) mid_file_name =1;
   //if (mid == 10) mid_file_name =2;
-  sprintf(mkdir_data_folder_wave,"mkdir -p /Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%lu/Run_%lu_Wave/Run_%lu_Wave_MID_%d/",run_number,run_number,run_number,mid);
-  sprintf(mkdir_data_folder_fast,"mkdir -p /Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%lu/Run_%lu_Fast/Run_%lu_Fast_MID_%d/",run_number,run_number,run_number,mid);
+  sprintf(mkdir_data_folder_wave,"mkdir -p /Users/yhep/scratch/YUdaq/SSD/SSD_Run_%lu/Run_%lu_Wave/Run_%lu_Wave_MID_%d/",run_number,run_number,run_number,mid);
+  sprintf(mkdir_data_folder_fast,"mkdir -p /Users/yhep/scratch/YUdaq/SSD/SSD_Run_%lu/Run_%lu_Fast/Run_%lu_Fast_MID_%d/",run_number,run_number,run_number,mid);
   printf("%s\n",mkdir_data_folder_wave);
   printf("%s\n",mkdir_data_folder_fast);
   
@@ -68,12 +68,12 @@ int main(int argc, char *argv[])
   system(mkdir_data_folder_fast);
   //sprintf(wave_filename, "/media/eoyun/Expansion/DAQ_data/220723/cal_wave_%d_%lu.dat",mid_file_name,run_number);
   //sprintf(fast_filename, "/media/eoyun/Expansion/DAQ_data/220723/cal_fast_%d_%lu.dat",mid_file_name,run_number);
-  sprintf(wave_filename, "/Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%lu/Run_%lu_Wave/Run_%lu_Wave_MID_%d/Run_%lu_Wave_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_wave);
-  sprintf(fast_filename, "/Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%lu/Run_%lu_Fast/Run_%lu_Fast_MID_%d/Run_%lu_Fast_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_fast);
+  sprintf(wave_filename, "/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%lu/Run_%lu_Wave/Run_%lu_Wave_MID_%d/Run_%lu_Wave_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_wave);
+  sprintf(fast_filename, "/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%lu/Run_%lu_Fast/Run_%lu_Fast_MID_%d/Run_%lu_Fast_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_fast);
 
 
   //evt flag name
-  sprintf(flag_name, "touch /Users/drc_daq/scratch/notice/test/TB_daq/KILLTCB%d",mid);
+  sprintf(flag_name, "touch /Users/yhep/scratch/notice/test/TB_daq/KILLTCB%d",mid);
 
   // open data file
   wave_fp = fopen(wave_filename, "wb");
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 		wave_tmp = wave_evt;
 		file_num_wave+=1;
 		printf("wave file split!! wave evt is %d\n",wave_evt);
-        sprintf(wave_filename, "/Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%lu/Run_%lu_Wave/Run_%lu_Wave_MID_%d/Run_%lu_Wave_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_wave);
+        sprintf(wave_filename, "/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%lu/Run_%lu_Wave/Run_%lu_Wave_MID_%d/Run_%lu_Wave_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_wave);
 		wave_fp = fopen(wave_filename,"wb");
 
 	  }
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
 		fast_tmp = fast_evt;
 		file_num_fast+=1;
 		printf("fast file split!! fast evt is %d\n",fast_evt);
-        sprintf(fast_filename, "/Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_%lu/Run_%lu_Fast/Run_%lu_Fast_MID_%d/Run_%lu_Fast_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_fast);
+        sprintf(fast_filename, "/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%lu/Run_%lu_Fast/Run_%lu_Fast_MID_%d/Run_%lu_Fast_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_fast);
 		fast_fp = fopen(fast_filename,"wb");
 
 	  }
