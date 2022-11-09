@@ -5,10 +5,17 @@ source /Users/yhep/scratch/notice/notice_env.sh
 FILE=/Users/yhep/scratch/notice/test/TB_daq/FAILSET
 
 runnum=`cat runnum.txt`
+runnum1=`cat ./backup/runnum/runnum.txt`
+if [ $runnum != $runnum1 ]; then
+  echo check the run number
+  exit
+fi
+
 echo run number is "$runnum"!!
 
 runnumtemp=$((runnum+1))
 echo "$runnumtemp" > runnum.txt
+echo "$runnumtemp" > ./backup/runnum/runnum.txt
 read -p "Enter the set up config file : " setup
 echo $setup
 ./src/set_run_number_CAL.exe $runnum

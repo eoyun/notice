@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 //int plot_waveform_32ch_SaveAll(const TString filename, const int min, const int max, const TString condition)
-int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const int ch)
+int show_wave_peak_fit(const int RunNum,const int runend, const int Mid, const int ch)
 {
   int channel;
   int ch_to_plot;
@@ -37,6 +37,7 @@ int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const 
   int i_run;
   char filename[256];
   char cutfilename[256];
+  double par[6];
   // get # of events in file
   //fp = fopen( Form("Run_%d_Wave_MID_%d_FILE_0.dat",RunNum,Mid), "rb");
 
@@ -49,7 +50,11 @@ int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const 
 
   //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d.root", RunNum,runend,Mid,ch),"RECREATE");
   //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d_800cut.root", RunNum,runend,Mid,ch),"RECREATE");
-  TH1F *hpeak = new TH1F("peak",Form("peak spectrum ch%d",ch),4096,0,4096);
+  TH1F *hpeak = new TH1F("peak",Form("peak spectrun ch%d",ch),1024,0,4096); hpeak->SetLineColor(kGreen);
+  TF1 *g_expo = new TF1("g_expo","expo",600,1000);
+  TF1 *g_gaus = new TF1("g_gaus","gaus",810,820); g_gaus->SetLineColor(kMagenta);
+  TF1 *total = new TF1("total","expo(0)+gaus(2)",600,1000); total->SetLineColor(kBlue);
+
   //sprintf(cutfilename,"select_evt_run_%d_%d_ch_%d.txt",RunNum,runend,ch);
   //fp_cut = fopen(cutfilename,"wt");
   //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d.root", RunNum,runend,Mid,ch),"RECREATE");
@@ -60,9 +65,9 @@ int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const 
   printf("-----------------------------------------------------------------------\n");
 ///Users/drc_daq/scratch/Aug2022TB/SSD/SSD_Run_340/Run_340_Wave/Run_340_Wave_MID_5
   for (i_run=RunNum;i_run<runend+1;i_run++){
-    for (j=0;j<200;j++){
+    for (j=0;j<20;j++){
       filename[0]='\0';
-      sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",i_run,i_run,i_run,Mid,i_run,Mid,j);
+      sprintf(filename,"/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",i_run,i_run,i_run,Mid,i_run,Mid,j);
       //sprintf(filename,"/Volumes/HDD_16TB_1/HDD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",i_run,i_run,i_run,Mid,i_run,Mid,i);
       printf("%s\n",filename);
 	    fflush(stdout);
@@ -88,20 +93,19 @@ int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const 
         
         // for peak histogram`
         sum=0;  ped=0;  peak=4096;    
-        /*for (i = 0; i < 51; i++) {
+        for (i = 0; i < 101; i++) {
           sum+=adc[i * 32 + ch_to_plot];
         }
-        ped=sum/50;*/
-        ped = 3624;
+        ped=sum/100;
         //for (i = 101; i < 1020; i++) 
-        for (i = 1; i < 1023; i++) 
+        for (i = 20; i < 1020; i++) 
         {
           if( peak > adc[i * 32 + ch_to_plot]) peak=adc[i * 32 + ch_to_plot]; 
         }
 		//if ((ch==16&&ped-peak<66)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
 		//if ((ch==12&&ped-peak>1200)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
       	hpeak->Fill(ped-peak);
-        //if(ped-peak<150) printf("evt number : %d | peak : %d\n",evt,ped-peak);  
+     
       }//loop read .dat !
   //tfile->Close();
   //tfile->Close();
@@ -109,7 +113,18 @@ int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const 
       fclose(fp);
     }
   }
+  //hpeak->Rebin(4);
+  hpeak->Fit(g_expo,"R");
+  //hpeak->Fit(g_gaus,"R+");
+  g_expo->GetParameters(&par[0]);
+  par[2]=100.;
+  par[3]=817.;
+  par[4]=1.;
+  total->SetParameters(par);
+  hpeak->Fit(total,"R+");
   hpeak->Draw();
+  //total->Draw("same");
+
   //tfile->Close();
   //fclose(fp_cut);
   return 0;

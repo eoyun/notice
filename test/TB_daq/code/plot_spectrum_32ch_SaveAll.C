@@ -111,7 +111,7 @@ int plot_spectrum_32ch_SaveAll(const TString filename, const int min, const int 
     
     // fill waveform for channel to plotgecit 
     
-    for (i = 0; i < 1023; i++) {
+    for (i = 0; i < 1000; i++) {
       for( j = 0; j < 32 ; j ++) {
          plot[j]->Fill(adc[i * 32 + j]);
       }
