@@ -19,8 +19,10 @@ int main(int argc, char *argv[])
   FILE *fast_fp;
   FILE *wave_log_fp;
   FILE *fast_log_fp;
+  FILE *runnum_fp;
   unsigned long run;
   unsigned long run_number;
+  unsigned long run_number_file;
   unsigned long wave_data_size;
   unsigned long fast_data_size;
   int wave_evt = 0;
@@ -59,9 +61,15 @@ int main(int argc, char *argv[])
   CALTCBopen(sid);
   CALTCBreset(sid);
   run_number = CALTCBread_RUN_NUMBER(sid,mid);
+  //run_number = 1;
   CALTCBclose(sid); 
   USB3Exit();
-
+  runnum_fp = fopen("/Users/yhep/scratch/notice/test/TB_daq/runnum.txt","rt");
+  fscanf(runnum_fp,"%ld",&run_number_file);
+  if (run_number != run_number_file-1) {
+    if (access("/Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL",0)!=0) system("touch /Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL");
+    return 0;
+  }
   // filename here
   
   //if (mid == 7) mid_file_name =1;

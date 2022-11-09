@@ -3,6 +3,7 @@
 source /Users/yhep/scratch/notice/notice_env.sh
 
 FILE=/Users/yhep/scratch/notice/test/TB_daq/FAILSET
+RUNFILE=/Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
 
 runnum=`cat runnum.txt`
 runnum1=`cat ./backup/runnum/runnum.txt`
@@ -46,7 +47,12 @@ else
   done
   echo ready!!
   
+  if [ -f $RUNFILE ]; then
+    echo TCB run number error!!
+    touch /Users/yhep/scratch/notice/test/TB_daq/KILLME
+    rm /Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
+  fi
   sleep 1
-  ./src/run_evt_mktxt_CAL.exe 
+  ./src/run_evt_mktxt_CAL.exe
 fi
 
