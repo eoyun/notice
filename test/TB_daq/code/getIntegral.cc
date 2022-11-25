@@ -11,7 +11,7 @@ float getPed(std::vector<float> wave) {
 } 
 
 // int show_wave(const TString filename)
-int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const int RE, const int Interval)
+int getIntegral(const int runnum, const int Mid, const int channel)
 {
 
   gStyle->SetOptFit(1);
@@ -55,7 +55,7 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
     ch_to_plot = 31;
   else
     ch_to_plot = channel - 1;
-  //sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
+//sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
   //TFile* file_root = new TFile(rootfilename,"recreate");
   //TCanvas* c = new TCanvas("", "", 500, 500);
   TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 1024, -1024, 204800);
@@ -97,10 +97,10 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
         //tmpWave.push_back(ped - tmpWave.at(i));
    
     
-      min_idx = std::min_element(tmpWave.begin(), tmpWave.end()) - tmpWave.begin();
-      intADC = std::accumulate(tmpWave.begin() + min_idx - RE, tmpWave.begin() + min_idx - RE + Interval, 0.0);
-      intpedADC = std::accumulate(tmpWave.begin() + min_idx - RE - Interval, tmpWave.begin() + min_idx - RE, 0.0);
-      intADCdis->Fill(intpedADC-intADC);
+      //min_idx = std::min_element(tmpWave.begin(), tmpWave.end()) - tmpWave.begin();
+      intADC = std::accumulate(tmpWave.begin()+1, tmpWave.end()-23, 0.0);
+      //intpedADC = std::accumulate(tmpWave.begin() + min_idx - RE - Interval, tmpWave.begin() + min_idx - RE, 0.0);
+      intADCdis->Fill(3615*1000-intADC);
       tmpWave.clear();
     }
     fclose(fp);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 //int plot_waveform_32ch_SaveAll(const TString filename, const int min, const int max, const TString condition)
-int show_wave_peak_save(const int RunNum,const int runend, const int Mid, const int ch)
+int show_wave_peak_save(const int RunNum, const int runend, const int Mid, const int ch)
 {
   int channel;
   int ch_to_plot;

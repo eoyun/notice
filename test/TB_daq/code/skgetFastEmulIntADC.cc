@@ -11,7 +11,7 @@ float getPed(std::vector<float> wave) {
 } 
 
 // int show_wave(const TString filename)
-int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const int RE, const int Interval)
+int skgetFastEmulIntADC(const int runnum, const int Mid, const int channel, const int RE, const int Interval)
 {
 
   gStyle->SetOptFit(1);
@@ -55,6 +55,8 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
     ch_to_plot = 31;
   else
     ch_to_plot = channel - 1;
+  TFile* fout = TFile::Open(Form("./output_IntADC_Run_%d_MID_%d_Ch%d.root",runnum, Mid, channel),"RECREATE");
+  fout->cd();
   //sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
   //TFile* file_root = new TFile(rootfilename,"recreate");
   //TCanvas* c = new TCanvas("", "", 500, 500);
@@ -107,6 +109,9 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
   }
   //c->cd();
   intADCdis->Draw("Hist");
+  intADCdis->SetOption("Hist");
+  fout->Write();
+  fout->Close();
   //intADCdis->SetOption("Hist");
   //intADCdis->Write();
   //file_root->Close();

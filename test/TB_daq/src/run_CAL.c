@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
     usleep(1000000);
     sec = sec + 1;
     printf("%d / %d passed\n", sec, nsec);
-    if (access("KILLME",F_OK)==0){
-      system("rm KILLME");
+    if (access("/Users/yhep/scratch/notice/test/TB_daq/KILLME",F_OK)==0){
+      system("rm /Users/yhep/scratch/notice/test/TB_daq/KILLME");
       break;
     }
   }

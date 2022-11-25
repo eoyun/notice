@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 //int plot_waveform_32ch_SaveAll(const TString filename, const int min, const int max, const TString condition)
-int show_wave_satu(const int RunNum, const int runend, const int Mid, const int ch, const int cut_value)
+int show_wave_peak_fit_gauss(const int RunNum,const int runend, const int Mid, const int ch)
 {
   int channel;
   int ch_to_plot;
@@ -37,8 +37,8 @@ int show_wave_satu(const int RunNum, const int runend, const int Mid, const int 
   int i_run;
   char filename[256];
   char cutfilename[256];
-  int flag =0;
-  int count =0;// get # of events in file
+  TF1 *g1 = new TF1("gaus","gaus",200,600);g1->SetLineColor(kRed);
+  // get # of events in file
   //fp = fopen( Form("Run_%d_Wave_MID_%d_FILE_0.dat",RunNum,Mid), "rb");
 
   if (ch < 1)
@@ -50,12 +50,10 @@ int show_wave_satu(const int RunNum, const int runend, const int Mid, const int 
 
   //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d.root", RunNum,runend,Mid,ch),"RECREATE");
   //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d_800cut.root", RunNum,runend,Mid,ch),"RECREATE");
+  TH1F *hpeak = new TH1F("peak",Form("peak spectrum ch%d",ch),4096,0,4096);
   //sprintf(cutfilename,"select_evt_run_%d_%d_ch_%d.txt",RunNum,runend,ch);
   //fp_cut = fopen(cutfilename,"wt");
   //TFile *tfile = new TFile(Form("PeakHistSave_Wave_Run%d_%d_Mid%d_%d.root", RunNum,runend,Mid,ch),"RECREATE");
-  TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 500);
-  TH1F *plot = new TH1F("plot", "Waveform", 1023, 0, 1023); 
-  plot->SetStats(0);
 
 //peak historgram each ch.
   //TH1F *hpeak[32];
@@ -91,47 +89,29 @@ int show_wave_satu(const int RunNum, const int runend, const int Mid, const int 
         
         // for peak histogram`
         sum=0;  ped=0;  peak=4096;    
-        for (i = 0; i < 101; i++) {
+        /*for (i = 0; i < 51; i++) {
           sum+=adc[i * 32 + ch_to_plot];
         }
-        ped=sum/100;
+        ped=sum/50;*/
+        ped = 3624;
         //for (i = 101; i < 1020; i++) 
-        for (i = 20; i < 1020; i++) 
+        for (i = 1; i < 1023; i++) 
         {
           if( peak > adc[i * 32 + ch_to_plot]) peak=adc[i * 32 + ch_to_plot]; 
         }
-		    if (ped-peak>cut_value) {
-          plot->Reset();
-          for (i = 0; i < 1023; i++) {
-            plot->Fill(i, adc[i * 32 + ch_to_plot]);
-          }
-          plot->GetYaxis()->SetRangeUser(0,4096);
-          plot->Draw("hist");
-          if (evt < 1000)c1->SaveAs(Form("./pngs/run%d_waveform%d.png",i_run,evt));
-          c1->Modified();
-          c1->Update();
-          printf("peak value is %d\n",ped-peak);
-          printf("Continue? ");
-          scanf("%d", &cont);
-          count+=1;
-          if (cont == 0){
-            flag=1;
-            break;
-          }
-        }
-    //((ch==16&&ped-peak<66)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
+		//if ((ch==16&&ped-peak<66)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
 		//if ((ch==12&&ped-peak>1200)) {fprintf(fp_cut,"%d\n",evt);printf("peak value is %d\n",ped-peak);}
+      	hpeak->Fill(ped-peak);
         //if(ped-peak<150) printf("evt number : %d | peak : %d\n",evt,ped-peak);  
       }//loop read .dat !
   //tfile->Close();
   //tfile->Close();
   //tfile->Close();
       fclose(fp);
-      if (flag==1) break;
     }
-    if (flag==1) break;
   }
-  printf("total number of over %d ADC evt is %d\n",cut_value,count);
+  hpeak->Fit(g1,"R");
+  hpeak->Draw();
   //tfile->Close();
   //fclose(fp_cut);
   return 0;
