@@ -1,8 +1,9 @@
 #include <stdio.h>
 
 //int plot_waveform_32ch(const TString filename, const int min, const int max, const TString condition)
-int plot_waveform_32ch(const TString filename, const int min, const int max)
+int plot_waveform_32ch(const int runnum, const int Mid, const int min, const int max)
 {
+  char filename[100];
   int channel;
   int ch_to_plot;
   FILE *fp;
@@ -41,7 +42,7 @@ int plot_waveform_32ch(const TString filename, const int min, const int max)
 //  else
 //    ch_to_plot = channel - 1;
     
-  TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 1800, 1000);
+  TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 900, 500);
   c1->Divide(8,4,0.001,0.001);
   gPad->SetLeftMargin(0);
   gPad->SetRightMargin(0);
@@ -56,6 +57,7 @@ int plot_waveform_32ch(const TString filename, const int min, const int max)
   }
 
   // get # of events in file
+  sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
@@ -182,7 +184,7 @@ int plot_waveform_32ch(const TString filename, const int min, const int max)
     
     // read waveform
     fread(adc, 2, 32736, fp);
-    
+    //if (evt<1200) continue; 
     // fill waveform for channel to plotgecit 
     for( i = 0 ; i < 32 ; i ++)
     {
@@ -205,14 +207,14 @@ int plot_waveform_32ch(const TString filename, const int min, const int max)
     c1->Modified();
     c1->Update();
     //c1->SaveAs(filename+"_"+condition+Form("_AllchWave_evtNum%d.png", evt));      
-    c1->SaveAs(filename+Form("_AllchWave_evtNum%d.png", evt));      
-
-//    printf("Continue? ");
-//    scanf("%d", &cont);
+    //c1->SaveAs(filename+Form("_AllchWave_evtNum%d.png", evt));      
+    // c1->SaveAs("test.png");
+    printf("Continue? ");
+    scanf("%d", &cont);
     
-//    if (cont == 0)
-      //evt = nevt;
-      if(evt == ndraw) evt = nevt;
+    if (cont == 0)
+      evt = nevt;
+//      if(evt == ndraw) evt = nevt;
   }
 
   fclose(fp);

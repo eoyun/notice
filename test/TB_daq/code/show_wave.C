@@ -45,8 +45,10 @@ int show_wave(const int runnum, const int Mid, const int channel, const int min,
   plot->SetStats(0);
 
   // get # of events in file
- // sprintf(filename,"cal_wave_1.dat");
+  //sprintf(filename,"cal_wave_1.dat");
+  //sprintf(filename,"/Volumes/HDD_16TB_3/HDD/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  printf("%s",filename);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
@@ -60,6 +62,7 @@ int show_wave(const int runnum, const int Mid, const int channel, const int min,
   //btcb_trig_time = 0;
 
   for (evt = 0; evt < nevt; evt++) {
+    
     // read header
     //if (evt!=106||evt!=404||evt!=1339||evt!=1453||evt!=1855) continue;
     //if (evt!=evtnum) continue;
@@ -178,8 +181,12 @@ int show_wave(const int runnum, const int Mid, const int channel, const int min,
     
     // read waveform
     fread(adc, 2, 32736, fp);
+    // if (evt%10!=0) continue;
+    /*if (evt<minevt) {
+      printf("%d evt is skipped",evt);
+      continue;}*/
     //printf("evt num is %d\n",evt);
-    //if(evt<10000) continue;
+    //if(evt<1200) continue;
     // fill waveform for channel to plotgecit 
     plot->Reset();
     for (i = 0; i < 1023; i++) {
@@ -192,12 +199,14 @@ int show_wave(const int runnum, const int Mid, const int channel, const int min,
     //c1->SaveAs(filename+Form(("_%d.png"),evt));
     c1->Modified();
     c1->Update();
-      
-    printf("Continue? ");
-    scanf("%d", &cont);
     
-    if (cont == 0)
+    printf("Continue?");
+    scanf("%d", &cont);
+
+    if ( cont == 0 )
       evt = nevt;
+    // usleep(100000); 
+    //if (evt== maxevt) break;
   }
 
   fclose(fp);

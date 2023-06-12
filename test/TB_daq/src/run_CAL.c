@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
     sec = sec + 1;
     printf("%d / %d passed\n", sec, nsec);
     if (access("/Users/yhep/scratch/notice/test/TB_daq/KILLME",F_OK)==0){
+      system("touch /Users/yhep/scratch/notice/test/TB_daq/FLAGKILL");
       system("rm /Users/yhep/scratch/notice/test/TB_daq/KILLME");
       break;
     }

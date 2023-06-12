@@ -3,13 +3,23 @@
 source /Users/yhep/scratch/notice/notice_env.sh
 
 FILE=/Users/yhep/scratch/notice/test/TB_daq/FAILSET
+RUNFILE=/Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
 
 runnum=`cat runnum.txt`
+runnum1=`cat ./backup/runnum/runnum.txt`
+if [ $runnum != $runnum1 ]; then
+  echo check the run number
+  exit
+fi
+
+
 echo run number is "$runnum"!!
+
 read -p "Enter the set up config file : " setup
 echo $setup
 runnumtemp=$((runnum+1))
 echo "$runnumtemp" > runnum.txt
+echo "$runnumtemp" > ./backup/runnum/runnum.txt
 
 ./src/set_run_number_CAL.exe $runnum
 

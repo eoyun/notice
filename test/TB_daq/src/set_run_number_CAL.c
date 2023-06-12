@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
   // open TCB
   CALTCBopen(sid);
 
+  CALTCBdisable_LINK(sid,17,1);
   // get link status
   CALTCBread_LINK(0, link_data);
   CALTCBread_LINK(sid, link_data);
@@ -42,6 +43,7 @@ int main(int argc, char *argv[])
   // read connected DAQ machines
   for (ch = 0; ch < 40; ch++) {
     if (linked[ch]) {
+      //if(mid_data[daq]==0||mid_data[daq]>15) continue;
       mid[num_of_daq] = mid_data[ch];
       printf("mid %d is found at ch%ld\n", mid[num_of_daq], ch + 1);
       // first come, first served

@@ -88,11 +88,11 @@ int show_wave_peak_save(const int RunNum, const int runend, const int Mid, const
         
         // for peak histogram`
         sum=0;  ped=0;  peak=4096;    
-        /*for (i = 0; i < 51; i++) {
+        for (i = 0; i < 51; i++) {
           sum+=adc[i * 32 + ch_to_plot];
         }
-        ped=sum/50;*/
-        ped = 3624;
+        ped=sum/50;
+        //ped = 3624;
         //for (i = 101; i < 1020; i++) 
         for (i = 1; i < 1023; i++) 
         {

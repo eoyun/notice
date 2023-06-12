@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int show_fast_save(const int runnum, const int mid, const int ch)
+int show_fast_save(const int RunNum, const int Mid, const int ch)
 {
   int channel;
   int ch_to_plot;
@@ -13,35 +13,30 @@ int show_fast_save(const int runnum, const int mid, const int ch)
   int i;
   int energy;
   int timing;
-  char outname[100];
+  int j;
   char filename[100];
-  int filenum;
+//  char filename[100];
 
   // get channel to plot, channel = 1 ~ 32
- // printf("Channel to plot(1~32) : ");
-  //scanf("%d", &channel);
-  //ch_to_plot = ch;
   if (ch < 1)
     ch_to_plot = 0;
   else if (ch > 32)
     ch_to_plot = 31;
   else
     ch_to_plot = ch - 1;
-  //sprintf(outname,"fast_%d_%d_%d.root",runnum,mid,ch);
-  //TFile *fp_root = new TFile(outname,"recreate");  
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 800);
   c1->Divide(1, 2);
-  TH1F *plot_e = new TH1F("plot_e", "Energy", 1000000, -10000, 1000000); 
+  TH1F *plot_e = new TH1F("plot_e", "Energy", 1000, 0, 100000); 
   TH1F *plot_t = new TH1F("plot_t", "Timing", 1000, 0, 16000); 
   plot_e->Reset();
   plot_t->Reset();
 
   // get # of events in file
-  for (filenum=0;filenum < 200;filenum++){
-    sprintf(filename,"/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%d/Run_%d_Fast/Run_%d_Fast_MID_%d/Run_%d_Fast_MID_%d_FILE_%d.dat",runnum,runnum,runnum,mid,runnum,mid,filenum);
-    //sprintf(filename,"/Volumes/HDD_16TB_2/HDD_Run_%d/Run_%d_Fast/Run_%d_Fast_MID_%d/Run_%d_Fast_MID_%d_FILE_%d.dat",runnum,runnum,runnum,mid,runnum,mid,filenum);
-    if (access(filename,0)!=0) break;
-    printf("%s\n",filename);
+  //sprintf(filename,"cal_fast_7_10.dat");
+  for (j=0;j<200;j++){
+    filename[0]='\0';
+    sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Fast/Run_%d_Fast_MID_%d/Run_%d_Fast_MID_%d_FILE_%d.dat",RunNum,RunNum,RunNum,Mid,RunNum,Mid,j);
+	  if(access(filename,0)!=0){printf("im hereee\n"); break;}
     fp = fopen(filename, "rb");
     fseek(fp, 0L, SEEK_END);
     file_size = ftell(fp);
@@ -64,25 +59,20 @@ int show_fast_save(const int runnum, const int mid, const int ch)
    
       timing = data[ch_to_plot * 3 + 2] & 0xFFFF;
       //if (timing>10000){
-      //printf("energy : %d evt : %d\n",energy,evt);
+      printf("energy : %d evt : %d\n",energy,evt);
       plot_e->Fill(energy);
       plot_t->Fill(timing);
       //}
     }
-    
-   
-    c1->cd(1);
-    plot_e->Draw();
-    c1->cd(2);
-    plot_t->Draw();
-   
-        
     fclose(fp);
-    }
-  //c1->Write();
-  c1->Modified();
-  c1->Update();
-  //fp_root->Close();
+  }
+
+  c1->cd(1);
+  plot_e->Draw();
+  c1->cd(2);
+  plot_t->Draw();
+
+      
   return 0;
 }
 

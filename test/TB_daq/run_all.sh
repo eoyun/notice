@@ -1,6 +1,9 @@
 #!/bin/bash
-
+# ./run_all.sh config nevt
 source /Users/yhep/scratch/notice/notice_env.sh
+
+setup=$1
+nevt=$2
 
 FILE=/Users/yhep/scratch/notice/test/TB_daq/FAILSET
 RUNFILE=/Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
@@ -17,7 +20,6 @@ echo run number is "$runnum"!!
 runnumtemp=$((runnum+1))
 echo "$runnumtemp" > runnum.txt
 echo "$runnumtemp" > ./backup/runnum/runnum.txt
-read -p "Enter the set up config file : " setup
 echo $setup
 ./src/set_run_number_CAL.exe $runnum
 
@@ -28,7 +30,6 @@ then
   rm /Users/yhep/scratch/notice/test/TB_daq/FAILSET
 else
   echo setting complete!
-  read -p "Enter the nevt : " nevt
   
   midlist=`cat turn_on_mid.txt`
   echo mid list :

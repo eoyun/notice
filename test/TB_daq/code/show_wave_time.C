@@ -47,10 +47,10 @@ int show_wave_time(const int runnum, const int Mid)
   //gtime->Reset();
   //gtime_interval->Reset();
   //time->SetStats(0);
-
+  TH1F* time_interval_histo = new TH1F("", ";;", 300, 0., 0.3);
   // get # of events in file
  // sprintf(filename,"cal_wave_1.dat");
-  sprintf(filename,"/Users/yhep/scratch/YUdaq/SSD/SSD_Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
@@ -196,6 +196,7 @@ int show_wave_time(const int runnum, const int Mid)
     time_interval_one = (double)(local_trig_time - local_trig_time_tmp)/1000000000.;
     gtime_interval->AddPoint((double)local_trig_number,time_interval_one);
     printf("time is %f\n",time_interval_one);
+    time_interval_histo->Fill(time_interval_one);
     //sprintf(pngname,"wave_%d.png",evt);
     //c1->SaveAs(filename+Form(("_%d.png"),evt));
       
@@ -209,6 +210,11 @@ int show_wave_time(const int runnum, const int Mid)
   gtime_interval->GetYaxis()->SetRangeUser(-0.1,0.1);
   gtime_interval->Draw();
   fclose(fp);
+
+  TCanvas* c_ = new TCanvas("c_", "c_");
+  c_->cd();
+  time_interval_histo->Draw("Hist");
+
 
   return 0;
 }

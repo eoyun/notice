@@ -11,7 +11,7 @@ float getPed(std::vector<float> wave) {
 } 
 
 // int show_wave(const TString filename)
-int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const int RE, const int Interval)
+int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const int RE, const int Interval,const double time)
 {
 
   gStyle->SetOptFit(1);
@@ -55,10 +55,10 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
     ch_to_plot = 31;
   else
     ch_to_plot = channel - 1;
-  //sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
-  //TFile* file_root = new TFile(rootfilename,"recreate");
+  sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
+  TFile* file_root = new TFile(rootfilename,"recreate");
   //TCanvas* c = new TCanvas("", "", 500, 500);
-  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 1024, -1024, 204800);
+  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 10240, -1024, 204800);
   std::vector<float> tmpWave;
   intADCdis->Sumw2();
   intADCdis->SetLineColor(kBlack);
@@ -106,10 +106,12 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
     fclose(fp);
   }
   //c->cd();
-  intADCdis->Draw("Hist");
+  //intADCdis->Scale(intADCdis->Integral()/time);
+  intADCdis->Scale(1/time);
+  //intADCdis->Draw("Hist");
   //intADCdis->SetOption("Hist");
-  //intADCdis->Write();
-  //file_root->Close();
+  intADCdis->Write();
+  file_root->Close();
   //c->SaveAs((TString)("./pngs/Run"+std::to_string(runnum)+"_FastEmulIntADC_RE"+std::to_string(RE)+"_INT"+std::to_string(Interval)+".png"));
 
 
