@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   unsigned long prescale;
   unsigned long trig_latency[15];
   unsigned long run_num;
-  unsigned long down_sampling;
+  unsigned long down_sampling[15];
   unsigned long pulse_width;
   unsigned long risetime;
   float fraction;
@@ -212,8 +212,6 @@ int main(int argc, char *argv[])
     fscanf(fp, "%ld", &prescale);
 	
     fscanf(fp,"%s",var_name);
-    fscanf(fp, "%ld", &down_sampling);
-    fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &pulse_width);
     fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &risetime);
@@ -245,6 +243,9 @@ int main(int argc, char *argv[])
       fscanf(fp,"%s",var_name);
       fscanf(fp, "%ld", &lval_ld);
 	    trig_dly[idaq_setup] = lval_ld;
+      fscanf(fp,"%s",var_name);
+      fscanf(fp, "%ld", &lval_ld);
+	    down_sampling[idaq_setup] = lval_ld;
     //fscanf(fp, "%ld", &run_num);
    //   fscanf(fp,"%s",var_name);
    //   fscanf(fp, "%ld", &lval_ld);
@@ -297,7 +298,7 @@ int main(int argc, char *argv[])
     CALTCBwrite_TRIGGER_LATENCY(sid, mid[daq], trig_latency[daq]);
     CALTCBwrite_TRIGGER_DELAY(sid, mid[daq], trig_dly[daq]);
     //CALTCBwrite_RUN_NUMBER(sid, mid[daq], run_num);
-    CALTCBwrite_DOWN_SAMPLING(sid, mid[daq], down_sampling);
+    CALTCBwrite_DOWN_SAMPLING(sid, mid[daq], down_sampling[daq]);
     CALTCBwrite_PULSE_WIDTH(sid, mid[daq], pulse_width);
     CALTCBwrite_RISETIME(sid, mid[daq], risetime);
     CALTCBwrite_CF_FRACTION(sid, mid[daq], fraction);
