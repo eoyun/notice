@@ -13,6 +13,7 @@ extern "C" {
 
 #define USB3_SF_READ   (0x82)
 #define USB3_SF_WRITE  (0x06)
+
 extern void USB3Init(void);
 extern void USB3Exit(void);
 extern int CALTCBopen(int sid);
@@ -33,13 +34,13 @@ extern void CALTCBwrite_TRIGGER_ENABLE(int sid, unsigned long data);
 extern unsigned long CALTCBread_TRIGGER_ENABLE(int sid);
 extern void CALTCBwrite_MULTIPLICITY_THR(int sid, unsigned long mid, unsigned long data);
 extern unsigned long CALTCBread_MULTIPLICITY_THR(int sid, unsigned long mid);
-extern void CALTCBwrite_HV(int sid, unsigned long mid, unsigned long ch, int univ, float data);
-extern float CALTCBread_HV(int sid, unsigned long mid, unsigned long ch, int univ);
+extern void CALTCBwrite_HV(int sid, unsigned long mid, unsigned long ch,int univ, float data);
+extern float CALTCBread_HV(int sid, unsigned long mid, unsigned long ch,int univ);
 extern void CALTCBwrite_THR(int sid, unsigned long mid, unsigned long ch, unsigned long data);
 extern unsigned long CALTCBread_THR(int sid, unsigned long mid, unsigned long ch);
 extern float CALTCBread_TEMP(int sid, unsigned long mid);
-extern void CALTCBwrite_TRIGGER_DELAY(int sid, unsigned long data);
-extern unsigned long CALTCBread_TRIGGER_DELAY(int sid);
+extern void CALTCBwrite_TRIGGER_DELAY(int sid, unsigned long mid, unsigned long data);
+extern unsigned long CALTCBread_TRIGGER_DELAY(int sid, unsigned long mid);
 extern void CALTCBwrite_TRIGGER_LATENCY(int sid, unsigned long mid, unsigned long data);
 extern unsigned long CALTCBread_TRIGGER_LATENCY(int sid, unsigned long mid);
 extern void CALTCBwrite_RUN_NUMBER(int sid, unsigned long mid, unsigned long data);
@@ -56,7 +57,7 @@ extern void CALTCBwrite_RISETIME(int sid, unsigned long mid, unsigned long data)
 extern unsigned long CALTCBread_RISETIME(int sid, unsigned long mid);
 extern void CALTCBwrite_CF_FRACTION(int sid, unsigned long mid, float data);
 extern float CALTCBread_CF_FRACTION(int sid, unsigned long mid);
-extern void CALTCBdisable_LINK(int sid, unsigned long ch, unsigned long data);
+extern unsigned long CALTCBread_DAQ_MID(int sid, unsigned long mid);
 
 #ifdef __cplusplus
 }

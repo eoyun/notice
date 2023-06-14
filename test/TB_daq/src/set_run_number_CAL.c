@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
   // open TCB
   CALTCBopen(sid);
 
-  CALTCBdisable_LINK(sid,17,1);
+//  CALTCBdisable_LINK(sid,17,1);
   // get link status
   CALTCBread_LINK(0, link_data);
   CALTCBread_LINK(sid, link_data);

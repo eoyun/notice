@@ -385,14 +385,14 @@ int CALDAQopen(int sid)
       }
 
       sid_tmp = get_serial_id(devh);
-      printf("sid is %d: sid_tmp is %d\n",sid,sid_tmp);
+
       if (sid == 0xFF || sid == sid_tmp) {
         add_device(&ldev_open, devh, CALDAQ_VENDOR_ID, CALDAQ_PRODUCT_ID, sid_tmp);
         nopen_devices++;
   
         // Print out the speed of just open device 
         speed = libusb_get_device_speed(dev);
-        status =1;
+        status=1;
         switch (speed) {
           case 4:
             fprintf(stdout, "Info: open_device: super speed device opened");
@@ -414,7 +414,6 @@ int CALDAQopen(int sid)
         fprintf(stdout, " (bus = %d, address = %d, serial id = %u).\n",
                     libusb_get_bus_number(dev), libusb_get_device_address(dev), sid_tmp);
         libusb_release_interface(devh, interface);
-        //status = 1;
         break;
       }
       else {

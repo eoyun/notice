@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
   unsigned long ptrig_interval;
   unsigned long trig_enable;
   unsigned long mthr_tcb;
-  unsigned long trig_dly;
+  unsigned long trig_dly[15];
   unsigned long cw_daq[15];
   float hv[15][4];
   unsigned long mthr_daq[15];
@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
   float fraction;
   unsigned long thr[15][32];
   unsigned long lval_ld;
+  unsigned long daq_mid;
   float lval_f;
   FILE *fp;
   int ch;
@@ -162,10 +163,10 @@ int main(int argc, char *argv[])
 
   // init LIBUSB
   USB3Init();
-    
+  CALTCBreset(sid);
   // open TCB
   CALTCBopen(sid);
-  CALTCBdisable_LINK(sid,17,1);
+  //CALTCBdisable_LINK(sid,17,1);
   // get link status
   CALTCBread_LINK(sid, link_data);
 
@@ -182,7 +183,9 @@ int main(int argc, char *argv[])
 
   for (daq = 0; daq < 40; daq++) {
     if (linked[daq]) {
-      if(mid_data[daq]==0||mid_data[daq]>15) continue;
+      //if(mid_data[daq]==0||mid_data[daq]>15) continue;
+      daq_mid = CALTCBread_DAQ_MID(sid,mid_data[daq]);
+      if(daq_mid!=mid_data[daq]) continue;
       mid[num_of_daq] = mid_data[daq];
       printf("mid %ld is found at ch%d\n", mid[num_of_daq], daq + 1);
       num_of_daq = num_of_daq + 1;
@@ -205,8 +208,6 @@ int main(int argc, char *argv[])
     fscanf(fp, "%ld", &trig_enable);
     fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &mthr_tcb);
-    fscanf(fp,"%s",var_name);
-    fscanf(fp, "%ld", &trig_dly);
     fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &prescale);
 	
@@ -234,13 +235,16 @@ int main(int argc, char *argv[])
 
       fscanf(fp,"%s",var_name);
       fscanf(fp, "%ld", &lval_ld);
-	  mthr_daq[idaq_setup] = lval_ld;
+	    mthr_daq[idaq_setup] = lval_ld;
      // fscanf(fp,"%s",var_name);
      // fscanf(fp, "%ld", &lval_ld);
 	 // prescale[idaq_setup] = lval_ld;
       fscanf(fp,"%s",var_name);
       fscanf(fp, "%ld", &lval_ld);
-	  trig_latency[idaq_setup] = lval_ld;
+	    trig_latency[idaq_setup] = lval_ld;
+      fscanf(fp,"%s",var_name);
+      fscanf(fp, "%ld", &lval_ld);
+	    trig_dly[idaq_setup] = lval_ld;
     //fscanf(fp, "%ld", &run_num);
    //   fscanf(fp,"%s",var_name);
    //   fscanf(fp, "%ld", &lval_ld);
@@ -281,7 +285,6 @@ int main(int argc, char *argv[])
   CALTCBwrite_PEDESTAL_TRIGGER_INTERVAL(sid, ptrig_interval);
   CALTCBwrite_TRIGGER_ENABLE(sid, trig_enable);
   CALTCBwrite_MULTIPLICITY_THR(sid, 0, mthr_tcb);
-  CALTCBwrite_TRIGGER_DELAY(sid, trig_dly);
 
   // setting DAQ
   for (daq = 0; daq < num_of_daq; daq++) {
@@ -292,6 +295,7 @@ int main(int argc, char *argv[])
     CALTCBwrite_MULTIPLICITY_THR(sid, mid[daq], mthr_daq[daq]);
     CALTCBwrite_PRESCALE(sid, mid[daq], prescale);
     CALTCBwrite_TRIGGER_LATENCY(sid, mid[daq], trig_latency[daq]);
+    CALTCBwrite_TRIGGER_DELAY(sid, mid[daq], trig_dly[daq]);
     //CALTCBwrite_RUN_NUMBER(sid, mid[daq], run_num);
     CALTCBwrite_DOWN_SAMPLING(sid, mid[daq], down_sampling);
     CALTCBwrite_PULSE_WIDTH(sid, mid[daq], pulse_width);
@@ -306,7 +310,6 @@ int main(int argc, char *argv[])
   printf("TCB pedestal trigger interval = %ld\n", CALTCBread_PEDESTAL_TRIGGER_INTERVAL(sid));
   printf("TCB trigger enable = %ld\n", CALTCBread_TRIGGER_ENABLE(sid));
   printf("TCB multiplicity threshold = %ld\n", CALTCBread_MULTIPLICITY_THR(sid, 0));
-  printf("TCB trigger delay = %ld\n", CALTCBread_TRIGGER_DELAY(sid));
   
   // readbcak DAQ setting
   for (daq = 0; daq < num_of_daq; daq++) {
@@ -318,6 +321,7 @@ int main(int argc, char *argv[])
     printf("Prescale = %ld\n", CALTCBread_PRESCALE(sid, mid[daq]));
     printf("Trigger latency = %ld\n", CALTCBread_TRIGGER_LATENCY(sid, mid[daq]));
     printf("Run # = %ld\n", CALTCBread_RUN_NUMBER(sid, mid[daq]));
+    printf("TCB trigger delay = %ld\n", CALTCBread_TRIGGER_DELAY(sid,mid[daq]));
     printf("Down-sampling = %ld\n", CALTCBread_DOWN_SAMPLING(sid, mid[daq]));
     printf("Pulse width = %ld\n", CALTCBread_PULSE_WIDTH(sid, mid[daq]));
     printf("Rise time = %ld\n", CALTCBread_RISETIME(sid, mid[daq]));

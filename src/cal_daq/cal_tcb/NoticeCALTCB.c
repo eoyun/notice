@@ -253,7 +253,7 @@ int TCBWrite(int sid, uint32_t mid, uint32_t addr, uint32_t data)
     fprintf(stderr, "TCBWrite: Could not get device handle for the device.\n");
     return -1;
   }
-  //printf("add =-- %d =--\n",addr); 
+  
   if ((stat = libusb_bulk_transfer(devh, USB3_SF_WRITE, buffer, length, &transferred, timeout)) < 0) {
     fprintf(stderr, "TCBWrite: Could not make write request; error = %d\n", stat);
     free(buffer);
@@ -629,18 +629,15 @@ unsigned long CALTCBread_MULTIPLICITY_THR(int sid, unsigned long mid)
 }
 
 // write high voltage, 0 ~ 60 V, ch = 1 ~ 4 (DRS chip #)
-// univ 0 = knu, 1 = ysu
-void CALTCBwrite_HV(int sid, unsigned long mid, unsigned long ch, int univ, float data)
+void CALTCBwrite_HV(int sid, unsigned long mid, unsigned long ch,int univ, float data)
 {
   float fval;
   int value;
   unsigned long addr = 0x02;
   addr += ((ch - 1) & 0xFF) << 8;
 
-  if (univ)
-    fval = 6.25 * (data - 4.5);
-  else
-    fval = 4.6 * (data - 4.5);
+  if(univ)fval = 6.25 * (data - 4.5);
+  else fval = 4.6 * (data - 4.5);
   value = (int)(fval);
   if (value > 254)
     value = 254;
@@ -660,10 +657,8 @@ float CALTCBread_HV(int sid, unsigned long mid, unsigned long ch, int univ)
 
   data = TCBReadReg(sid, mid, addr);
   value = data;
-  if (univ)
-    value = value / 6.25 + 4.5;
-  else
-    value = value / 4.6 + 4.5;
+  if (univ) value = value / 6.25 + 4.5;
+  else value = value / 4.6 + 4.5;
 
   return value;
 }
@@ -738,17 +733,15 @@ unsigned long CALTCBread_DRAMTEST(int sid, unsigned long mid)
 }
 
 // write trigger delay, 0~31 * 1000 / 90 ns
-void CALTCBwrite_TRIGGER_DELAY(int sid, unsigned long data)
+void CALTCBwrite_TRIGGER_DELAY(int sid, unsigned long mid, unsigned long data)
 {
-	//debug for sk 
-  //printf("data =-- %ld =--\n", data);
-  TCBWrite(sid, 0, 0x31, data);
+  TCBWrite(sid, mid, 0x31, data);
 }
 
 // read trigger delay
-unsigned long CALTCBread_TRIGGER_DELAY(int sid)
+unsigned long CALTCBread_TRIGGER_DELAY(int sid, unsigned long mid)
 {
-  return TCBReadReg(sid, 0, 0x31);
+  return TCBReadReg(sid, mid, 0x31);
 }
 
 // write trigger latency, 0~255 * 1000 / 90 ns
@@ -775,7 +768,7 @@ unsigned long CALTCBread_RUN_NUMBER(int sid, unsigned long mid)
   return TCBReadReg(sid, mid, 0x0B);
 }
 
-// write down-sampling, 0 = 5 GHz, 1 = 2.5 GHz
+// write down-sampling
 void CALTCBwrite_DOWN_SAMPLING(int sid, unsigned long mid, unsigned long data)
 {
   TCBWrite(sid, mid, 0x0C, data);
@@ -786,7 +779,6 @@ unsigned long CALTCBread_DOWN_SAMPLING(int sid, unsigned long mid)
 {
   return TCBReadReg(sid, mid, 0x0C);
 }
-
 
 // set DRS offset
 void CALTCBwrite_DRS_OFS(int sid, unsigned long mid, unsigned long rofs, unsigned long oofs)
@@ -844,6 +836,7 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
   int gdly;
   int bitslip;
   int gbitslip;
+  int aligned;
 
   // turn on DRAM    
   CALTCBsetup_DRAM(sid, mid);
@@ -860,6 +853,7 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
   count = 0;
   sum = 0;
   flag = 0;
+  aligned = 0;
 
   // search delay
   for (dly = 0; dly < 32; dly++) {
@@ -884,12 +878,14 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
     if (aflag) {
       count = count + 1;
       sum = sum + dly;
-      if (count > 8)
+      if (count > 8) 
         flag = 1; 
     }
     else {
-      if (flag)
+      if (flag) {
+        aligned = aligned + 1;
         dly = 32;
+      }
       else {
         count = 0;
         sum = 0;
@@ -913,17 +909,17 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
     value = CALTCBread_DRAMTEST(sid, mid);
 
     if (value == 0xFFAA5500) {
-      aflag = 1;
+      aligned = aligned + 1;
       gbitslip = bitslip;
       bitslip = 4;
     }
-    else {
-      aflag = 0;
+    else 
       CALTCBwrite_DRAM_BITSLIP(sid, mid);
-    }
+//printf("bitlsip = %d, value = %X\n", bitslip, value);      
   }
+//printf("aligned = %d\n", aligned);
 
-  if (aflag) 
+  if (aligned == 2) 
     printf("DRAM is aligned, delay = %d, bitslip = %d\n", gdly, gbitslip);
   else 
     printf("Fail to align DRAM!\n");
@@ -1021,13 +1017,10 @@ float CALTCBread_CF_FRACTION(int sid, unsigned long mid)
   return value;
 }
 
-// disable link, 1 = disable, 0 = enable
-void CALTCBdisable_LINK(int sid, unsigned long ch, unsigned long data){
-  unsigned long addr;
-
-  addr = ch + 2;
-  TCBWrite(sid, 0, addr, data);
+// read DAQ MID from DAQ  
+unsigned long CALTCBread_DAQ_MID(int sid, unsigned long mid)
+{
+  return TCBReadReg(sid, mid, 0x32);
 }
-
 
 
