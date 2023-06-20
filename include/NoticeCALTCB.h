@@ -38,8 +38,8 @@ extern float CALTCBread_HV(int sid, unsigned long mid, unsigned long ch, int uni
 extern void CALTCBwrite_THR(int sid, unsigned long mid, unsigned long ch, unsigned long data);
 extern unsigned long CALTCBread_THR(int sid, unsigned long mid, unsigned long ch);
 extern float CALTCBread_TEMP(int sid, unsigned long mid);
-extern void CALTCBwrite_TRIGGER_DELAY(int sid, unsigned long data);
-extern unsigned long CALTCBread_TRIGGER_DELAY(int sid);
+extern void CALTCBwrite_TRIGGER_DELAY(int sid,unsigned long mid, unsigned long data);
+extern unsigned long CALTCBread_TRIGGER_DELAY(int sid, unsigned long mid);
 extern void CALTCBwrite_TRIGGER_LATENCY(int sid, unsigned long mid, unsigned long data);
 extern unsigned long CALTCBread_TRIGGER_LATENCY(int sid, unsigned long mid);
 extern void CALTCBwrite_RUN_NUMBER(int sid, unsigned long mid, unsigned long data);
@@ -56,7 +56,7 @@ extern void CALTCBwrite_RISETIME(int sid, unsigned long mid, unsigned long data)
 extern unsigned long CALTCBread_RISETIME(int sid, unsigned long mid);
 extern void CALTCBwrite_CF_FRACTION(int sid, unsigned long mid, float data);
 extern float CALTCBread_CF_FRACTION(int sid, unsigned long mid);
-extern void CALTCBdisable_LINK(int sid, unsigned long ch, unsigned long data);
+extern unsigned long CALTCBread_DAQ_MID(int sid, unsigned long data);
 
 #ifdef __cplusplus
 }

@@ -19,7 +19,7 @@ for var in $@
 
 do
 	#echo stdbuf -oL ./run_daq_nodiv_CAL.exe $var 
-	stdbuf -oL ./get_CAL.exe $var >> log_"$var"_"$runnum".log &
+	stdbuf -oL ./get_wireless.exe $var >> log_"$var"_"$runnum".log &
 	sleep 1
 	echo "processing $num / $# : mid num is $var"
 	num=$((num+1))

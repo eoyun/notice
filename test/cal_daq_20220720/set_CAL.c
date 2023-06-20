@@ -29,6 +29,7 @@ int main(void)
   float fraction;
   unsigned long thr[32];
   unsigned long lval;
+  unsigned long daq_mid;
   FILE *fp;
   int ch;
   char var_name[50];
@@ -98,7 +99,7 @@ int main(void)
     
   // open TCB
   CALTCBopen(sid);
-  CALTCBdisable_LINK(sid,17,1);
+  //CALTCBdisable_LINK(sid,17,1);
   // get link status
   CALTCBread_LINK(sid, link_data);
 
@@ -115,7 +116,9 @@ int main(void)
 
   for (daq = 0; daq < 40; daq++) {
     if (linked[daq]) {
-      if(mid_data[daq]==0||mid_data[daq]>15) continue;
+      daq_mid = CALTCBread_DAQ_MID(sid,mid_data[ch]);
+      if (daq_mid!=mid_data[ch]) continue;
+      //if(mid_data[daq]==0||mid_data[daq]>15) continue;
       mid[num_of_daq] = mid_data[daq];
       printf("mid %ld is found at ch%d\n", mid[num_of_daq], daq + 1);
       num_of_daq = num_of_daq + 1;
@@ -131,7 +134,6 @@ int main(void)
   CALTCBwrite_PEDESTAL_TRIGGER_INTERVAL(sid, ptrig_interval);
   CALTCBwrite_TRIGGER_ENABLE(sid, trig_enable);
   CALTCBwrite_MULTIPLICITY_THR(sid, 0, mthr_tcb);
-  CALTCBwrite_TRIGGER_DELAY(sid, trig_dly);
 
   // setting DAQ
   for (daq = 0; daq < num_of_daq; daq++) {
@@ -153,6 +155,7 @@ int main(void)
     CALTCBwrite_PULSE_WIDTH(sid, mid[daq], pulse_width);
     CALTCBwrite_RISETIME(sid, mid[daq], risetime);
     CALTCBwrite_CF_FRACTION(sid, mid[daq], fraction);
+    CALTCBwrite_TRIGGER_DELAY(sid, mid[daq], trig_dly);
     for (ch = 1; ch <= 32; ch++)
       CALTCBwrite_THR(sid, mid[daq], ch, thr[ch - 1]);
   }
@@ -162,7 +165,6 @@ int main(void)
   printf("TCB pedestal trigger interval = %ld\n", CALTCBread_PEDESTAL_TRIGGER_INTERVAL(sid));
   printf("TCB trigger enable = %ld\n", CALTCBread_TRIGGER_ENABLE(sid));
   printf("TCB multiplicity threshold = %ld\n", CALTCBread_MULTIPLICITY_THR(sid, 0));
-  printf("TCB trigger delay = %ld\n", CALTCBread_TRIGGER_DELAY(sid));
   
   // readbcak DAQ setting
   for (daq = 0; daq < num_of_daq; daq++) {
@@ -178,6 +180,7 @@ int main(void)
     printf("Pulse width = %ld\n", CALTCBread_PULSE_WIDTH(sid, mid[daq]));
     printf("Rise time = %ld\n", CALTCBread_RISETIME(sid, mid[daq]));
     printf("Constant fraction = %f\n", CALTCBread_CF_FRACTION(sid, mid[daq]));
+    printf("TCB trigger delay = %ld\n", CALTCBread_TRIGGER_DELAY(sid,mid[daq]));
     for (ch = 1; ch <= 32; ch++)
       printf("Threshold[%d] = %ld\n", ch, CALTCBread_THR(sid, mid[daq], ch));
   }

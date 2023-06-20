@@ -4,7 +4,7 @@ INSTALL_INC = $(NKHOME)/include
 MODULE = NoticeCALDAQ
 
 OutPutOpt = -o #
-CFLAGS = -I. -I$(LIBUSB_INC) -Wall -Wundef -Wunused -Wstrict-prototypes -Werror-implicit-function-declaration -Wno-pointer-sign -Wshadow -O2 -fPIC -m64
+CFLAGS = -I. -I$(LIBUSB_INC) -Wall -Wundef -Wunused -Wstrict-prototypes -Werror-implicit-function-declaration -Wno-pointer-sign -Wshadow -O2 -fPIC
 
 SOFLAGS = -shared -Wall
 LDFLAGS = $(SOFLAGS)

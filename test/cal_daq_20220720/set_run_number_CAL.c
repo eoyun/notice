@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
   int linked[40];
   unsigned long mid_data[40];
   unsigned long ch;
+  unsigned long daq_mid;
   int daq;
   char *ptr;
   if (argc>1){
@@ -40,6 +41,8 @@ int main(int argc, char *argv[])
   // read connected DAQ machines
   for (ch = 0; ch < 40; ch++) {
     if (linked[ch]) {
+      daq_mid = CALTCBread_DAQ_MID(sid,mid_data[ch]);
+      if (daq_mid!=mid_data[ch]) continue;
       mid[num_of_daq] = mid_data[ch];
       printf("mid %d is found at ch%ld\n", mid[num_of_daq], ch + 1);
       // first come, first served

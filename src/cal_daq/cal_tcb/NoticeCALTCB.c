@@ -738,17 +738,17 @@ unsigned long CALTCBread_DRAMTEST(int sid, unsigned long mid)
 }
 
 // write trigger delay, 0~31 * 1000 / 90 ns
-void CALTCBwrite_TRIGGER_DELAY(int sid, unsigned long data)
+void CALTCBwrite_TRIGGER_DELAY(int sid,unsigned long mid, unsigned long data)
 {
 	//debug for sk 
   //printf("data =-- %ld =--\n", data);
-  TCBWrite(sid, 0, 0x31, data);
+  TCBWrite(sid, mid, 0x31, data);
 }
 
 // read trigger delay
-unsigned long CALTCBread_TRIGGER_DELAY(int sid)
+unsigned long CALTCBread_TRIGGER_DELAY(int sid,unsigned long mid)
 {
-  return TCBReadReg(sid, 0, 0x31);
+  return TCBReadReg(sid, mid, 0x31);
 }
 
 // write trigger latency, 0~255 * 1000 / 90 ns
@@ -844,6 +844,7 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
   int gdly;
   int bitslip;
   int gbitslip;
+  int aligned;
 
   // turn on DRAM    
   CALTCBsetup_DRAM(sid, mid);
@@ -860,6 +861,7 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
   count = 0;
   sum = 0;
   flag = 0;
+  aligned = 0;
 
   // search delay
   for (dly = 0; dly < 32; dly++) {
@@ -888,8 +890,10 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
         flag = 1; 
     }
     else {
-      if (flag)
+      if (flag){
+	aligned += 1;
         dly = 32;
+      }
       else {
         count = 0;
         sum = 0;
@@ -913,7 +917,7 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
     value = CALTCBread_DRAMTEST(sid, mid);
 
     if (value == 0xFFAA5500) {
-      aflag = 1;
+      aligned += 1;
       gbitslip = bitslip;
       bitslip = 4;
     }
@@ -923,7 +927,7 @@ void CALTCBalign_DRAM(int sid, unsigned long mid)
     }
   }
 
-  if (aflag) 
+  if (aligned == 2) 
     printf("DRAM is aligned, delay = %d, bitslip = %d\n", gdly, gbitslip);
   else 
     printf("Fail to align DRAM!\n");
@@ -1022,12 +1026,9 @@ float CALTCBread_CF_FRACTION(int sid, unsigned long mid)
 }
 
 // disable link, 1 = disable, 0 = enable
-void CALTCBdisable_LINK(int sid, unsigned long ch, unsigned long data){
-  unsigned long addr;
-
-  addr = ch + 2;
-  TCBWrite(sid, 0, addr, data);
+unsigned long CALTCBread_DAQ_MID(int sid, unsigned long mid)
+{
+	return TCBReadReg(sid,mid,0x32);
 }
-
 
 
