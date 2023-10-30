@@ -6,8 +6,9 @@
 
 #define BUF_SIZE (65536)           // in kbyte
 
-int main(void)
+int main(int argc, char *argv[])
 {
+  int nevt;
   int sid = 0;
   int mid[40];
   unsigned long link_data[2];
@@ -17,17 +18,31 @@ int main(void)
   char *data;
   unsigned long data_size;
   FILE *fp;
-  int nevt = 100;
   int run;
   int evt = 0;
   int num_of_daq=0;
   int daq;
+  int daq_runnumber;
+  //int HV;
+  int run_num;
+  char filename[100];
+  unsigned long run_number;
 
   // assign data array
   data = (char *)malloc(BUF_SIZE * 1024); 
+  
+  printf("enter the number of evt : ");
+  scanf("%d",&nevt);
+	
 
+  if (argc>1){
+    //HV = atoi(argv[1]);
+    run_num = atoi(argv[1]);
+  }
   // open data file
-  fp = fopen("cal.dat", "wb");
+  //sprintf(filename,"cal.dat");
+  //sprintf(filename,"/media/yu/Expansion/DAQ_data/220602/muon_06_02_%d.dat",run_num);
+  //fp = fopen(filename, "wb");
 
   // init LIBUSB
   USB3Init();
@@ -62,6 +77,18 @@ int main(void)
 
   // reset DAQ
   CALTCBreset(sid);
+  
+  // set run number 
+  for (daq_runnumber=0;daq_runnumber<num_of_daq;daq_runnumber++){
+    run_number = CALTCBread_RUN_NUMBER(sid,mid[daq_runnumber]);
+  }
+  
+
+  //open data file 
+  sprintf(filename,"/media/yu/Expansion/DAQ_data/220604/elec_06_04_%lu.dat",run_number);
+  //sprintf(filename,"/media/yu/Expansion/DAQ_data/220602/muon_06_02_%d.dat",run_num);
+  fp = fopen(filename, "wb");
+
 
   // start DAQ
   CALTCBstart_DAQ(sid);
@@ -88,6 +115,12 @@ int main(void)
         }  
       }
     }
+
+    if (access("KILLME", F_OK) == 0) {
+      CALTCBstop_DAQ(sid);
+      run = 0;
+      system("rm KILLME");
+    } 
   }
 
   printf("Run status = %ld\n", CALDAQread_RUN(mid[0]));

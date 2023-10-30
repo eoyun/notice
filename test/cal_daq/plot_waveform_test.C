@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int plot_waveform_test(void)
+int plot_waveform_test(const char* filename)
 {
   int channel;
   int ch_to_plot;
@@ -42,14 +42,14 @@ int plot_waveform_test(void)
   plot->SetStats(0);
 
   // get # of events in file
-  fp = fopen("cal_1_11.dat", "rb");
+  fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
   fclose(fp);
   nevt = file_size / 65536;
   
   printf("-----------------------------------------------------------------------\n");
-  fp = fopen("cal_1_11.dat", "rb");
+  fp = fopen(filename, "rb");
 
   for (evt = 0; evt < nevt; evt++) {
     // read header
@@ -175,7 +175,7 @@ int plot_waveform_test(void)
       plot->Fill(i, adc[i * 32 + ch_to_plot]);
 //if (adc[i * 32 + ch_to_plot] < 3000) printf("abnormal value = %d @ %d\n", adc[i * 32 + ch_to_plot], evt);
     }
-    plot->GetXaxis()->SetRangeUser(0,1000);
+    //plot->GetXaxis()->SetRangeUser(0,1000);
     plot->Draw("hist");
     c1->Modified();
     c1->Update();
