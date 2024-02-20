@@ -44,16 +44,16 @@ int intADC(const int runnum, const int Mid, const int channel, const int min, co
 
 
   TFile *file = new TFile((TString)("IntADC_Run_" + std::to_string(runnum) + "_ch_" + std::to_string(channel) + ".root"), "RECREATE");
-  // TCanvas *c = new TCanvas("c", "IntADC");
-  TH1F *intADCHist = new TH1F("IntADC", "IntADC;Int.ADC;Evts", 1000, -1000., 100000.);
+  TCanvas *c = new TCanvas("c", "IntADC");
+  TH1F *intADCHist = new TH1F("IntADC", "IntADC;Int.ADC;Evts", 1000, -1000., 30000.);
   std::vector<float> tmpWave;
   intADCHist->SetLineColor(kBlack);
 
   gStyle->SetOptFit(1);
 
-  // for ( ifile = 0; ifile < 200; ifile++ ) {  
-    sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
-    // if (access(filename,0)!=0) break;
+  for ( ifile = 0; ifile < 200; ifile++ ) {  
+    sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,ifile);
+    if (access(filename,0)!=0) break;
     printf("%s\n",filename);
     fp = fopen(filename, "rb");
     fseek(fp, 0L, SEEK_END);
@@ -95,7 +95,7 @@ int intADC(const int runnum, const int Mid, const int channel, const int min, co
       intADCHist->Fill(intADC);
     }
     fclose(fp);
-  // }
+   }
 
   // c->cd();
   intADCHist->Scale(1./time);
@@ -103,7 +103,7 @@ int intADC(const int runnum, const int Mid, const int channel, const int min, co
   //intADCHist->Write();
   //file->Close();
   intADCHist->Draw("HIST");
-
+  //c->SaveAs(Form("./pngs/intADC_%d_%d.png",runnum,channel));
   return 0;
 }
 

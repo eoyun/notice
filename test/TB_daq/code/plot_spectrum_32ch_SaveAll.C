@@ -65,7 +65,7 @@ int plot_spectrum_32ch_SaveAll(const TString filename, const int min, const int 
 //  int rmax = 4096 ;
   for( i = 0 ; i < 32 ; i ++)
   {
-     plot[i] = new TH1F(Form("plot%d",i+1), Form("Spectrum ch%d", i+1), 1023,0,4096);
+     plot[i] = new TH1F(Form("plot%d",i+1), Form("Spectrum ch%d", i+1), 4096,0,4096);
      //plot[i]->GetXaxis()->SetRangeUser(rmin,rmax);  
      plot[i]->GetXaxis()->SetRangeUser(min,max);  
   }

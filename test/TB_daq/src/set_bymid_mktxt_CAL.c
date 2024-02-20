@@ -23,10 +23,12 @@ int main(int argc, char *argv[])
   unsigned long trig_latency[15];
   unsigned long run_num;
   unsigned long down_sampling[15];
-  unsigned long pulse_width;
-  unsigned long risetime;
-  float fraction;
+  unsigned long pulse_width[15];
+  unsigned long risetime[15];
+  float fraction[15];
   unsigned long thr[15][32];
+  unsigned long peak_search_dly[15][4];
+  unsigned long peak_search_wth[15][4];
   unsigned long lval_ld;
   unsigned long daq_mid;
   float lval_f;
@@ -172,8 +174,8 @@ int main(int argc, char *argv[])
 
   for (daq = 0; daq < 32; daq++)
     linked[daq] = (link_data[0] >> daq) & 0x1;
-  for (daq = 32; daq < 40; daq++)
-    linked[daq] = (link_data[1] >> (daq - 32)) & 0x1;
+  //for (daq = 32; daq < 40; daq++)
+  //  linked[daq] = (link_data[1] >> (daq - 32)) & 0x1;
     
   // read mid of linked DAQ modules
   CALTCBread_MID(sid, mid_data);
@@ -181,7 +183,7 @@ int main(int argc, char *argv[])
   // assign DAQ index
   num_of_daq = 0;
 
-  for (daq = 0; daq < 40; daq++) {
+  for (daq = 0; daq < 32; daq++) {
     if (linked[daq]) {
       //if(mid_data[daq]==0||mid_data[daq]>15) continue;
       daq_mid = CALTCBread_DAQ_MID(sid,mid_data[daq]);
@@ -211,12 +213,6 @@ int main(int argc, char *argv[])
     fscanf(fp,"%s",var_name);
     fscanf(fp, "%ld", &prescale);
 	
-    fscanf(fp,"%s",var_name);
-    fscanf(fp, "%ld", &pulse_width);
-    fscanf(fp,"%s",var_name);
-    fscanf(fp, "%ld", &risetime);
-    fscanf(fp,"%s",var_name);
-    fscanf(fp, "%f", &fraction);
 	fclose(fp);
     for(idaq_setup=0;idaq_setup<num_of_daq;idaq_setup++){
 	  daq_name[0] ='\0';
@@ -246,6 +242,15 @@ int main(int argc, char *argv[])
       fscanf(fp,"%s",var_name);
       fscanf(fp, "%ld", &lval_ld);
 	    down_sampling[idaq_setup] = lval_ld;
+      fscanf(fp,"%s",var_name);
+      fscanf(fp, "%ld", &lval_ld);
+	    pulse_width[idaq_setup] = lval_ld;
+      fscanf(fp,"%s",var_name);
+      fscanf(fp, "%ld", &lval_ld);
+	    risetime[idaq_setup] = lval_ld;
+      fscanf(fp,"%s",var_name);
+      fscanf(fp, "%f", &lval_f);
+	    fraction[idaq_setup] = lval_f;
     //fscanf(fp, "%ld", &run_num);
    //   fscanf(fp,"%s",var_name);
    //   fscanf(fp, "%ld", &lval_ld);
@@ -259,6 +264,16 @@ int main(int argc, char *argv[])
       fscanf(fp,"%s",var_name);
       fscanf(fp, "%f", &lval_f);
 	  fraction[idaq_setup] = lval_f;*/
+	    fscanf(fp,"%s",var_name);
+	    for (ch=0;ch<4;ch++){
+        fscanf(fp, "%ld", &lval_ld);
+		    peak_search_dly[idaq_setup][ch] = lval_ld;
+	    }
+	    fscanf(fp,"%s",var_name);
+	    for (ch=0;ch<4;ch++){
+        fscanf(fp, "%ld", &lval_ld);
+		    peak_search_wth[idaq_setup][ch] = lval_ld;
+	    }
       fscanf(fp,"%s",var_name);
       for (ch = 0; ch < 32; ch++) {
         fscanf(fp, "%ld", &lval_ld);
@@ -299,9 +314,13 @@ int main(int argc, char *argv[])
     CALTCBwrite_TRIGGER_DELAY(sid, mid[daq], trig_dly[daq]);
     //CALTCBwrite_RUN_NUMBER(sid, mid[daq], run_num);
     CALTCBwrite_DOWN_SAMPLING(sid, mid[daq], down_sampling[daq]);
-    CALTCBwrite_PULSE_WIDTH(sid, mid[daq], pulse_width);
-    CALTCBwrite_RISETIME(sid, mid[daq], risetime);
-    CALTCBwrite_CF_FRACTION(sid, mid[daq], fraction);
+    CALTCBwrite_PULSE_WIDTH(sid, mid[daq], pulse_width[daq]);
+    CALTCBwrite_RISETIME(sid, mid[daq], risetime[daq]);
+    CALTCBwrite_CF_FRACTION(sid, mid[daq], fraction[daq]);
+    for (ch = 1; ch <= 4; ch++)
+      CALTCBwrite_PEAK_SEARCH_DELAY(sid, mid[daq], ch, peak_search_dly[daq][ch-1]);
+    for (ch = 1; ch <= 4; ch++)
+      CALTCBwrite_PEAK_SEARCH_WIDTH(sid, mid[daq], ch, peak_search_wth[daq][ch-1]);
     for (ch = 1; ch <= 32; ch++)
       CALTCBwrite_THR(sid, mid[daq], ch, thr[daq][ch - 1]);
   }
@@ -317,7 +336,8 @@ int main(int argc, char *argv[])
     printf("---------------- DAQ %ld --------------------\n", mid[daq]);
     printf("Temperature = %f\n", CALTCBread_TEMP(sid, mid[daq]));
     printf("Coincidence width = %ld\n", CALTCBread_CW(sid, mid[daq]));
-    printf("High voltage = %f\n", CALTCBread_HV(sid, mid[daq], 1, 1));
+    for (ch=1;ch<=4; ch++)
+      printf("High voltage[%d] = %f\n", ch, CALTCBread_HV(sid, mid[daq], ch, 1));
     printf("Multiplicity threshold = %ld\n", CALTCBread_MULTIPLICITY_THR(sid, mid[daq]));
     printf("Prescale = %ld\n", CALTCBread_PRESCALE(sid, mid[daq]));
     printf("Trigger latency = %ld\n", CALTCBread_TRIGGER_LATENCY(sid, mid[daq]));
@@ -327,6 +347,10 @@ int main(int argc, char *argv[])
     printf("Pulse width = %ld\n", CALTCBread_PULSE_WIDTH(sid, mid[daq]));
     printf("Rise time = %ld\n", CALTCBread_RISETIME(sid, mid[daq]));
     printf("Constant fraction = %f\n", CALTCBread_CF_FRACTION(sid, mid[daq]));
+    for (ch=1;ch<=4; ch++)
+      printf("peak search delay[%d] = %ld\n", ch, CALTCBread_PEAK_SEARCH_DELAY(sid, mid[daq], ch));
+    for (ch=1;ch<=4; ch++)
+      printf("peak search width[%d] = %ld\n", ch, CALTCBread_PEAK_SEARCH_WIDTH(sid, mid[daq], ch));
     for (ch = 1; ch <= 32; ch++)
       printf("Threshold[%d] = %ld\n", ch, CALTCBread_THR(sid, mid[daq], ch));
   }

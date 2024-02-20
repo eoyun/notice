@@ -58,6 +58,10 @@ extern unsigned long CALTCBread_RISETIME(int sid, unsigned long mid);
 extern void CALTCBwrite_CF_FRACTION(int sid, unsigned long mid, float data);
 extern float CALTCBread_CF_FRACTION(int sid, unsigned long mid);
 extern unsigned long CALTCBread_DAQ_MID(int sid, unsigned long mid);
+extern void CALTCBwrite_PEAK_SEARCH_DELAY(int sid, unsigned long mid, unsigned long ch, unsigned long data);
+extern unsigned long CALTCBread_PEAK_SEARCH_DELAY(int sid, unsigned long mid, unsigned long ch);
+extern void CALTCBwrite_PEAK_SEARCH_WIDTH(int sid, unsigned long mid, unsigned long ch, unsigned long data);
+extern unsigned long CALTCBread_PEAK_SEARCH_WIDTH(int sid, unsigned long mid, unsigned long ch);
 
 #ifdef __cplusplus
 }

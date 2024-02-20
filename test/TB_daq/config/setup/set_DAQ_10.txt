@@ -4,6 +4,11 @@ mthr_daq 1
 trig_latancy 250
 trig_dly 0
 down_sampling 0
+pulse_width 250
+risetime 120
+fraction 0.3
+peak_srch_dly 0 0 0 0
+peak_srch_wth 1000 1000 1000 1000
 thr
 4095 4095 4095 4095 4095 4095 4095 4095
 4095 4095 4095 4095 4095 4095 4095 4095

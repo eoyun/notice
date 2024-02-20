@@ -56,14 +56,15 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
   else
     ch_to_plot = channel - 1;
   sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
-  TFile* file_root = new TFile(rootfilename,"recreate");
+  //TFile* file_root = new TFile(rootfilename,"recreate");
   //TCanvas* c = new TCanvas("", "", 500, 500);
-  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 10240, -1024, 204800);
+  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 21000, -1000, 20000);
   std::vector<float> tmpWave;
   intADCdis->Sumw2();
   intADCdis->SetLineColor(kBlack);
   for (ifile=0;ifile<200;ifile++){  
     sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,ifile);
+    //sprintf(filename,"/Volumes/HDD_16TB_3/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,ifile);
     if (access(filename,0)!=0)break;
     printf("%s\n",filename);
     fp = fopen(filename, "rb");
@@ -108,10 +109,10 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
   //c->cd();
   //intADCdis->Scale(intADCdis->Integral()/time);
   intADCdis->Scale(1/time);
-  //intADCdis->Draw("Hist");
-  //intADCdis->SetOption("Hist");
-  intADCdis->Write();
-  file_root->Close();
+  intADCdis->Draw("Hist");
+ // intADCdis->SetOption("Hist");
+ // intADCdis->Write();
+ // file_root->Close();
   //c->SaveAs((TString)("./pngs/Run"+std::to_string(runnum)+"_FastEmulIntADC_RE"+std::to_string(RE)+"_INT"+std::to_string(Interval)+".png"));
 
 

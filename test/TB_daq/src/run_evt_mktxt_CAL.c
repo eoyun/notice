@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
     usleep(1000000);
     sec = sec + 1;
     printf("%d sec passed\n", sec);
+    fflush(stdout);
     if (access("/Users/yhep/scratch/notice/test/TB_daq/KILLME",F_OK)==0){
       system("rm /Users/yhep/scratch/notice/test/TB_daq/KILLME");
       break;

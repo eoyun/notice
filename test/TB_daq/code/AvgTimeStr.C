@@ -40,12 +40,15 @@ int AvgTimeStr(const int runnum, const int Mid, const int channel)
 
   TFile *file = new TFile((TString)("AvgTimeStr_Run_" + std::to_string(runnum) + "_ch_" + std::to_string(channel) + ".root"), "RECREATE");
   TH1F *plot = new TH1F("Avg.Time.Str", "Avg.Time.Str;ADC;ADC", 1024, 0., 1024.);
-  TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 500);
+  //TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 500);
 
 
   sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  //sprintf(filename,"/Volumes/HDD_16TB_3/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  //printf("%s\n",filename);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END); 
+  printf("hello\n");
   file_size = ftell(fp); 
   fclose(fp); 
   nevt = file_size / 65536;
@@ -53,7 +56,6 @@ int AvgTimeStr(const int runnum, const int Mid, const int channel)
 
 
   for ( evt = 0; evt < nevt; evt++ ) {
-
     fread(data, 1, 64, fp);
     fread(adc, 2, 32736, fp);
 
@@ -67,12 +69,12 @@ int AvgTimeStr(const int runnum, const int Mid, const int channel)
   plot->Sumw2();
   plot->Scale(1./nevt);
   plot->SetOption("HIST");
-  //plot->Write();
+  plot->Write();
 
   // printf("total events = %d\n", nevt);
 
-  //file->Close();
-  c1->cd();
+ file->Close();
+  //c1->cd();
   plot->Draw("HIST");
   
   fclose(fp);

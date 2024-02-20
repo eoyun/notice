@@ -7,7 +7,7 @@ int plot_waveform_32ch(const int runnum, const int Mid, const int min, const int
   int channel;
   int ch_to_plot;
   FILE *fp;
-  int file_size;
+  long long file_size;
   int nevt;
   int ndraw;
   char data[64];
@@ -211,7 +211,7 @@ int plot_waveform_32ch(const int runnum, const int Mid, const int min, const int
     // c1->SaveAs("test.png");
     printf("Continue? ");
     scanf("%d", &cont);
-    
+    if (evt==0) c1->SaveAs(Form("evt_range_%d_%d.png",evt,Mid));
     if (cont == 0)
       evt = nevt;
 //      if(evt == ndraw) evt = nevt;

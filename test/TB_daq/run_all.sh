@@ -7,6 +7,7 @@ nevt=$2
 
 FILE=/Users/yhep/scratch/notice/test/TB_daq/FAILSET
 RUNFILE=/Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
+SETFILE=/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid.txt
 
 runnum=`cat runnum.txt`
 runnum1=`cat ./backup/runnum/runnum.txt`
@@ -23,37 +24,42 @@ echo "$runnumtemp" > ./backup/runnum/runnum.txt
 echo $setup
 ./src/set_run_number_CAL.exe $runnum
 
-./src/set_bymid_mktxt_CAL.exe $setup >> ./log/log_set_$runnum.log 
-if [ -f $FILE ]
-then 
-  echo check the config file name!!
-  rm /Users/yhep/scratch/notice/test/TB_daq/FAILSET
-else
-  echo setting complete!
+./src/set_bymid_mktxt_CAL.exe $setup >> ./log/log_set_$runnum.log
+if [ -f $SETFILE ]
+then
+  if [ -f $FILE ]
+  then 
+    echo check the config file name!!
+    rm /Users/yhep/scratch/notice/test/TB_daq/FAILSET
+  else
+    echo setting complete!
   
-  midlist=`cat turn_on_mid.txt`
-  echo mid list :
-  echo "$midlist"
+    midlist=`cat turn_on_mid.txt`
+    echo mid list :
+    echo "$midlist"
   
-  num=1
-  
-  for var in $midlist
-  
-  do
-     #echo stdbuf -oL ./run_daq_nodiv_CAL.exe $var 
-     ./src/get_evt_dir_log_CAL.exe $var $nevt >> ./log/log_"$var"_"$runnum".log &
-     sleep 1
-     echo "processing $num : mid num is $var"
-     num=$((num+1))
-  done
-  echo ready!!
-  
-  if [ -f $RUNFILE ]; then
-    echo TCB run number error!!
-    touch /Users/yhep/scratch/notice/test/TB_daq/KILLME
-    rm /Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
+    num=1
+    
+    for var in $midlist
+    
+    do
+       #echo stdbuf -oL ./run_daq_nodiv_CAL.exe $var 
+       ./src/get_evt_dir_log_CAL.exe $var $nevt >> ./log/log_"$var"_"$runnum".log &
+       sleep 1
+       echo "processing $num : mid num is $var"
+       num=$((num+1))
+    done
+    echo ready!!
+    
+    if [ -f $RUNFILE ]; then
+      echo TCB run number error!!
+      touch /Users/yhep/scratch/notice/test/TB_daq/KILLME
+      rm /Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
+    fi
+    sleep 1
+    ./src/run_evt_mktxt_CAL.exe
   fi
-  sleep 1
-  ./src/run_evt_mktxt_CAL.exe
+else
+  echo setting bug plz rerun
 fi
 

@@ -1024,3 +1024,35 @@ unsigned long CALTCBread_DAQ_MID(int sid, unsigned long mid)
 }
 
 
+void CALTCBwrite_PEAK_SEARCH_DELAY(int sid, unsigned long mid, unsigned long ch, unsigned long data)
+{
+  unsigned long addr = 0x10;
+  addr += ((ch - 1) & 0xFF) << 8;
+  
+  TCBWrite(sid, mid, addr, data);
+}
+
+unsigned long CALTCBread_PEAK_SEARCH_DELAY(int sid, unsigned long mid, unsigned long ch)
+{
+  unsigned long addr = 0x10;
+  addr += ((ch - 1) & 0xFF) << 8;
+
+  return TCBReadReg(sid, mid, addr);
+}
+
+void CALTCBwrite_PEAK_SEARCH_WIDTH(int sid, unsigned long mid, unsigned long ch, unsigned long data)
+{
+  unsigned long addr = 0x11;
+  addr += ((ch - 1) & 0xFF) << 8;
+  
+  TCBWrite(sid, mid, addr, data);
+}
+
+unsigned long CALTCBread_PEAK_SEARCH_WIDTH(int sid, unsigned long mid, unsigned long ch)
+{
+  unsigned long addr = 0x11;
+  addr += ((ch - 1) & 0xFF) << 8;
+  
+  return TCBReadReg(sid, mid, addr);
+}
+

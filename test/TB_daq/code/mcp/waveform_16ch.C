@@ -51,7 +51,8 @@ int waveform_16ch(const int runnum, const int Mid, const int min, const int max)
 
   for (i=0; i<16; i++){
 
-    plot.push_back(new TH1F((TString)("Waveform_ch_" + std::to_string(i+1)), (TString)("ch_" + std::to_string(i+1)), 1024, 0., 1024.));
+    //plot.push_back(new TH1F((TString)("Waveform_ch_" + std::to_string(i+1)), (TString)("ch_" + std::to_string(i+1)), 1024, 0., 1024.));
+    plot.push_back(new TH1F((TString)("Waveform_ch_" + std::to_string(i+17)), (TString)("ch_" + std::to_string(i+17)), 1024, 0., 1024.));
     plot.at(i)->SetStats(0);
   }
 
@@ -74,6 +75,7 @@ int waveform_16ch(const int runnum, const int Mid, const int min, const int max)
 
     for (i=0; i<1023; i++){
       for (j=0; j<16; j++){
+      //plot.at(j)->Fill(i, adc[i * 32 + j]);
       plot.at(j)->Fill(i, adc[i * 32 + (j+16)]);
       }
     }

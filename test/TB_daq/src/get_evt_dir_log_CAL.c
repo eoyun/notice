@@ -161,6 +161,7 @@ int main(int argc, char *argv[])
 		clock_gettime(CLOCK_MONOTONIC,&point_wave);
 		now_wave = (point_wave.tv_sec-begin.tv_sec)*1000000000+point_wave.tv_nsec-begin.tv_nsec;
         fprintf(wave_log_fp,"%lu %ld\n",now_wave ,wave_data_size);
+		fflush(stdout);
 
 
         if (wave_data_size > BUF_SIZE)
@@ -180,6 +181,7 @@ int main(int argc, char *argv[])
 		clock_gettime(CLOCK_MONOTONIC,&point_fast);
 		now_fast = (point_fast.tv_sec-begin.tv_sec)*1000000000+point_fast.tv_nsec-begin.tv_nsec;
         fprintf(fast_log_fp,"%lu %ld\n",now_fast ,fast_data_size);
+		fflush(stdout);
         
 		if (fast_data_size > BUF_SIZE)
           fast_data_size = BUF_SIZE;
