@@ -1,5 +1,7 @@
-LIBUSB_INC = /usr/include/libusb-1.0
-LIBUSB_LIB = /usr/lib64
+#LIBUSB_INC = /usr/include/libusb-1.0
+#LIBUSB_LIB = /usr/lib64
+LIBUSB_INC = /opt/homebrew/Cellar/libusb/1.0.26/include/libusb-1.0
+LIBUSB_LIB = /opt/homebrew/Cellar/libusb/1.0.26/lib
 
 MODULE = update_daq
 

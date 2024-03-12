@@ -1,5 +1,7 @@
-LIBUSB_INC = /usr/include/libusb-1.0
-LIBUSB_LIB = /usr/lib/x86_64-linux-gnu
+#LIBUSB_INC = /usr/include/libusb-1.0
+#LIBUSB_LIB = /usr/lib/x86_64-linux-gnu
+LIBUSB_INC = /opt/homebrew/Cellar/libusb/1.0.26/include/libusb-1.0
+LIBUSB_LIB = /opt/homebrew/Cellar/libusb/1.0.26/lib
 
 FILENAME = daq_JBNU_DAQ
 
@@ -15,7 +17,7 @@ LDFLAGS =        -O2 -Wall
 
 OutPutOpt = -o 
 
-LIBS	=	-L$(LIBUSB_LIB) -lusb-1.0 -L$(NKHOME)/lib -lNoticeJBNU_DAQ -lm
+LIBS	=	-L$(LIBUSB_LIB) -lusb-1.0 -L$(NKHOME)/lib -lNoticeJBNU_DAQ -lNoticeCALTCB -lm
 
 INCLUDEDIR =	-I$(NKHOME)/include -I$(LIBUSB_INC)
 

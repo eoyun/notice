@@ -127,6 +127,7 @@ int main(int argc, char *argv[])
       run = CALDAQread_RUN(mid);
 
     clock_gettime(CLOCK_MONOTONIC,&begin);
+    while (run) {
       if(wave_evt - wave_tmp > wave_split){
          fclose(wave_fp);
         rewind(wave_fp);

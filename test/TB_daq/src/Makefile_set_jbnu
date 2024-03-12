@@ -1,5 +1,7 @@
-LIBUSB_INC = /usr/include/libusb-1.0
-LIBUSB_LIB = /usr/lib/x86_64-linux-gnu
+#LIBUSB_INC = /usr/include/libusb-1.0
+#LIBUSB_LIB = /usr/lib/x86_64-linux-gnu
+LIBUSB_INC = /opt/homebrew/Cellar/libusb/1.0.26/include/libusb-1.0
+LIBUSB_LIB = /opt/homebrew/Cellar/libusb/1.0.26/lib
 
 FILENAME = set_JBNU_DAQ
 

@@ -1,5 +1,5 @@
 cw_daq 5
-hv 0.0 0.0 45.0 0.0
+hv 0.0 0.0 0.0 0.0
 mthr_daq 1
 trig_latancy 250
 trig_dly 0

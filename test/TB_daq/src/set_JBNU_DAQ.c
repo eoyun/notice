@@ -80,10 +80,10 @@ int main(int argc, char *argv[])
   fclose(fp);
 
   // write setting
-  TCBwrite_COIN_WIDTH(sid, 0, coin_width);
-  TCBwrite_MULTI_THR(sid, 0, multi_thr_tcb);
-  TCBwrite_PEDESTAL_TRIGGER_INTERVAL(sid, ptrig_interval);
-  TCBwrite_TRIGGER_ENABLE(sid, trig_enable);
+  //TCBwrite_COIN_WIDTH(sid, 0, coin_width);
+  //TCBwrite_MULTI_THR(sid, 0, multi_thr_tcb);
+  //TCBwrite_PEDESTAL_TRIGGER_INTERVAL(sid, ptrig_interval);
+  //TCBwrite_TRIGGER_ENABLE(sid, trig_enable);
   for (daq = 0; daq < num_of_daq; daq++) {
     TCBinit_ADC(sid, mid[daq]);
     TCBinit_DRAM(sid, mid[daq]);
@@ -105,10 +105,10 @@ TCBwrite_DISC_THR(sid, mid[daq], ch, 4095);
   }
   
   // read back settings
-  printf("TCB coincidence width = %d ns\n", TCBread_COIN_WIDTH(sid, 0));
-  printf("TCB multiplicity threshold = %d\n", TCBread_MULTI_THR(sid, 0));
-  printf("TCB pedestal trigger interval = %d ms\n", TCBread_PEDESTAL_TRIGGER_INTERVAL(sid));
-  printf("TCB trigger enable = %d\n", TCBread_TRIGGER_ENABLE(sid));
+  //printf("TCB coincidence width = %d ns\n", TCBread_COIN_WIDTH(sid, 0));
+  //printf("TCB multiplicity threshold = %d\n", TCBread_MULTI_THR(sid, 0));
+  //printf("TCB pedestal trigger interval = %d ms\n", TCBread_PEDESTAL_TRIGGER_INTERVAL(sid));
+  //printf("TCB trigger enable = %d\n", TCBread_TRIGGER_ENABLE(sid));
   for (daq = 0; daq < num_of_daq; daq++) {
     printf("DAQ[%d] high voltage ch1 = %f V\n", mid[daq], TCBread_HV(sid, mid[daq], 1));
     printf("DAQ[%d] high voltage ch2 = %f V\n", mid[daq], TCBread_HV(sid, mid[daq], 2));
