@@ -193,6 +193,7 @@ int show_wave(const int runnum, const int Mid, const int channel, const int min,
       plot->Fill(i, adc[i * 32 + ch_to_plot]);
     }
     plot->GetYaxis()->SetRangeUser(min,max);
+    //plot->GetXaxis()->SetRangeUser(400,800);
     plot->Draw("hist");
     
     //sprintf(pngname,"wave_%d.png",evt);

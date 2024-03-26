@@ -1,7 +1,9 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "NoticeJBNU_DAQ.h"
 #include "NoticeCALTCB.h"
+#include <time.h>
 
 int main(int argc, char *argv[])
 {
@@ -84,6 +86,11 @@ int main(int argc, char *argv[])
      
       // read data
       if (data_size) {
+		    clock_gettime(CLOCK_MONOTONIC,&point_anc);
+		    now_anc = (point_anc.tv_sec-begin.tv_sec)*1000000000+point_anc.tv_nsec-begin.tv_nsec;
+        fprintf(anc_log_fp,"%lu %d\n",now_anc ,data_size);
+		    fflush(stdout);
+        
         printf("data_size = %d\n", data_size);    
         if (data_size > 16) data_size = 16;
         DAQread_DATA(mid, data_size, data);
@@ -116,7 +123,6 @@ int main(int argc, char *argv[])
   // release data array
   free(data);
 
-    printf("hello\n");
   // close file
   fclose(anc_fp);
   fclose(anc_log_fp);

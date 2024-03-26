@@ -63,6 +63,7 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
   intADCdis->Sumw2();
   intADCdis->SetLineColor(kBlack);
   for (ifile=0;ifile<200;ifile++){  
+    std::cout<<"hello"<<std::endl;
     sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,ifile);
     //sprintf(filename,"/Volumes/HDD_16TB_3/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,ifile);
     if (access(filename,0)!=0)break;
@@ -98,7 +99,7 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
         //tmpWave.push_back(ped - tmpWave.at(i));
    
     
-      min_idx = std::min_element(tmpWave.begin(), tmpWave.end()) - tmpWave.begin();
+      min_idx = std::min_element(tmpWave.begin()+1, tmpWave.end()) - tmpWave.begin();
       intADC = std::accumulate(tmpWave.begin() + min_idx - RE, tmpWave.begin() + min_idx - RE + Interval, 0.0);
       intpedADC = std::accumulate(tmpWave.begin() + min_idx - RE - Interval, tmpWave.begin() + min_idx - RE, 0.0);
       intADCdis->Fill(intpedADC-intADC);

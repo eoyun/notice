@@ -49,6 +49,7 @@ int show_wave_2D(const int runnum, const int Mid, const int channel)
   
   for (j=0;j<200;j++){
     filename[0]='\0';
+    // sprintf(filename,"/Volumes/HDD_16TB_3/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,j);
     sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,j);
     printf("%s\n",filename);
     fflush(stdout);
@@ -87,6 +88,8 @@ int show_wave_2D(const int runnum, const int Mid, const int channel)
      }    
   }
 
+  plot->GetYaxis()->SetRangeUser(3000,4000);
+  plot->GetXaxis()->SetRangeUser(400,800);
   plot->Draw("COLZ");
 
   fclose(fp);

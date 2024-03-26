@@ -66,7 +66,8 @@ void plot_data_jbnu(const int runnum, const int Mid)
   
   data_read = 0;
   first_waveform = 1;
-  
+  int nevt_fast=0; 
+  int nevt_wave=0; 
   while (data_read < file_size) {
     // read header
     fread(header, 1, 32, fp);
@@ -159,6 +160,9 @@ void plot_data_jbnu(const int runnum, const int Mid)
     local_gate_coarse_time = local_gate_coarse_time + itmp;
 
     local_gate_time = local_gate_coarse_time * 1000 + local_gate_fine_time * 8;
+    //printf("%d %d\n",channel,data_length);
+    if (data_length==1024) nevt_wave +=1;
+    if (data_length==256) nevt_fast +=1;
 
     // read body, data_length - 32(header) bytes
     fread(data, 1, data_length - 32, fp);
@@ -179,7 +183,7 @@ void plot_data_jbnu(const int runnum, const int Mid)
         itmp = data[6 * (ch - 1) + 4] & 0xFF;
         itmp = itmp << 8;
         timing[ch - 1] = timing[ch - 1] + itmp;
-        
+        //printf("ch %d : timing %d\n",ch,timing[ch-1]); 
         hit_flag[ch - 1] = data[6 * (ch - 1) + 5] & 0xFF;
         
         // fill charge to spectrum
@@ -218,18 +222,20 @@ void plot_data_jbnu(const int runnum, const int Mid)
 
       // show waveform
       c1->cd(channel);
-      wave[channel - 1]->Draw("hist");
-      c1->Modified();
-      c1->Update();
+     // wave[channel - 1]->Draw("hist");
+     // c1->Modified();
+     // c1->Update();
       
   //    scanf("%d",&evt);
     }
         
     data_read = data_read + data_length;
     
-  printf("continue?");
-  scanf("%d", &evt);  
-  if (evt == 0) break;
+ // printf("continue?");
+
+  //scanf("%d", &evt);  
+  //if (evt == 0) break;
+  if (nevt_wave%32 == 0)printf("wave %d fast %d\n",nevt_wave/32-1,nevt_fast);
   }
   
   // plot spectrum
