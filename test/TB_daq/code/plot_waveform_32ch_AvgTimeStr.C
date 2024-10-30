@@ -1,14 +1,15 @@
 #include <stdio.h>
 
-//int plot_waveform_32ch_AvgTimeStr(const TString filename, const int min, const int max, const TString condition)
-int plot_waveform_32ch_AvgTimeStr(const TString filename, const int min, const int max)
-//int plot_waveform_32ch_AvgTimeStr(const TString filename)
+//int plot_waveform_32ch(const TString filename, const int min, const int max, const TString condition)
+int plot_waveform_32ch_AvgTimeStr(const int runnum, const int Mid, const int min, const int max)
 {
+  char filename[100];
   int channel;
   int ch_to_plot;
   FILE *fp;
-  int file_size;
+  long long file_size;
   int nevt;
+  int ndraw;
   char data[64];
   short adc[32736];
   int evt;
@@ -29,7 +30,8 @@ int plot_waveform_32ch_AvgTimeStr(const TString filename, const int min, const i
   int i;
   int j;
   int cont;
-
+  ndraw = 10;
+//  ndraw = 10;
   // get channel to plot, channel = 1 ~ 32
 //  printf("Channel to plot(1~32) : ");
 //  scanf("%d", &channel);
@@ -40,7 +42,7 @@ int plot_waveform_32ch_AvgTimeStr(const TString filename, const int min, const i
 //  else
 //    ch_to_plot = channel - 1;
     
-  TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 1800, 1000);
+  TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 900, 500);
   c1->Divide(8,4,0.001,0.001);
   gPad->SetLeftMargin(0);
   gPad->SetRightMargin(0);
@@ -50,18 +52,18 @@ int plot_waveform_32ch_AvgTimeStr(const TString filename, const int min, const i
   TH1F *plot[32];
   for( i = 0 ; i < 32 ; i ++)
   {
-     plot[i] = new TH1F(Form("plot%d",i+1), Form("Avg.Time.Str. ch%d", i+1), 1023,0,1023);
-     plot[i]->GetXaxis()->SetRangeUser(min,max);  
-     plot[i]->SetStats(0);
+     plot[i] = new TH1F(Form("plot%d",i+1), Form("Waveform ch%d", i+1), 1023,0,1023);
+     plot[i]->SetStats(0);  
   }
 
   // get # of events in file
+  sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
   fclose(fp);
   nevt = file_size / 65536;
-//  nevt = 70000;  
+  
   printf("-----------------------------------------------------------------------\n");
   fp = fopen(filename, "rb");
 
@@ -70,7 +72,7 @@ int plot_waveform_32ch_AvgTimeStr(const TString filename, const int min, const i
     fread(data, 1, 64, fp);
     
     // data length
- /*   data_length = data[0] & 0xFF;
+    data_length = data[0] & 0xFF;
     itmp = data[1] & 0xFF;
     itmp = itmp << 8;
     data_length = data_length + itmp;
@@ -179,72 +181,45 @@ int plot_waveform_32ch_AvgTimeStr(const TString filename, const int min, const i
     printf("TCB trigger # = %d, local trigger # = %d\n", tcb_trig_number, local_trig_number);
     printf("TCB trigger time = %lld, local trigger time = %lld, difference = %lld\n", tcb_trig_time, local_trig_time, diff_time);
     printf("-----------------------------------------------------------------------\n");
-    */
+    
     // read waveform
     fread(adc, 2, 32736, fp);
-    
+    //if (evt<1200) continue; 
     // fill waveform for channel to plotgecit 
-/*    plot1->Reset();
-    plot2->Reset();
-    plot3->Reset();
-    plot4->Reset();
-    plot5->Reset();
-    plot6->Reset();
-    plot7->Reset();
-    plot8->Reset();
-    plot9->Reset();
-    plot10->Reset();
-    plot11->Reset();
-    plot12->Reset();
-    plot13->Reset();
-    plot14->Reset();
-    plot15->Reset();
-    plot16->Reset();
-    plot17->Reset();
-    plot18->Reset();
-    plot19->Reset();
-    plot20->Reset();
-    plot21->Reset();
-    plot22->Reset();
-    plot23->Reset();
-    plot24->Reset();
-    plot25->Reset();
-    plot26->Reset();
-    plot27->Reset();
-    plot28->Reset();
-    plot29->Reset();
-    plot30->Reset();
-    plot31->Reset();
-    plot32->Reset();
-  */  
-    for (i = 0; i < 1023; i++) {
-      for(j = 0 ; j < 32 ; j++){
-	  plot[j]->Fill(i, adc[i * 32 + j]);
-      }
-      //if (adc[i * 32 + ch_to_plot] < 3000) printf("abnormal value = %d @ %d\n", adc[i * 32 + ch_to_plot], evt);
+    for( i = 0 ; i < 32 ; i ++)
+    {
+       //plot[i]->Reset();
     }
-    //plot->GetXaxis()->SetRangeUser(0,1000);
-    //TH1F* plot_copy= (TH1F*)plot->Clone();
-//    int min =3400;
-//    int max = 4096;
+    
+    for (i = 0; i < 1023; i++) {
+      for( j = 0; j < 32 ; j ++) {
+//		if(j==21 || j == 22 || j ==23) cout << j << " th channel : " << adc[i * 32 + j]<< endl;
+         plot[j]->Fill(i, adc[i * 32 + j]);
+      }
+    }
+    
   for(i =0; i<32;i++){   
-     //rmin = plot[i]->GetMean() - 5*plot[i]->GetStdDev();
-     //rmax = plot[i]->GetMean() + 5*plot[i]->GetStdDev();
-
      c1->cd(i+1);
+     plot[i]->GetYaxis()->SetRangeUser(min,max);
      plot[i]->GetYaxis()->SetLabelSize(0.05);
      plot[i]->Draw("hist");
   }
-    
-   // if (cont == 0)
-     // evt = nevt;
-  }
     c1->Modified();
     c1->Update();
-    //c1->SaveAs(filename+"_"+condition+"_AllchAvgTimeStr.png");      
-    c1->SaveAs(filename+"_AllchAvgTimeStr.png");      
+    if (evt==1000) c1->SaveAs("hello.png");
+    //c1->SaveAs(filename+"_"+condition+Form("_AllchWave_evtNum%d.png", evt));      
+    //c1->SaveAs(filename+Form("_AllchWave_evtNum%d.png", evt));      
+    // c1->SaveAs("test.png");
+    //printf("Continue? ");
+    //scanf("%d", &cont);
+    //if (evt==0) c1->SaveAs(Form("evt_range_%d_%d.png",evt,Mid));
+    //if (cont == 0)
+    //  evt = nevt;
+//      if(evt == ndraw) evt = nevt;
+  }
 
   fclose(fp);
+
   return 0;
 }
 

@@ -58,7 +58,7 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
   sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
   //TFile* file_root = new TFile(rootfilename,"recreate");
   //TCanvas* c = new TCanvas("", "", 500, 500);
-  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 21000, -1000, 20000);
+  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 201000, -1000, 200000);
   std::vector<float> tmpWave;
   intADCdis->Sumw2();
   intADCdis->SetLineColor(kBlack);
@@ -111,9 +111,9 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
   //intADCdis->Scale(intADCdis->Integral()/time);
   intADCdis->Scale(1/time);
   intADCdis->Draw("Hist");
- // intADCdis->SetOption("Hist");
- // intADCdis->Write();
- // file_root->Close();
+  //intADCdis->SetOption("Hist");
+  //intADCdis->Write();
+  //file_root->Close();
   //c->SaveAs((TString)("./pngs/Run"+std::to_string(runnum)+"_FastEmulIntADC_RE"+std::to_string(RE)+"_INT"+std::to_string(Interval)+".png"));
 
 

@@ -15,20 +15,20 @@ int main(int argc, char *argv[])
   unsigned long ptrig_interval;
   unsigned long trig_enable;
   unsigned long mthr_tcb;
-  unsigned long trig_dly[15];
-  unsigned long cw_daq[15];
-  float hv[15][4];
-  unsigned long mthr_daq[15];
+  unsigned long trig_dly[20];
+  unsigned long cw_daq[20];
+  float hv[20][4];
+  unsigned long mthr_daq[20];
   unsigned long prescale;
-  unsigned long trig_latency[15];
+  unsigned long trig_latency[20];
   unsigned long run_num;
-  unsigned long down_sampling[15];
-  unsigned long pulse_width[15];
-  unsigned long risetime[15];
-  float fraction[15];
-  unsigned long thr[15][32];
-  unsigned long peak_search_dly[15][4];
-  unsigned long peak_search_wth[15][4];
+  unsigned long down_sampling[20];
+  unsigned long pulse_width[20];
+  unsigned long risetime[20];
+  float fraction[20];
+  unsigned long thr[20][32];
+  unsigned long peak_search_dly[20][4];
+  unsigned long peak_search_wth[20][4];
   unsigned long lval_ld;
   unsigned long daq_mid;
   float lval_f;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
   char tcb_name[256];
   char daq_name[256];
   int idaq_setup;
-  int daq_setup=15;
+  int daq_setup=20;
   FILE *fp_mid;
 
   if (argc<2){
@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
   printf("TCB trigger delay = %ld\n", trig_dly);
 
   // readbcak DAQ setting
-  for (daq = 0; daq < 15; daq++) {
+  for (daq = 0; daq < 20; daq++) {
     printf("---------------- DAQ %d --------------------\n", daq+1);
     printf("Coincidence width = %ld\n", cw_daq[daq]);
     for (ch = 0;ch<4;ch++){
@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
    /*else {                                    // default setting here
     cw_tcb = 10;
     ptrig_interval = 0;
-    trig_enable = 15;
+    trig_enable = 20;
     mthr_tcb = 1;
     trig_dly = 5;
     cw_daq = 5;
@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
 
   for (daq = 0; daq < 32; daq++) {
     if (linked[daq]) {
-      //if(mid_data[daq]==0||mid_data[daq]>15) continue;
+      //if(mid_data[daq]==0||mid_data[daq]>20) continue;
       daq_mid = CALTCBread_DAQ_MID(sid,mid_data[daq]);
       if(daq_mid!=mid_data[daq]) continue;
       mid[num_of_daq] = mid_data[daq];

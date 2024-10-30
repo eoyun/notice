@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-int intADC(const int runnum, const int Mid, const int channel, const int min, const int max, const double time)
+// int intADC(const int runnum, const int Mid, const int channel, const int min, const int max, const double time)
+int intADC(const int runnum, const int Mid, const int channel, const int min, const int max, TString name)
 {
   int ch_to_plot;
   FILE *fp;
@@ -43,7 +44,8 @@ int intADC(const int runnum, const int Mid, const int channel, const int min, co
     ch_to_plot = channel - 1;
 
 
-  TFile *file = new TFile((TString)("IntADC_Run_" + std::to_string(runnum) + "_ch_" + std::to_string(channel) + ".root"), "RECREATE");
+  // TFile *file = new TFile((TString)("IntADC_Run_" + std::to_string(runnum) + "_ch_" + std::to_string(channel) + ".root"), "RECREATE");
+  TFile *file = new TFile((TString)("./mcp/roots/240731/" + name + ".root"), "RECREATE");
   TCanvas *c = new TCanvas("c", "IntADC");
   TH1F *intADCHist = new TH1F("IntADC", "IntADC;Int.ADC;Evts", 1000, -1000., 30000.);
   std::vector<float> tmpWave;
@@ -52,16 +54,18 @@ int intADC(const int runnum, const int Mid, const int channel, const int min, co
   gStyle->SetOptFit(1);
 
   for ( ifile = 0; ifile < 200; ifile++ ) {  
-    sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,ifile);
+    // sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,ifile);
+    sprintf(filename,"/Volumes/HDD_16TB_3/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+
     if (access(filename,0)!=0) break;
-    printf("%s\n",filename);
+    // printf("%s\n",filename);
     fp = fopen(filename, "rb");
     fseek(fp, 0L, SEEK_END);
     file_size = ftell(fp);
     fclose(fp);
     nevt = file_size / 65536;
     
-    printf("-----------------------------------------------------------------------\n");
+    // printf("-----------------------------------------------------------------------\n");
     fp = fopen(filename, "rb");
    
    
@@ -98,11 +102,11 @@ int intADC(const int runnum, const int Mid, const int channel, const int min, co
    }
 
   // c->cd();
-  intADCHist->Scale(1./time);
-  //intADCHist->SetOption("HIST");
-  //intADCHist->Write();
-  //file->Close();
-  intADCHist->Draw("HIST");
+  // intADCHist->Scale(1./time);
+  intADCHist->SetOption("HIST");
+  intADCHist->Write();
+  file->Close();
+  // intADCHist->Draw("HIST");
   //c->SaveAs(Form("./pngs/intADC_%d_%d.png",runnum,channel));
   return 0;
 }

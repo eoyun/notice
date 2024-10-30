@@ -32,8 +32,8 @@ int main(int argc, char *argv[])
   char flag_name[256];
   char mkdir_data_folder_wave[256];
   char mkdir_data_folder_fast[256];
-  int wave_split=100000;
-  int fast_split=100000;
+  int wave_split=10000;
+  int fast_split=10000;
   int file_num_wave=0;
   int file_num_fast=0;
   int wave_tmp=0;

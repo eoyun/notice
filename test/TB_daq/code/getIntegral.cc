@@ -55,10 +55,10 @@ int getIntegral(const int runnum, const int Mid, const int channel)
     ch_to_plot = 31;
   else
     ch_to_plot = channel - 1;
-//sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
+  sprintf(rootfilename,"./roots/Run_%d.root",runnum);
   //TFile* file_root = new TFile(rootfilename,"recreate");
   //TCanvas* c = new TCanvas("", "", 500, 500);
-  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 1024, -1024, 204800);
+  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 1024, -10240, 409600);
   std::vector<float> tmpWave;
   intADCdis->Sumw2();
   intADCdis->SetLineColor(kBlack);
@@ -86,10 +86,13 @@ int getIntegral(const int runnum, const int Mid, const int channel)
    
       tmpWave.clear();
       //tmpWave.clear();
+      double ped =0.;
+      for (i=1;i<101;i++){
+        ped+=adc[i*32+ch_to_plot]/100.;
+      }
    
       for (i = 0; i < 1023; i++)
-        tmpWave.push_back(adc[i * 32 + ch_to_plot]);
-   
+        tmpWave.push_back(ped-adc[i * 32 + ch_to_plot]);
       //ped = getPed(tmpWave);
    
       //for (i = 1; i <= 1000; i++ ) 
@@ -98,9 +101,9 @@ int getIntegral(const int runnum, const int Mid, const int channel)
    
     
       //min_idx = std::min_element(tmpWave.begin(), tmpWave.end()) - tmpWave.begin();
-      intADC = std::accumulate(tmpWave.begin()+1, tmpWave.end()-23, 0.0);
+      intADC = std::accumulate(tmpWave.begin()+100, tmpWave.begin()+900, 0.0);
       //intpedADC = std::accumulate(tmpWave.begin() + min_idx - RE - Interval, tmpWave.begin() + min_idx - RE, 0.0);
-      intADCdis->Fill(3615*1000-intADC);
+      intADCdis->Fill(intADC);
       tmpWave.clear();
     }
     fclose(fp);

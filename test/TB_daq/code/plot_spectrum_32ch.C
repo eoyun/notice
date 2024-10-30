@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int plot_spectrum_32ch(const TString filename)
+int plot_spectrum_32ch(const int runnum, const int Mid)
 {
   int channel;
   int ch_to_plot;
@@ -27,6 +27,7 @@ int plot_spectrum_32ch(const TString filename)
   int i;
   int cont;
 
+  char filename[1000];
   std::vector<double> ch;
   std::vector<double> mean;
   std::vector<double> stddev;
@@ -90,8 +91,7 @@ int plot_spectrum_32ch(const TString filename)
   TH1F *plot31 = new TH1F("plot", "Spectrum ch31", 1023, 0, 4096);
   TH1F *plot32 = new TH1F("plot", "Spectrum ch32", 1023, 0, 4096);
   int rmin = 3500 ;
-  int rmax = 4096 ;
-  plot1->GetXaxis()->SetRangeUser(rmin,rmax);
+  int rmax = 4000 ;
   plot1->GetXaxis()->SetRangeUser(rmin,rmax);
   plot2->GetXaxis()->SetRangeUser(rmin,rmax);
   plot3->GetXaxis()->SetRangeUser(rmin,rmax);
@@ -159,6 +159,10 @@ int plot_spectrum_32ch(const TString filename)
 //  plot32->SetStats(0);
 //
   // get # of events in file
+
+  //sprintf(filename,"/Volumes/HDD_16TB_2/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_7.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  printf("%s",filename);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
   file_size = ftell(fp);
@@ -291,7 +295,7 @@ int plot_spectrum_32ch(const TString filename)
     
     // fill waveform for channel to plotgecit 
     
-    for (i = 0; i < 1023; i++) {
+    for (i = 1; i < 101; i++) {
       plot1->Fill(adc[i * 32 + 0]);
       plot2->Fill(adc[i * 32 + 1]);
       plot3->Fill(adc[i * 32 + 2]);
@@ -404,7 +408,7 @@ int plot_spectrum_32ch(const TString filename)
 //    c1->Update();
     //c1->SaveAs(filename+"_AllchSpectrum.png");      
     //c1->SaveAs(filename+"_AllchSpectrum_SiPMmidConnectCable.png");      
-    c1->SaveAs(filename+"_AllchSpectrum_noCable_expsite.png");      
+    //c1->SaveAs(filename+"_AllchSpectrum_noCable_expsite.png");      
 
   fclose(fp);
 
@@ -476,15 +480,15 @@ int plot_spectrum_32ch(const TString filename)
 
   TCanvas *c2 = new TCanvas("c2", "c2", 1000, 800);
   TGraphErrors* gr = new TGraphErrors(ch.size(), &(ch[0]), &(mean[0]), 0, &(stddev[0]));
-  TString id(filename(9,10));
-  gr->SetTitle("noise level as a function of channels @Mid "+id);
+  //TString id(filename(9,10));
+  //gr->SetTitle("noise level as a function of channels @Mid "+id);
   gr->GetYaxis()->SetTitle("ADC");
   gr->GetYaxis()->SetTitleOffset(1.5);
   gr->GetXaxis()->SetTitle("Channels");
   gr->SetMarkerStyle(8);
   gr->Draw("AP");
 
-  c2->SaveAs(filename+"_Allch_noiseLevel_noCable_expSite.png");      
+  //c2->SaveAs(filename+"_Allch_noiseLevel_noCable_expSite.png");      
   c2->Modified();
   c2->Update();
 

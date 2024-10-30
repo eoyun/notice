@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
   char flag_file_name[512];
   int flag;
   FILE *fp_mid;
-  int mid[15];
+  int mid[20];
 
   if(access("/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid.txt",F_OK)==0){
     fp_mid= fopen("/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid.txt","rt");
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     }
 	//printf("not KILLME\n");
 	flag = 0;
-	for (i=0;i<15;i++){
+	for (i=0;i<20;i++){
       sprintf(flag_file_name,"/Users/yhep/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
 	 // printf("%s\n",flag_name);
 	  if (access(flag_file_name,F_OK)==0) flag=flag+1;
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 	//printf("111111111\n");
     if (flag==ndaq) {
 	 // printf("dbgdbgdbg\n");
-      for (i=0;i<15;i++){
+      for (i=0;i<20;i++){
         sprintf(flag_name,"rm /Users/yhep/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
         sprintf(flag_file_name,"/Users/yhep/scratch/notice/test/TB_daq/KILLTCB%d",i+1);
 		//printf("%s\n",flag_name);

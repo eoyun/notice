@@ -38,7 +38,7 @@ int AvgTimeStr(const int runnum, const int Mid, const int channel)
     ch_to_plot = channel - 1;
   
 
-  //TFile *file = new TFile((TString)("AvgTimeStr_Run_" + std::to_string(runnum) + "_ch_" + std::to_string(channel) + ".root"), "RECREATE");
+  TFile *file = new TFile((TString)("./roots/AvgTimeStr_Run_" + std::to_string(runnum) + "_ch_" + std::to_string(channel) + ".root"), "RECREATE");
   TH1F *plot = new TH1F("Avg.Time.Str", "Avg.Time.Str;ADC;ADC", 1024, 0., 1024.);
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 500);
 
@@ -68,12 +68,13 @@ int AvgTimeStr(const int runnum, const int Mid, const int channel)
 
   plot->Sumw2();
   plot->Scale(1./nevt);
-  //plot->SetOption("HIST");
- // plot->Write();
+  plot->GetYaxis()->SetRangeUser(3000,4000);
+  // plot->SetOption("HIST");
+  // plot->Write();
 
   // printf("total events = %d\n", nevt);
 
- //file->Close();
+  // file->Close();
   c1->cd();
   plot->Draw("HIST");
   

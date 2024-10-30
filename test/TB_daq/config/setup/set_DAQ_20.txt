@@ -2,8 +2,8 @@ cw_daq 5
 hv 0.0 0.0 0.0 0.0
 mthr_daq 1
 trig_latancy 250
-trig_dly 0
-down_sampling 0
+trig_dly 20
+down_sampling 2
 pulse_width 250
 risetime 120
 fraction 0.3

@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
   // read connected DAQ machines
   for (ch = 0; ch < 40; ch++) {
     if (linked[ch]) {
-      if(mid_data[ch]==0||mid_data[ch]>15) continue;
+      if(mid_data[ch]==0||mid_data[ch]>20) continue;
       daq_mid = CALTCBread_DAQ_MID(sid,mid_data[ch]);
       if(daq_mid!=mid_data[ch]) continue;
       mid[num_of_daq] = mid_data[ch];
