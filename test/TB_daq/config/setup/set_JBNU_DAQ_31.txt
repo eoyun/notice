@@ -1,8 +1,8 @@
 cw_daq 1000
-hv 60.0 
+hv 47.0 
 mthr_daq 1
-input_dly 4000
-gate_width 8
+input_dly 1000
+gate_width 2
 peak_sum_width 500
 zero_sup 0
 prescale 1

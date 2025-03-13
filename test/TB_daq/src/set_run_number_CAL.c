@@ -68,12 +68,12 @@ int main(int argc, char *argv[])
   }
   run_number = CALTCBread_RUN_NUMBER(sid,mid[0]);
   printf("Run number = %ld\n", run_number);
-  if (access("/Users/yhep/scratch/notice/test/TB_daq/runnum.txt",0)==0) printf("hello\n"); 
-  runnum_fp = fopen("/Users/yhep/scratch/notice/test/TB_daq/runnum.txt","rt");
+  if (access("/Users/skku_server/notice/test/TB_daq/runnum.txt",0)==0) printf("hello\n"); 
+  runnum_fp = fopen("/Users/skku_server/notice/test/TB_daq/runnum.txt","rt");
   fscanf(runnum_fp,"%ld",&run_number_file);
   //printf("%ld\n",run_number_file);
   if (run_number != run_number_file-1) {
-    if (access("/Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL",0)!=0) system("touch /Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL");
+    if (access("/Users/skku_server/notice/test/TB_daq/RUNNUMFAIL",0)!=0) system("touch /Users/skku_server/notice/test/TB_daq/RUNNUMFAIL");
   }
   
   //read setting 

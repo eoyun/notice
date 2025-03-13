@@ -1,14 +1,14 @@
 #!/bin/bash
 # ./run_all.sh config nevt
-source /Users/yhep/scratch/notice/notice_env.sh
+source /Users/skku_server/notice/notice_env.sh
 
 setup=$1
 nevt=$2
 
-FILE=/Users/yhep/scratch/notice/test/TB_daq/FAILSET
-RUNFILE=/Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
-SETFILE=/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid.txt
-SETANCFILE=/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid_anc.txt
+FILE=/Users/skku_server/notice/test/TB_daq/FAILSET
+RUNFILE=/Users/skku_server/notice/test/TB_daq/RUNNUMFAIL
+SETFILE=/Users/skku_server/notice/test/TB_daq/turn_on_mid.txt
+SETANCFILE=/Users/skku_server/notice/test/TB_daq/turn_on_mid_anc.txt
 
 runnum=`cat runnum.txt`
 runnum1=`cat ./backup/runnum/runnum.txt`
@@ -32,7 +32,7 @@ then
   if [ -f $FILE ]
   then 
     echo check the config file name!!
-    rm /Users/yhep/scratch/notice/test/TB_daq/FAILSET
+    rm /Users/skku_server/notice/test/TB_daq/FAILSET
   else
     echo setting complete!
   
@@ -66,8 +66,8 @@ then
     
     if [ -f $RUNFILE ]; then
       echo TCB run number error!!
-      touch /Users/yhep/scratch/notice/test/TB_daq/KILLME
-      rm /Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
+      touch /Users/skku_server/notice/test/TB_daq/KILLME
+      rm /Users/skku_server/notice/test/TB_daq/RUNNUMFAIL
     fi
     sleep 1
     ./src/run_evt_mktxt_CAL.exe

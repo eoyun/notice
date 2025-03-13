@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	//scanf("%s",&config_folder_name);
 	  return 0;
   } else {
-	  sprintf(config_folder_name,"/Users/yhep/scratch/notice/test/TB_daq/config/%s", argv[1]);
+	  sprintf(config_folder_name,"/Users/skku_server/notice/test/TB_daq/config/%s", argv[1]);
   }
 
   // init USB
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
   else{
 	  return 0;
   }
-  fp_mid = fopen("/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid_anc.txt","wt");
+  fp_mid = fopen("/Users/skku_server/notice/test/TB_daq/turn_on_mid_anc.txt","wt");
   for (idaq_setup=0;idaq_setup<num_of_daq;idaq_setup++){
     fprintf(fp_mid,"%d ",mid[idaq_setup]);
   }

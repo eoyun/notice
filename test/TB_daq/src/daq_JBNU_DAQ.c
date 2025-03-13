@@ -39,28 +39,28 @@ int main(int argc, char *argv[])
     scanf("%d", &mid);
   }
   printf("hello\n");
-  runnum_fp = fopen("/Users/yhep/scratch/notice/test/TB_daq/runnum.txt","rt");
+  runnum_fp = fopen("/Users/skku_server/notice/test/TB_daq/runnum.txt","rt");
   fscanf(runnum_fp,"%ld",&run_number_file);
   run_number = run_number_file-1;
 
 
-  sprintf(mkdir_data_folder_anc,"mkdir -p /Users/yhep/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_MID_%d/",run_number,run_number,run_number,mid);
+  sprintf(mkdir_data_folder_anc,"mkdir -p /Users/skku_server/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_MID_%d/",run_number,run_number,run_number,mid);
   printf("%s\n",mkdir_data_folder_anc);
   
   system(mkdir_data_folder_anc);
 
   mkdir_data_folder_anc[0]='\0';
 
-  sprintf(mkdir_data_folder_anc,"/Users/yhep/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_log/",run_number,run_number,run_number);
+  sprintf(mkdir_data_folder_anc,"/Users/skku_server/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_log/",run_number,run_number,run_number);
   if((access(mkdir_data_folder_anc,0))!=0) {
     mkdir_data_folder_anc[0]='\0';
-    sprintf(mkdir_data_folder_anc,"mkdir -p /Users/yhep/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_log/",run_number,run_number,run_number);
+    sprintf(mkdir_data_folder_anc,"mkdir -p /Users/skku_server/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_log/",run_number,run_number,run_number);
     system(mkdir_data_folder_anc);
   } else printf("directory exist!!\n");
   
-  sprintf(anc_filename, "/Users/yhep/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_MID_%d/Run_%lu_Anc_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_anc);
+  sprintf(anc_filename, "/Users/skku_server/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_MID_%d/Run_%lu_Anc_MID_%d_FILE_%d.dat",run_number,run_number,run_number,mid,run_number,mid,file_num_anc);
 
-  sprintf(anc_log_name, "/Users/yhep/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_log/Run_%lu_Anc_MID_%d_buffer.txt",run_number,run_number,run_number,run_number,mid);
+  sprintf(anc_log_name, "/Users/skku_server/scratch/YUdaq/Run_%lu/Run_%lu_Anc/Run_%lu_Anc_log/Run_%lu_Anc_MID_%d_buffer.txt",run_number,run_number,run_number,run_number,mid);
 
   // open data file
   anc_fp = fopen(anc_filename, "wb");
