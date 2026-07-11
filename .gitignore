@@ -1,0 +1,12 @@
+*.exe
+*.o
+*.dat
+*.log
+*.swp
+*.png
+*.root
+*.eps
+*.bin
+test/apix_daq/data
+test/apix_daq/astropix-python
+

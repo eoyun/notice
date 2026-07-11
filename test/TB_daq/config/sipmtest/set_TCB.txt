@@ -1,0 +1,5 @@
+cw_tcb 10
+ptrigger_interval 1
+trig_enable 2
+mthr_tcb 1
+prescale 1

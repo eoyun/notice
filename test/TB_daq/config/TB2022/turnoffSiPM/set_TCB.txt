@@ -1,0 +1,9 @@
+cw_tcb 10
+ptrigger_interval 1
+trig_enable 2
+mthr_tcb 1
+prescale 50
+pulse_width 100
+risetime 50
+fraction 0.8
+
