@@ -62,6 +62,7 @@ extern void CALTCBwrite_PEAK_SEARCH_DELAY(int sid, unsigned long mid, unsigned l
 extern unsigned long CALTCBread_PEAK_SEARCH_DELAY(int sid, unsigned long mid, unsigned long ch);
 extern void CALTCBwrite_PEAK_SEARCH_WIDTH(int sid, unsigned long mid, unsigned long ch, unsigned long data);
 extern unsigned long CALTCBread_PEAK_SEARCH_WIDTH(int sid, unsigned long mid, unsigned long ch);
+extern unsigned long CALTCBread_DRS_PLL_LOCKED(int sid, unsigned long mid);
 
 #ifdef __cplusplus
 }

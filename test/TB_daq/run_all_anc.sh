@@ -2,6 +2,8 @@
 # ./run_all.sh config nevt
 source /Users/yhep/scratch/notice/notice_env.sh
 
+trap '' INT
+
 setup=$1
 nevt=$2
 
@@ -26,8 +28,8 @@ echo $setup
 ./src/set_run_number_CAL.exe $runnum
 
 ./src/set_bymid_mktxt_CAL.exe $setup >> ./log/log_set_$runnum.log
-./src/set_JBNU_DAQ_anc_all.exe $setup >> ./log/log_set_anc_$runnum.log 
-if [ -f $SETFILE ] || [ -f $SETANCFILE ]
+./src/set_JBNU_DAQ_anc_all.exe $setup | tee -a ./log/log_set_anc_$runnum.log
+if [ -f $SETFILE ] && [ -f $SETANCFILE ]
 then
   if [ -f $FILE ]
   then 
@@ -48,7 +50,7 @@ then
     
     do
        #echo stdbuf -oL ./run_daq_nodiv_CAL.exe $var 
-       ./src/get_evt_dir_log_CAL.exe $var $nevt >> ./log/log_"$var"_"$runnum".log &
+       ./src/get_evt_dir_log_CAL.exe $var $nevt | tee -a "./log/log_${var}_${runnum}.log" &
        sleep 1
        echo "processing $num : mid num is $var"
        num=$((num+1))
@@ -70,7 +72,7 @@ then
       rm /Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
     fi
     sleep 1
-    ./src/run_evt_mktxt_CAL.exe
+    ./src/run_evt_mktxt_CAL.exe $nevt
   fi
 else
   echo setting bug plz rerun

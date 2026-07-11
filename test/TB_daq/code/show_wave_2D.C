@@ -49,8 +49,8 @@ int show_wave_2D(const int runnum, const int Mid, const int channel)
   
   for (j=0;j<200;j++){
     filename[0]='\0';
-     sprintf(filename,"/Volumes/HDD_16TB_2/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,j);
-    //sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,j);
+    // sprintf(filename,"/Volumes/HDD_16TB_2/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,j);
+    sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,j);
     printf("%s\n",filename);
     fflush(stdout);
     if(access(filename,0)!=0){printf("im hereee\n"); break;}
@@ -82,13 +82,13 @@ int show_wave_2D(const int runnum, const int Mid, const int channel)
        for (i = 0; i < 1023; i++) {
          plot->Fill(i, adc[i * 32 + ch_to_plot]);
        }
-       
-       //sprintf(pngname,"wave_%d.png",evt);
-       //c1->SaveAs(filename+Form(("_%d.png"),evt));
+       =
+       //sprintf(pngname,"wave_%d.png",evt)
+       c1->SaveAs((TString)("wave2D_Run_" + std::to_string(runnum) + ".png"));
      }    
   }
 
-  plot->GetYaxis()->SetRangeUser(0,4000);
+  plot->GetYaxis()->SetRangeUser(2000,4096);
 //plot->GetXaxis()->SetRangeUser(200,800);
   plot->Draw("COLZ");
 

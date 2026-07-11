@@ -2,7 +2,9 @@
 
 int AvgTimeStr(const int runnum, const int Mid, const int channel)
 {
+  gStyle->SetOptStat(0);
   int ch_to_plot;
+
   FILE *fp; 
   long long file_size;
   int nevt;
@@ -39,11 +41,11 @@ int AvgTimeStr(const int runnum, const int Mid, const int channel)
   
 
   TFile *file = new TFile((TString)("./roots/AvgTimeStr_Run_" + std::to_string(runnum) + "_ch_" + std::to_string(channel) + ".root"), "RECREATE");
-  TH1F *plot = new TH1F("Avg.Time.Str", "Avg.Time.Str;ADC;ADC", 1024, 0., 1024.);
+  TH1F *plot = new TH1F("Avg.Time.Str", "Avg.Time.Str;ADC;ADC", 1000, 0., 1000.);
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 500);
 
-
   sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  // sprintf(filename,"/Volumes/HDD_8TB/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   //sprintf(filename,"/Volumes/HDD_16TB_3/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   //printf("%s\n",filename);
   fp = fopen(filename, "rb");
@@ -59,9 +61,9 @@ int AvgTimeStr(const int runnum, const int Mid, const int channel)
     fread(data, 1, 64, fp);
     fread(adc, 2, 32736, fp);
 
-    for ( i = 0; i < 1023; i++ ) {
+    for ( i = 1; i < 1001; i++ ) {
 
-      plot->Fill(i, adc[i * 32 + ch_to_plot]);
+      plot->Fill(i-1, adc[i * 32 + ch_to_plot]);
     }
 
   }

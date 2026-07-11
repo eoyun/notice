@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <iostream>
 
 float getPed(std::vector<float> wave) {
 
@@ -58,10 +59,11 @@ int getIntegral(const int runnum, const int Mid, const int channel)
   sprintf(rootfilename,"./roots/Run_%d.root",runnum);
   //TFile* file_root = new TFile(rootfilename,"recreate");
   //TCanvas* c = new TCanvas("", "", 500, 500);
-  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 1000, -10000, 1000000);
+  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 10000, -10000, 50000);
   std::vector<float> tmpWave;
   intADCdis->Sumw2();
   intADCdis->SetLineColor(kBlack);
+  int t_count = 0;  
   for (ifile=0;ifile<200;ifile++){  
     sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_%d.dat",runnum,runnum,runnum,Mid,runnum,Mid,ifile);
     if (access(filename,0)!=0)break;
@@ -77,7 +79,6 @@ int getIntegral(const int runnum, const int Mid, const int channel)
     //intADCdis->SetLineWidth(2);
    
     //std::vector<float> tmpWave;
-   
    
     for (evt = 0; evt < nevt; evt++) {
      
@@ -101,13 +102,15 @@ int getIntegral(const int runnum, const int Mid, const int channel)
    
     
       //min_idx = std::min_element(tmpWave.begin(), tmpWave.end()) - tmpWave.begin();
-      intADC = std::accumulate(tmpWave.begin()+50, tmpWave.begin()+450, 0.0);
+      intADC = std::accumulate(tmpWave.begin()+300, tmpWave.begin()+600, 0.0);
+      if (intADC> 1100)t_count ++;
       //intpedADC = std::accumulate(tmpWave.begin() + min_idx - RE - Interval, tmpWave.begin() + min_idx - RE, 0.0);
       intADCdis->Fill(intADC);
       tmpWave.clear();
     }
     fclose(fp);
   }
+  std::cout<<t_count<<" triggered in "<<nevt<<" events"<<std::endl;
   //c->cd();
   intADCdis->Draw("Hist");
   //intADCdis->SetOption("Hist");

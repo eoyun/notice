@@ -41,7 +41,7 @@ int show_spec(const int runnum, const int Mid, const int channel)
     ch_to_plot = channel - 1;
     
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 500);
-  TH1F *plot = new TH1F("plot", "Waveform", 1000, 3000, 4000); 
+  TH1F *plot = new TH1F("plot", "Waveform", 100, -50, 50); 
   //plot->SetStats(0);
 
   // get # of events in file
@@ -190,11 +190,11 @@ coarse_time = coarse_time + ltmp;
     // fill waveform for channel to plotgecit 
     //plot->Reset();
     float ped =0.;
-    for (i = 1; i <100; i++){
+    for (i = 1; i <101; i++){
       ped+=(float)adc[i * 32 +ch_to_plot]/100.;
     }
-    for (i = 1; i < 101; i++) {
-      plot->Fill(adc[i * 32 + ch_to_plot]);
+    for (i = 1; i < 1001; i++) {
+      plot->Fill(ped - adc[i * 32 + ch_to_plot]);
       //plot->Fill(adc[i * 32 + ch_to_plot]);
     }
     //plot->GetYaxis()->SetRangeUser(min,max);

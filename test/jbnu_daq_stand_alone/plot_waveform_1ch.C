@@ -40,7 +40,7 @@ void plot_waveform_1ch(void)
   int dummy;
   
   // filename here
-  sprintf(filename, "jbnu_daq_14.dat");
+  sprintf(filename, "/Users/yhep/scratch/YUdaq/Run_13747/Run_13747_Anc/Run_13747_Anc_MID_21/Run_13747_Anc_MID_21_FILE_0.dat");
   
   // get data file size, size should be less than 2 Gbytes
   fp = fopen(filename, "rb");

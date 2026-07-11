@@ -58,7 +58,7 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
   sprintf(rootfilename,"./roots/Run_%d_RE_%d_int_%d.root",runnum,RE,Interval);
   //TFile* file_root = new TFile(rootfilename,"recreate");
   //TCanvas* c = new TCanvas("", "", 500, 500);
-  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 201000, -1000, 200000);
+  TH1F* intADCdis = new TH1F("ADC", "Int. ADC;Int. ADC;# evts", 301000, -1000, 300000);
   std::vector<float> tmpWave;
   intADCdis->Sumw2();
   intADCdis->SetLineColor(kBlack);
@@ -101,8 +101,9 @@ int getFastEmulIntADC(const int runnum, const int Mid, const int channel, const 
     
       min_idx = std::min_element(tmpWave.begin()+1, tmpWave.end()) - tmpWave.begin();
       intADC = std::accumulate(tmpWave.begin() + min_idx - RE, tmpWave.begin() + min_idx - RE + Interval, 0.0);
-      intpedADC = std::accumulate(tmpWave.begin() + min_idx - RE - Interval, tmpWave.begin() + min_idx - RE, 0.0);
-      intADCdis->Fill(intpedADC-intADC);
+      //intpedADC = std::accumulate(tmpWave.begin() + min_idx - RE - Interval, tmpWave.begin() + min_idx - RE, 0.0);
+      intpedADC = std::accumulate(tmpWave.begin() + 1, tmpWave.begin() + 1 + 100, 0.0);
+      intADCdis->Fill(intpedADC/100*Interval-intADC);
       tmpWave.clear();
     }
     fclose(fp);

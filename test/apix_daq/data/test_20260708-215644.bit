@@ -1,0 +1,7 @@
+Voltagecard: {'thpmos': 1.1, 'cardConf2': 0, 'vcasc2': 1.1, 'BL': 1, 'cardConf5': 0, 'cardConf6': 0, 'vminuspix': 1, 'thpix': 1.15}
+Digital: {'interrupt_pushpull': 1, 'en_inj': 0, 'reset': 0, 'extrabits': 0}
+Biasblock: {'DisHiDR': 0, 'q01': 0, 'qon0': 0, 'qon1': 1, 'qon2': 0, 'qon3': 1}
+iDAC: {'blres': 0, 'nu1': 0, 'vn1': 20, 'vnfb': 3, 'vnfoll': 4, 'nu5': 0, 'nu6': 0, 'nu7': 0, 'nu8': 0, 'vn2': 0, 'vnfoll2': 10, 'vnbias': 10, 'vpload': 5, 'nu13': 60, 'vncomp': 2, 'vpfoll': 60, 'nu16': 0, 'vprec': 15, 'vnrec': 30}
+vDAC: {'blpix': 568, 'thpix': 682, 'vcasc2': 625, 'nu1': 512, 'thpmos': 682, 'vinj': 171}
+Receiver: {'col0': 206158430206, 'col1': 68719476734, 'col2': 68719476734, 'col3': 0, 'col4': 0, 'col5': 0, 'col6': 0, 'col7': 0, 'col8': 0, 'col9': 0, 'col10': 0, 'col11': 0, 'col12': 0, 'col13': 0, 'col14': 0, 'col15': 0, 'col16': 0, 'col17': 0, 'col18': 0, 'col19': 0, 'col20': 0, 'col21': 0, 'col22': 0, 'col23': 0, 'col24': 0, 'col25': 0, 'col26': 128, 'col27': 2048, 'col28': 0, 'col29': 0, 'col30': 0, 'col31': 512, 'col32': 8192, 'col33': 0, 'col34': 0}
+ Namespace(name='test', runnum='15188', outdir='../data', yaml='config_v3_none_may28', threshold=150.0, noisescandir=None, saveascsv=False, analog=0, maxtime=12, loglevel='I')

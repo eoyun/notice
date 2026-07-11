@@ -1,10 +1,18 @@
 #include <unistd.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "NoticeCALTCB.h"
 
+#define RED "\033[1;31m"
+#define GREEN "\033[1;32m"
+#define YELLOW "\033[1;33m"
+#define BLUE "\033[1;34m"
+#define RESET "\033[0m"
+
 int main(int argc, char *argv[])
 {
+  signal(SIGINT, SIG_IGN);
   int sid = 0;
   int nsec=2147483647;
   int sec;
@@ -15,6 +23,7 @@ int main(int argc, char *argv[])
   int flag;
   FILE *fp_mid;
   int mid[20];
+  int nevt = 0;
 
   if(access("/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid.txt",F_OK)==0){
     fp_mid= fopen("/Users/yhep/scratch/notice/test/TB_daq/turn_on_mid.txt","rt");
@@ -27,6 +36,7 @@ int main(int argc, char *argv[])
     }
 	fclose(fp_mid);
 	system("rm turn_on_mid.txt");
+  nevt = atoi(argv[1]);
   } else{
     if (argc < 2) {
       printf("Enter number of DAQ : ");
@@ -56,6 +66,7 @@ int main(int argc, char *argv[])
     fflush(stdout);
     if (access("/Users/yhep/scratch/notice/test/TB_daq/KILLME",F_OK)==0){
       system("rm /Users/yhep/scratch/notice/test/TB_daq/KILLME");
+      system("touch /Users/yhep/scratch/notice/test/apix_daq/astropix-python/stop.flag");
       break;
     }
 	//printf("not KILLME\n");
@@ -94,6 +105,21 @@ int main(int argc, char *argv[])
   
   // exit LIBUSB
   USB3Exit();
+  printf(RED "\n========================================================================================\n" RESET);
+	printf(YELLOW "                               ⚠️  Received termination ⚠️\n" RESET);
+  printf(YELLOW "               number of evt : %d | taken time : %d sec | evt rate : %d Hz \n" RESET,nevt, sec, nevt/sec );
+	printf(GREEN "                               Ending the run gracefully... \n" RESET);
+	printf(RED  "========================================================================================\n" RESET);
+
+	// ASCII Art for exit message
+	printf("\n");
+	printf(BLUE "  ██████  ██████  ███████  █████  ███    ███     ██   ██ ███████ ██████  ███████  █████ \n");
+	printf(BLUE "  ██   ██ ██   ██ ██      ██   ██ ████  ████     ██ ██   ██   ██ ██   ██ ██      ██   ██\n");
+	printf(BLUE "  ██   ██ ██████  █████   ███████ ██ ████ ██     ███     ██   ██ ██████  █████   ███████\n");
+	printf(BLUE "  ██   ██ ██   ██ ██      ██   ██ ██  ██  ██     ██ ██   ██   ██ ██   ██ ██      ██   ██\n");
+	printf(BLUE "  ██████  ██   ██ ███████ ██   ██ ██      ██     ██   ██ ███████ ██   ██ ███████ ██   ██\n");
+
+  printf(RESET);
 
   return 0;
 }

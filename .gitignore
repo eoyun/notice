@@ -6,3 +6,5 @@
 *.png
 *.root
 *.eps
+*.bin
+test/apix_daq/data

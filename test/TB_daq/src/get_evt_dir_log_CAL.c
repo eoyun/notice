@@ -6,6 +6,8 @@
 #include <time.h>
 
 #define BUF_SIZE (65536)           // in kbyte
+#define RED "\033[1;31m"
+#define RESET "\033[0m"
 
 int main(int argc, char *argv[])
 {
@@ -32,8 +34,8 @@ int main(int argc, char *argv[])
   char flag_name[256];
   char mkdir_data_folder_wave[256];
   char mkdir_data_folder_fast[256];
-  int wave_split=10000;
-  int fast_split=10000;
+  int wave_split=1000;
+  int fast_split=1000;
   int file_num_wave=0;
   int file_num_fast=0;
   int wave_tmp=0;
@@ -129,6 +131,7 @@ int main(int argc, char *argv[])
       run = CALDAQread_RUN(mid);
     clock_gettime(CLOCK_MONOTONIC,&begin);
     // taking data
+    int iloop = 0;
     while (run) {
 	  if(wave_evt - wave_tmp > wave_split){
         fclose(wave_fp);
@@ -158,6 +161,10 @@ int main(int argc, char *argv[])
       wave_data_size = CALDAQread_DATASIZE(mid);
       if (wave_data_size) {
 	    //print log file wave
+        if (wave_data_size > BUF_SIZE/2)
+        {
+          printf(RED "Warning! Buf is over half of buffer size!! %lu / %d (bytes)\n" RESET,wave_data_size,BUF_SIZE);
+        }
 		clock_gettime(CLOCK_MONOTONIC,&point_wave);
 		now_wave = (point_wave.tv_sec-begin.tv_sec)*1000000000+point_wave.tv_nsec-begin.tv_nsec;
         fprintf(wave_log_fp,"%lu %ld\n",now_wave ,wave_data_size);
@@ -170,8 +177,9 @@ int main(int argc, char *argv[])
         CALDAQread_DATA(mid, wave_data_size, data);
         fwrite(data, 1, wave_data_size * 1024, wave_fp);
         wave_evt = wave_evt + (wave_data_size / 64);   // 1 event = 64 kB
-        printf("Waveform %d events are taken\n", wave_evt);
-		fflush(stdout);
+        if (iloop % 100 == 0) printf("DAQ [%d] :Waveform %d events are taken\n",mid, wave_evt);
+		    fflush(stdout);
+        iloop ++;
       }
         
       // get fast data
@@ -189,7 +197,7 @@ int main(int argc, char *argv[])
         CALDAQread_FAST_DATA(mid, fast_data_size, data);
         fwrite(data, 1, fast_data_size * 1024, fast_fp);
         fast_evt = fast_evt + (fast_data_size * 4);   // 1 event = 256 byte
-        printf("Fast %d events are taken\n", fast_evt);
+        if (iloop % 100 == 0)printf("Fast %d events are taken\n", fast_evt);
 		fflush(stdout);
       }
       if (wave_evt>total_nevt){

@@ -26,7 +26,7 @@ int show_fast_save(const int RunNum, const int Mid, const int ch)
     ch_to_plot = ch - 1;
   TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 800, 800);
   c1->Divide(1, 2);
-  TH1F *plot_e = new TH1F("plot_e", "Energy", 1000, -5000, 300000); 
+  TH1F *plot_e = new TH1F("plot_e", "Energy", 1000, 0, 240000); 
   TH1F *plot_t = new TH1F("plot_t", "Timing", 1000, 0, 16000); 
   plot_e->Reset();
   plot_t->Reset();

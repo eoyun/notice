@@ -94,7 +94,7 @@ int show_wave_peak_save(const int RunNum, const int runend, const int Mid, const
         ped=sum/50;
         //ped = 3624;
         //for (i = 101; i < 1020; i++) 
-        for (i = 1; i < 1023; i++) 
+        for (i = 1; i < 1001; i++) 
         {
           if( peak > adc[i * 32 + ch_to_plot]) peak=adc[i * 32 + ch_to_plot]; 
         }

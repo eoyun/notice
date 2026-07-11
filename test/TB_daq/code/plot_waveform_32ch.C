@@ -42,7 +42,7 @@ int plot_waveform_32ch(const int runnum, const int Mid, const int min, const int
 //  else
 //    ch_to_plot = channel - 1;
     
-  TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 900, 500);
+  TCanvas *c1 = new TCanvas("c1", "CAL DAQ", 1200, 800);
   c1->Divide(8,4,0.001,0.001);
   gPad->SetLeftMargin(0);
   gPad->SetRightMargin(0);
@@ -58,6 +58,7 @@ int plot_waveform_32ch(const int runnum, const int Mid, const int min, const int
 
   // get # of events in file
   sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  // sprintf(filename,"/Volumes/SSD_8TB/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   //sprintf(filename,"/Volumes/HDD_16TB_2/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
@@ -207,12 +208,12 @@ int plot_waveform_32ch(const int runnum, const int Mid, const int min, const int
   }
     c1->Modified();
     c1->Update();
-    //c1->SaveAs(filename+"_"+condition+Form("_AllchWave_evtNum%d.png", evt));      
+    //c1->SaveAs(Form("AllchWave_evtNum%d.png", evt));      
     //c1->SaveAs(filename+Form("_AllchWave_evtNum%d.png", evt));      
     // c1->SaveAs("test.png");
     printf("Continue? ");
     scanf("%d", &cont);
-    if (evt==0) c1->SaveAs(Form("evt_range_%d_%d.png",evt,Mid));
+    // if (evt==0) c1->SaveAs(Form("evt_range_%d_%d.png",evt,Mid));
     if (cont == 0)
       evt = nevt;
 //      if(evt == ndraw) evt = nevt;

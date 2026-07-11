@@ -2,6 +2,8 @@
 # ./run_all.sh config nevt
 source /Users/yhep/scratch/notice/notice_env.sh
 
+trap '' INT
+
 setup=$1
 nevt=$2
 
@@ -28,38 +30,40 @@ echo $setup
 if [ -f $SETFILE ]
 then
   if [ -f $FILE ]
-  then 
+  then
     echo check the config file name!!
     rm /Users/yhep/scratch/notice/test/TB_daq/FAILSET
   else
     echo setting complete!
-  
+
     midlist=`cat turn_on_mid.txt`
     echo mid list :
     echo "$midlist"
-  
+
     num=1
-    
+
     for var in $midlist
-    
+
     do
-       #echo stdbuf -oL ./run_daq_nodiv_CAL.exe $var 
-       ./src/get_evt_dir_log_CAL.exe $var $nevt >> ./log/log_"$var"_"$runnum".log &
+      #echo stdbuf -oL ./run_daq_nodiv_CAL.exe $var
+      ./src/get_evt_dir_log_CAL.exe $var $nevt | tee -a "./log/log_${var}_${runnum}.log" &
+      #./src/get_evt_dir_log_CAL.exe $var $nevt >> ./log/log_"$var"_"$runnum".log &
+
        sleep 1
        echo "processing $num : mid num is $var"
        num=$((num+1))
     done
     echo ready!!
-    
+
     if [ -f $RUNFILE ]; then
       echo TCB run number error!!
       touch /Users/yhep/scratch/notice/test/TB_daq/KILLME
       rm /Users/yhep/scratch/notice/test/TB_daq/RUNNUMFAIL
     fi
     sleep 1
-    ./src/run_evt_mktxt_CAL.exe
+    ./src/run_evt_mktxt_CAL.exe $nevt
   fi
 else
   echo setting bug plz rerun
 fi
-
+echo RUN NUMBER is $runnum

@@ -39,7 +39,8 @@ void plot_data(void)
   TH1F **plot;
   
   // filename here
-  sprintf(filename, "jbnu_daq_21.dat");
+  //sprintf(filename, "jbnu_daq_21.dat");
+  sprintf(filename, "/Users/yhep/scratch/YUdaq/Run_13753/Run_13753_Anc/Run_13753_Anc_MID_21/Run_13753_Anc_MID_21_FILE_0.dat");
   
   // get data file size, size should be less than 2 Gbytes
   fp = fopen(filename, "rb");

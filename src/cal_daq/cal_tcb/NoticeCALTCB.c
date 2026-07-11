@@ -25,7 +25,6 @@ unsigned int TCBReadReg(int sid, uint32_t mid, uint32_t addr);
 
 void CALTCBstart_DRS(int sid);
 void CALTCBstop_DRS(int sid);
-unsigned long CALTCBread_DRS_PLL_LOCKED(int sid, unsigned long mid);
 unsigned long CALTCBread_DRAMTEST(int sid, unsigned long mid);
 void CALTCBwrite_DRS_OFS(int sid, unsigned long mid, unsigned long rofs, unsigned long oofs);
 void CALTCBwrite_ADC_SETUP(int sid, unsigned long mid, unsigned long addr, unsigned long data);

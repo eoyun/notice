@@ -90,7 +90,7 @@ int plot_spectrum_32ch(const int runnum, const int Mid)
   TH1F *plot30 = new TH1F("plot", "Spectrum ch30", 1023, 0, 4096);
   TH1F *plot31 = new TH1F("plot", "Spectrum ch31", 1023, 0, 4096);
   TH1F *plot32 = new TH1F("plot", "Spectrum ch32", 1023, 0, 4096);
-  int rmin = 3500 ;
+  int rmin = 0 ;
   int rmax = 4000 ;
   plot1->GetXaxis()->SetRangeUser(rmin,rmax);
   plot2->GetXaxis()->SetRangeUser(rmin,rmax);
@@ -160,8 +160,8 @@ int plot_spectrum_32ch(const int runnum, const int Mid)
 //
   // get # of events in file
 
-  //sprintf(filename,"/Volumes/HDD_16TB_2/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
-  sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_7.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+  //sprintf(filename,"/Volumes/SSD_8TB/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
+   sprintf(filename,"/Users/yhep/scratch/YUdaq/Run_%d/Run_%d_Wave/Run_%d_Wave_MID_%d/Run_%d_Wave_MID_%d_FILE_0.dat",runnum,runnum,runnum,Mid,runnum,Mid);
   printf("%s",filename);
   fp = fopen(filename, "rb");
   fseek(fp, 0L, SEEK_END);
@@ -295,7 +295,7 @@ int plot_spectrum_32ch(const int runnum, const int Mid)
     
     // fill waveform for channel to plotgecit 
     
-    for (i = 1; i < 101; i++) {
+    for (i = 1; i < 1001; i++) {
       plot1->Fill(adc[i * 32 + 0]);
       plot2->Fill(adc[i * 32 + 1]);
       plot3->Fill(adc[i * 32 + 2]);
